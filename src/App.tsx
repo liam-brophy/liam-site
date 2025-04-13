@@ -9,7 +9,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import './App.css'
 
 // Custom scrollbar component
-const CustomScrollbar = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) => {
+const CustomScrollbar = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
   const [thumbHeight, setThumbHeight] = useState<number>(0);
   const [thumbTop, setThumbTop] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -159,11 +159,6 @@ function App() {
                   <Route path="/contact" element={<Contact />} />
                 </Routes>
               </main>
-              <footer className="footer">
-                <div className="container">
-                  <p>&copy; {new Date().getFullYear()} Liam Brophy. All rights reserved.</p>
-                </div>
-              </footer>
             </div>
           </div>
         </div>

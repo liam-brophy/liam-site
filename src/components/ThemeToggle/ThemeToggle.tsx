@@ -1,35 +1,17 @@
 import React from 'react';
+import { useTheme } from '../../context/ThemeContext';
 import styles from './ThemeToggle.module.css';
 
 const ThemeToggle: React.FC = () => {
-  // Direct DOM manipulation approach for theme toggling
-  const toggleTheme = () => {
-    // Get the current theme
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    // Toggle the theme
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    // Apply the new theme to the document
-    document.documentElement.setAttribute('data-theme', newTheme);
-    
-    // Save to localStorage
-    localStorage.setItem('theme', newTheme);
-    
-    console.log(`Theme toggled from ${currentTheme} to ${newTheme}`);
-  };
-  
-  // Determine current theme for rendering the correct icon
-  const currentTheme = typeof document !== 'undefined' 
-    ? document.documentElement.getAttribute('data-theme') || 'light'
-    : 'light';
+  const { theme, toggleTheme } = useTheme();
   
   return (
     <button 
       onClick={toggleTheme}
       className={styles.themeToggle}
-      aria-label={`Switch to ${currentTheme === 'light' ? 'dark' : 'light'} mode`}
+      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
-      {currentTheme === 'light' ? (
+      {theme === 'light' ? (
         // Moon icon for dark mode
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
