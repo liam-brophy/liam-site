@@ -50,6 +50,7 @@
   width: 100%;
   overflow-x: hidden;
   transition: background-color var(--transition-normal), color var(--transition-normal);
+  padding-left: var(--navbar-width, 80px); /* Add padding to account for vertical navbar */
 }
 
 main {
@@ -72,4 +73,12 @@ main {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* Media query for mobile responsive layout */
+@media (max-width: 768px) {
+  .app {
+    padding-left: 0; /* Remove left padding on mobile */
+    padding-top: var(--header-height, 64px); /* Add top padding for horizontal navbar on mobile */
+  }
 }

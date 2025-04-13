@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styles from './Home.module.css';
 import { Link } from 'react-router-dom';
 import StyledHeading from '../../components/StyledHeading/StyledHeading';
+import BrickCanvas from '../../components/BrickCanvas/BrickCanvas';
 
 interface Project {
   id: string;
@@ -74,11 +75,14 @@ const Home: React.FC = () => {
             <span className={styles.pixelscriptLetter}>H</span>i, I'm  
             <span className={styles.pixelscriptLetter}> L</span>iam
           </h1>
-          <p className={styles.subtitle}>full stack designer</p>
+          <p className={styles.subtitle}>full stack designer, always building.</p>
           <div className={styles.scrollIndicator}>
             <span>Scroll to explore</span>
             <div className={styles.arrow}></div>
           </div>
+        </div>
+        <div className={styles.heroCanvasContainer}>
+          <BrickCanvas landingHeight={120} />
         </div>
       </section>
       

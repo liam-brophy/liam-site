@@ -33,17 +33,16 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
+    <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''} ${isMenuOpen ? styles.menuOpen : ''}`}>
       <div className={styles.container}>
-        {/* Clock element on the left */}
-        <div className={styles.leftSection}>
+        {/* Clock at the top of sidebar */}
+        <div className={styles.topSection}>
           <Clock />
         </div>
         
-        {/* All navigation elements grouped together on the right */}
+        {/* Main navigation links */}
         <div className={styles.navGroup}>
-          {/* Navigation menu */}
-          <ul className={`${styles.navMenu} ${isMenuOpen ? styles.menuOpen : ''}`}>
+          <ul className={styles.navMenu}>
             <li>
               <NavLink 
                 to="/"
@@ -81,21 +80,20 @@ const Navbar: React.FC = () => {
               </NavLink>
             </li>
           </ul>
+        </div>
+        
+        {/* Theme toggle at the bottom of sidebar */}
+        <div className={styles.bottomSection}>
+          <ThemeToggle />
           
-          {/* Theme toggle and menu button */}
-          <div className={styles.navActions}>
-            {/* Theme toggle button */}
-            <ThemeToggle />
-            
-            <button 
-              className={styles.menuButton} 
-              onClick={toggleMenu}
-              aria-expanded={isMenuOpen}
-              aria-label="Toggle navigation menu"
-            >
-              <span className={styles.menuIcon}></span>
-            </button>
-          </div>
+          <button 
+            className={styles.menuButton} 
+            onClick={toggleMenu}
+            aria-expanded={isMenuOpen}
+            aria-label="Toggle navigation menu"
+          >
+            <span className={styles.menuIcon}></span>
+          </button>
         </div>
       </div>
     </nav>

@@ -65,6 +65,7 @@
   --container-width: 1200px;
   --header-height: 64px;
   --footer-height: 100px;
+  --navbar-width: 80px; /* Added for vertical navbar width */
   
   /* Border Radius */
   --border-radius-sm: 0.25rem; /* 4px */
