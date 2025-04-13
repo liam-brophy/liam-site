@@ -24,7 +24,6 @@ const Clock: React.FC = () => {
 
   return (
     <div className={styles.clockContainer}>
-      <span className={styles.hourglass}>⏳</span>
       <span className={styles.clockText}>{time}</span>
     </div>
   );

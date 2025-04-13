@@ -77,7 +77,6 @@ const Home: React.FC = () => {
           </h1>
           <p className={styles.subtitle}>full stack designer, always building.</p>
           <div className={styles.scrollIndicator}>
-            <span>Scroll to explore</span>
             <div className={styles.arrow}></div>
           </div>
         </div>

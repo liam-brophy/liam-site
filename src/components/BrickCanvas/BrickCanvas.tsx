@@ -13,20 +13,15 @@ interface Brick {
 }
 
 interface BrickCanvasProps {
-  width?: number;
-  height?: number;
-  landingHeight?: number; // New prop for custom landing height
+  landingHeight?: number; // Custom landing height
 }
 
 const BrickCanvas: React.FC<BrickCanvasProps> = ({ 
-  width = 300, 
-  height = 400,
   landingHeight
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const bricksRef = useRef<Brick[]>([]);
-  const lastSpawnTimeRef = useRef<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [draggedBrickId, setDraggedBrickId] = useState<number | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -157,7 +152,7 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    const animate = (timestamp: number) => {
+    const animate = (_timestamp: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Update and draw bricks
