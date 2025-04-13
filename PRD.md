@@ -168,6 +168,18 @@ Example:
 
 - **Version Control**: The agent should use Git for version control. Specify the branching strategy (e.g., main branch for final code, feature branches for individual sections).
 
+- **Documentation Protocol**: 
+  - All major changes and development decisions must be documented in a changelog.
+  - Documentation should include:
+    - Date of implementation
+    - Feature/component added or modified
+    - Technical approach used
+    - Challenges encountered and solutions applied
+    - Dependencies added (if any)
+  - Regular documentation review sessions will be scheduled to clean and condense the documentation.
+  - Final documentation should provide a clear narrative of the site building process.
+  - Documentation will be maintained in a dedicated CHANGELOG.md file in the project root.
+
 - **Testing**:
   - Unit tests for core components.
   - Manual testing for overall functionality and visual appearance.

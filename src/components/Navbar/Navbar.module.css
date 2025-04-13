@@ -1,26 +1,49 @@
 .navbar {
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: rgba(255, 255, 204, 0.95); /* Uses light theme color with transparency */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme='dark'] .navbar.scrolled {
+  background-color: rgba(0, 112, 112, 0.95); /* Uses dark theme color with transparency */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end; /* Change from space-between to flex-end to align to right */
   height: var(--header-height, 64px);
-  padding: 0 1.5rem;
-  max-width: 1200px;
+  padding: 0 2rem;
+  max-width: 1400px;
   margin: 0 auto;
+}
+
+.leftSide {
+  margin-right: auto;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-primary, #0066cc);
+  color: var(--color-text);
   text-decoration: none;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .navMenu {
@@ -28,28 +51,32 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  margin-right: 1rem; /* Add margin to separate nav links from theme toggle */
 }
 
 .navMenu li {
-  margin-left: 1.5rem;
+  margin-left: 2rem;
 }
 
 .navMenu a {
-  color: var(--color-text, #333);
+  color: var(--color-text);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 0.95rem;
   padding: 0.5rem 0;
   position: relative;
+  transition: color 0.3s ease;
+  letter-spacing: 0.02em;
 }
 
 .navMenu a::after {
   content: '';
   position: absolute;
   width: 0;
-  height: 2px;
+  height: 1px;
   bottom: 0;
   left: 0;
-  background-color: var(--color-primary, #0066cc);
+  background-color: var(--color-text);
   transition: width 0.3s ease;
 }
 
@@ -71,9 +98,9 @@
 .menuIcon::after {
   display: block;
   width: 24px;
-  height: 2px;
-  background-color: var(--color-text, #333);
-  transition: transform 0.3s ease;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .menuIcon::before,
@@ -92,25 +119,22 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
-  .menuButton {
-    display: block;
-    z-index: 101;
-  }
-
   .navMenu {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 70%;
+    width: 100%;
     max-width: 300px;
-    background-color: white;
+    background-color: var(--color-background);
+    backdrop-filter: blur(10px);
     flex-direction: column;
-    padding: 5rem 2rem 2rem;
+    align-items: flex-start;
+    padding: 6rem 2rem 2rem;
     transform: translateX(100%);
     transition: transform 0.3s ease;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
     z-index: 100;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   }
 
   .navMenu.menuOpen {
@@ -118,19 +142,31 @@
   }
 
   .navMenu li {
-    margin: 0 0 1.5rem;
+    margin: 0 0 2rem;
+    width: 100%;
+  }
+  
+  .navMenu a {
+    display: block;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+  }
+  
+  .menuButton {
+    display: block;
+    z-index: 101;
   }
 
   /* Menu button animation when open */
-  .menuOpen + .menuButton .menuIcon {
+  .menuOpen ~ .navActions .menuIcon {
     background-color: transparent;
   }
 
-  .menuOpen + .menuButton .menuIcon::before {
+  .menuOpen ~ .navActions .menuIcon::before {
     transform: rotate(45deg);
   }
 
-  .menuOpen + .menuButton .menuIcon::after {
+  .menuOpen ~ .navActions .menuIcon::after {
     transform: rotate(-45deg);
   }
 }

@@ -90,7 +90,74 @@ A responsive navigation bar with mobile menu.
 
 ### Home
 
-Landing page featuring a hero section and featured projects.
+The Home page features a clean, minimal design with the following elements:
+
+#### Aesthetic & Design
+
+- **Clean and Minimal**: Implements an uncluttered, modern aesthetic
+- **Full Width Layout**: The page extends to the full width of the browser window
+- **Color Palette**: Uses off-white background (#F8F9FA) and black text (#212529) for high contrast and readability
+- **Typography**: Employs Inter, a modern sans-serif font, with clear hierarchy between headings and body text
+
+#### Structure
+
+1. **Hero Section**:
+   - Bold, centered design with your name and profession
+   - Large, impactful typography with proper spacing
+   - Subtle "Scroll to explore" indicator with animation
+   - Takes up the full viewport height minus the navbar
+
+2. **Projects Section**:
+   - Bold project display that avoids traditional card-based layouts
+   - Each project appears with a fade-in animation when scrolled into view
+   - Projects are displayed in a vertically stacked layout with ample spacing
+   - Project links feature subtle hover animations
+   - Project tags use minimal styling with light background
+
+#### Technical Implementation
+
+- **Animation**: 
+   - Uses the Intersection Observer API to trigger fade-in animations
+   - Implements subtle animations for interactive elements
+   - Includes a bounce animation for the scroll indicator
+
+- **Responsive Design**:
+   - Fully responsive layout that works on all screen sizes
+   - Typography uses clamp() for fluid font sizing
+   - Adjusted spacing and layout for mobile views
+
+- **Accessibility**:
+   - Semantic HTML structure
+   - Proper color contrast
+   - Support for keyboard navigation
+   - ARIA attributes for interactive elements
+   - Respects user preferences for reduced motion
+
+#### CSS Structure
+
+The Home page uses CSS Modules with the following key style elements:
+
+```css
+// Key style elements (not comprehensive):
+.hero {
+  // Full-height hero section with centered content
+}
+
+.project {
+  // Initially hidden, animated into view when scrolled to
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.project.visible {
+  // Visible state after animation
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// Animation definitions for scroll indicator and project reveal
+```
 
 ### Work
 
