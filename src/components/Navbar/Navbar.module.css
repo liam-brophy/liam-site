@@ -1,0 +1,136 @@
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height, 64px);
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary, #0066cc);
+  text-decoration: none;
+}
+
+.navMenu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navMenu li {
+  margin-left: 1.5rem;
+}
+
+.navMenu a {
+  color: var(--color-text, #333);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.navMenu a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-primary, #0066cc);
+  transition: width 0.3s ease;
+}
+
+.navMenu a:hover::after,
+.navMenu a.active::after {
+  width: 100%;
+}
+
+.menuButton {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-text, #333);
+  transition: transform 0.3s ease;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: '';
+  position: absolute;
+}
+
+.menuIcon::before {
+  transform: translateY(-8px);
+}
+
+.menuIcon::after {
+  transform: translateY(8px);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .menuButton {
+    display: block;
+    z-index: 101;
+  }
+
+  .navMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 70%;
+    max-width: 300px;
+    background-color: white;
+    flex-direction: column;
+    padding: 5rem 2rem 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .navMenu.menuOpen {
+    transform: translateX(0);
+  }
+
+  .navMenu li {
+    margin: 0 0 1.5rem;
+  }
+
+  /* Menu button animation when open */
+  .menuOpen + .menuButton .menuIcon {
+    background-color: transparent;
+  }
+
+  .menuOpen + .menuButton .menuIcon::before {
+    transform: rotate(45deg);
+  }
+
+  .menuOpen + .menuButton .menuIcon::after {
+    transform: rotate(-45deg);
+  }
+}
