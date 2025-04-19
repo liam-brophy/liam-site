@@ -82,12 +82,11 @@ const Home: React.FC = () => {
             </div>
           </div>
           <div className={styles.heroCanvasContainer}>
-            <BrickCanvas landingHeight={120} />
+            <BrickCanvas />
           </div>
         </section>
         
         <section className={styles.projectsSection} id="projects">
-          <StyledHeading level={2}>Selected Work</StyledHeading>
           <div className={styles.projectsList} ref={projectsRef}>
             {featuredProjects.map((project) => (
               <Link 

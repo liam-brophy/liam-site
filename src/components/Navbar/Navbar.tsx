@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
         
         {/* Main navigation links */}
         <div className={styles.navGroup}>
-          <ul className={styles.navMenu}>
+          <ul className={`${styles.navMenu} ${isMenuOpen ? styles.menuOpen : ''}`}>
             <li>
               <NavLink 
                 to="/"
@@ -84,10 +84,12 @@ const Navbar: React.FC = () => {
         
         {/* Theme toggle at the bottom of sidebar */}
         <div className={styles.bottomSection}>
-          <ThemeToggle />
+          <div className={styles.themeToggleContainer}>
+            <ThemeToggle />
+          </div>
           
           <button 
-            className={styles.menuButton} 
+            className={`${styles.menuButton} ${isMenuOpen ? styles.menuOpen : ''}`}
             onClick={toggleMenu}
             aria-expanded={isMenuOpen}
             aria-label="Toggle navigation menu"

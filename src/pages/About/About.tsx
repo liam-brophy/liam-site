@@ -16,15 +16,15 @@ const About: React.FC = () => {
           <h2>Liam Brophy - Full Stack Developer</h2>
           
           <p>
-            I am a passionate full stack developer with expertise in modern web technologies.
-            My journey in software development began in [year] and I've been crafting digital 
-            experiences ever since.
+          Visual storyteller turned code wrangler who transforms ideas into seamless digital experiences. Since 2021, I've been navigating the creative-technical spectrum with equal parts intuition and precision.
           </p>
           
           <p>
-            I specialize in building responsive, accessible, and performant web applications
-            using technologies like React, TypeScript, and Node.js. I'm dedicated to creating
-            clean, maintainable code and delivering exceptional user experiences.
+          After mastering design tools as a book designer (covers, interiors, and marketing collateral), I expanded my toolkit through software engineering training in 2025. Now I blend pixel-perfect design sensibilities with robust development practices most commonly using React, TypeScript, Python, and Tailwind CSS.
+          </p>
+
+          <p>
+          Looking to continue growing as a developer, designer, and creative technologist in environments where digital experiences and human connection intersect.
           </p>
           
           <h3>Skills</h3>

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './BrickCanvas.module.css';
 
+// Remove the p5 global declaration, we'll use a different approach
+
 interface Brick {
   id: number;
   x: number;
@@ -13,287 +15,288 @@ interface Brick {
 }
 
 interface BrickCanvasProps {
-  landingHeight?: number; // Custom landing height
+  landingHeight?: number; // Custom landing height for bricks
 }
 
-const BrickCanvas: React.FC<BrickCanvasProps> = ({ 
-  landingHeight
-}) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const animationRef = useRef<number | null>(null);
-  const bricksRef = useRef<Brick[]>([]);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [draggedBrickId, setDraggedBrickId] = useState<number | null>(null);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [calculatedLandingHeight, setCalculatedLandingHeight] = useState<number | null>(null);
+const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const p5Instance = useRef<any | null>(null);
+  const bricks = useRef<Brick[]>([]);
+  const isDragging = useRef<boolean>(false);
+  const draggedBrickId = useRef<number | null>(null);
+  const dragOffset = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
+  const calculatedLandingHeight = useRef<number | null>(null);
+  const [p5Loaded, setP5Loaded] = useState(false);
   
-  // Initialize canvas and animation
+  // First, load the p5.js script dynamically
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (window.p5) {
+      // p5 is already loaded
+      setP5Loaded(true);
+      return;
+    }
     
-    const handleResize = () => {
-      const container = canvas.parentElement;
-      if (!container) return;
-      
-      // Make canvas fill its container while maintaining aspect ratio
-      const containerWidth = container.clientWidth;
-      const containerHeight = container.clientHeight;
-      
-      canvas.width = containerWidth;
-      canvas.height = containerHeight;
-      
-      // Calculate landing height - use prop if provided, otherwise use 60% of canvas height
-      const newLandingHeight = landingHeight !== undefined 
-        ? landingHeight 
-        : Math.floor(canvas.height * 0.6);
-      
-      setCalculatedLandingHeight(newLandingHeight);
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js';
+    script.async = true;
+    script.onload = () => {
+      setP5Loaded(true);
     };
-    
-    // Set initial size
-    handleResize();
-    
-    // Add resize listener
-    window.addEventListener('resize', handleResize);
-    
-    // Start animation
-    startAnimation();
-    
-    // Spawn bricks at intervals - 5 seconds
-    const spawnInterval = setInterval(() => {
-      spawnBrick();
-    }, 5000);
-    
-    // Spawn one brick immediately
-    spawnBrick();
+    document.body.appendChild(script);
     
     return () => {
-      // Clean up
-      window.removeEventListener('resize', handleResize);
-      clearInterval(spawnInterval);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      // Clean up the script when the component unmounts
+      document.body.removeChild(script);
     };
-  }, [landingHeight]);
+  }, []);
   
-  // Drag and drop functionality
+  // Then, initialize p5 once the library is loaded
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!p5Loaded || !window.p5 || p5Instance.current) {
+      return;
+    }
     
-    const handleMouseDown = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      
-      // Find brick that was clicked (in reverse to check top bricks first)
-      for (let i = bricksRef.current.length - 1; i >= 0; i--) {
-        const brick = bricksRef.current[i];
+    // Create a new p5 instance using the window.p5 object
+    const sketch = (p: any) => {
+      // Setup function runs once at the beginning
+      p.setup = () => {
+        const container = containerRef.current;
+        if (!container) return;
         
-        if (
-          brick.landed && 
-          mouseX >= brick.x && 
-          mouseX <= brick.x + brick.width &&
-          mouseY >= brick.y && 
-          mouseY <= brick.y + brick.height
-        ) {
-          setIsDragging(true);
-          setDraggedBrickId(brick.id);
-          setDragOffset({
-            x: mouseX - brick.x,
-            y: mouseY - brick.y
-          });
-          break;
-        }
-      }
-    };
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging || draggedBrickId === null) return;
+        // Create canvas that fills the container
+        const canvas = p.createCanvas(container.clientWidth, container.clientHeight);
+        canvas.parent(container);
+        
+        // Apply pixelated rendering
+        p.pixelDensity(1);
+        
+        // Set landing height to almost the very bottom of the canvas
+        calculatedLandingHeight.current = landingHeight !== undefined 
+          ? landingHeight 
+          : p.height - 5; // Just 5 pixels from the bottom
+        
+        // Spawn just one brick initially instead of multiple
+        spawnBrick(p);
+        
+        // Set up canvas styling
+        p.noSmooth(); // Disable anti-aliasing for pixelated look
+      };
       
-      const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
+      // Draw function runs continuously
+      p.draw = () => {
+        p.clear();
+        updateBricks(p);
+        drawBricks(p);
+        // Debug line removed
+      };
       
-      bricksRef.current = bricksRef.current.map(brick => {
-        if (brick.id === draggedBrickId) {
-          return {
-            ...brick,
-            x: mouseX - dragOffset.x,
-            y: mouseY - dragOffset.y
-          };
-        }
-        return brick;
-      });
-    };
-    
-    const handleMouseUp = () => {
-      setIsDragging(false);
-      setDraggedBrickId(null);
-    };
-    
-    canvas.addEventListener('mousedown', handleMouseDown);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-    
-    return () => {
-      canvas.removeEventListener('mousedown', handleMouseDown);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isDragging, draggedBrickId, dragOffset]);
-  
-  const startAnimation = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    const animate = (_timestamp: number) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Handle window resizing
+      p.windowResized = () => {
+        const container = containerRef.current;
+        if (!container) return;
+        
+        p.resizeCanvas(container.clientWidth, container.clientHeight);
+        
+        // Recalculate landing height
+        calculatedLandingHeight.current = landingHeight !== undefined 
+          ? landingHeight 
+          : p.height - 5; // Just 5 pixels from the bottom
+      };
       
-      // Update and draw bricks
-      updateBricks();
-      drawBricks(ctx);
-      
-      // Continue animation loop
-      animationRef.current = requestAnimationFrame(animate);
-    };
-    
-    animationRef.current = requestAnimationFrame(animate);
-  };
-  
-  const spawnBrick = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    // Generate a brick with random properties
-    const brickWidth = randomBetween(20, 40);
-    const brickHeight = randomBetween(10, 20);
-    const newBrick: Brick = {
-      id: Date.now(),
-      x: randomBetween(0, canvas.width - brickWidth),
-      y: -brickHeight, // Start above the canvas
-      width: brickWidth,
-      height: brickHeight,
-      color: '#000000', // All bricks are black
-      velocityY: randomBetween(0.5, 1), // Slowed down velocity
-      landed: false
-    };
-    
-    bricksRef.current.push(newBrick);
-  };
-  
-  const updateBricks = () => {
-    const canvas = canvasRef.current;
-    if (!canvas || calculatedLandingHeight === null) return;
-    
-    bricksRef.current = bricksRef.current.map(brick => {
-      // Skip if brick is being dragged or already landed
-      if (brick.id === draggedBrickId || brick.landed) {
-        return brick;
-      }
-      
-      // Update position with gravity
-      const newY = brick.y + brick.velocityY;
-      
-      // Check if brick hit the landing height instead of bottom of canvas
-      if (newY + brick.height >= calculatedLandingHeight) {
-        return {
-          ...brick,
-          y: calculatedLandingHeight - brick.height,
-          landed: true
-        };
-      }
-      
-      // Check collision with other landed bricks
-      let collision = false;
-      let collisionY = newY;
-      
-      for (const otherBrick of bricksRef.current) {
-        if (otherBrick.landed && brick.id !== otherBrick.id) {
-          // Check if this brick is above the other brick and would collide
+      // Mouse events for dragging bricks
+      p.mousePressed = () => {
+        // Find brick that was clicked (in reverse to check top bricks first)
+        for (let i = bricks.current.length - 1; i >= 0; i--) {
+          const brick = bricks.current[i];
+          
           if (
-            newY + brick.height >= otherBrick.y &&
-            newY < otherBrick.y &&
-            brick.x < otherBrick.x + otherBrick.width &&
-            brick.x + brick.width > otherBrick.x
+            brick.landed && 
+            p.mouseX >= brick.x && 
+            p.mouseX <= brick.x + brick.width &&
+            p.mouseY >= brick.y && 
+            p.mouseY <= brick.y + brick.height
           ) {
-            collision = true;
-            collisionY = otherBrick.y - brick.height;
+            isDragging.current = true;
+            draggedBrickId.current = brick.id;
+            dragOffset.current = {
+              x: p.mouseX - brick.x,
+              y: p.mouseY - brick.y
+            };
             break;
           }
         }
-      }
-      
-      if (collision) {
-        return {
-          ...brick,
-          y: collisionY,
-          landed: true
-        };
-      }
-      
-      // Apply gravity
-      return {
-        ...brick,
-        y: newY,
-        velocityY: Math.min(brick.velocityY + 0.02, 2) // Slower gravity increase with lower cap
       };
-    });
+      
+      p.mouseDragged = () => {
+        if (!isDragging.current || draggedBrickId.current === null) return;
+        
+        bricks.current = bricks.current.map(brick => {
+          if (brick.id === draggedBrickId.current) {
+            return {
+              ...brick,
+              x: p.mouseX - dragOffset.current.x,
+              y: p.mouseY - dragOffset.current.y
+            };
+          }
+          return brick;
+        });
+      };
+      
+      p.mouseReleased = () => {
+        isDragging.current = false;
+        draggedBrickId.current = null;
+      };
+      
+      // Helper function to spawn a new brick
+      const spawnBrick = (p: any) => {
+        // Get the current theme
+        const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+        
+        // Use larger consistent brick size
+        const brickWidth = 60;
+        const brickHeight = 30;
+        const newBrick: Brick = {
+          id: Date.now(),
+          x: randomBetween(0, p.width - brickWidth),
+          y: -brickHeight, // Start above the canvas
+          width: brickWidth,
+          height: brickHeight,
+          // Use white in dark mode, black in light mode for better contrast
+          color: isDarkTheme ? '#FFFFFF' : '#000000',
+          velocityY: randomBetween(0.5, 1), // Slowed down velocity
+          landed: false
+        };
+        
+        bricks.current.push(newBrick);
+      };
+      
+      // Update brick positions and check for collisions
+      const updateBricks = (p: any) => {
+        if (calculatedLandingHeight.current === null) return;
+        
+        // Spawn new bricks more frequently (about every 2 seconds)
+        if (p.frameCount % 120 === 0) {
+          spawnBrick(p);
+        }
+        
+        bricks.current = bricks.current.map(brick => {
+          // Skip if brick is being dragged or already landed
+          if (brick.id === draggedBrickId.current || brick.landed) {
+            return brick;
+          }
+          
+          // Update position with gravity
+          const newY = brick.y + brick.velocityY;
+          
+          // Check if brick hit the landing height
+          if (newY + brick.height >= calculatedLandingHeight.current!) {
+            return {
+              ...brick,
+              y: calculatedLandingHeight.current! - brick.height,
+              landed: true
+            };
+          }
+          
+          // Check collision with other landed bricks
+          let collision = false;
+          let collisionY = newY;
+          
+          for (const otherBrick of bricks.current) {
+            if (otherBrick.landed && brick.id !== otherBrick.id) {
+              // Check if this brick is above the other brick and would collide
+              if (
+                newY + brick.height >= otherBrick.y &&
+                newY < otherBrick.y &&
+                brick.x < otherBrick.x + otherBrick.width &&
+                brick.x + brick.width > otherBrick.x
+              ) {
+                collision = true;
+                collisionY = otherBrick.y - brick.height;
+                break;
+              }
+            }
+          }
+          
+          if (collision) {
+            return {
+              ...brick,
+              y: collisionY,
+              landed: true
+            };
+          }
+          
+          // Apply gravity
+          return {
+            ...brick,
+            y: newY,
+            velocityY: Math.min(brick.velocityY + 0.02, 2) // Slower gravity increase with lower cap
+          };
+        });
+        
+        // Remove bricks that have gone beyond the landing area (cleanup)
+        bricks.current = bricks.current.filter(brick => {
+          return brick.y < calculatedLandingHeight.current! + 100;
+        });
+      };
+      
+      // Draw all bricks
+      const drawBricks = (p: any) => {
+        // Draw each brick with a pixelated style
+        bricks.current.forEach(brick => {
+          // Main brick color
+          p.fill(brick.color);
+          p.noStroke();
+          p.rect(
+            Math.floor(brick.x),
+            Math.floor(brick.y),
+            brick.width,
+            brick.height
+          );
+          
+          // Add 8-bit style highlight (lighter on top/left)
+          p.fill(50, 50, 50, 128);
+          p.rect(
+            Math.floor(brick.x),
+            Math.floor(brick.y),
+            brick.width,
+            2
+          );
+          p.rect(
+            Math.floor(brick.x),
+            Math.floor(brick.y),
+            2,
+            brick.height
+          );
+          
+          // Add 8-bit style shadow (darker on bottom/right)
+          p.fill(0, 0, 0, 204);
+          p.rect(
+            Math.floor(brick.x),
+            Math.floor(brick.y + brick.height - 2),
+            brick.width,
+            2
+          );
+          p.rect(
+            Math.floor(brick.x + brick.width - 2),
+            Math.floor(brick.y),
+            2,
+            brick.height
+          );
+        });
+      };
+    };
     
-    // Remove bricks that have gone beyond the landing area (cleanup)
-    bricksRef.current = bricksRef.current.filter(brick => {
-      return brick.y < calculatedLandingHeight + 100;
-    });
-  };
-  
-  const drawBricks = (ctx: CanvasRenderingContext2D) => {
-    // Draw each brick with a pixelated style
-    bricksRef.current.forEach(brick => {
-      // Main brick color - black
-      ctx.fillStyle = brick.color;
-      ctx.fillRect(
-        Math.floor(brick.x),
-        Math.floor(brick.y),
-        brick.width,
-        brick.height
-      );
-      
-      // Add 8-bit style highlight (lighter on top/left)
-      ctx.fillStyle = 'rgba(50, 50, 50, 0.5)';
-      ctx.fillRect(
-        Math.floor(brick.x),
-        Math.floor(brick.y),
-        brick.width,
-        2
-      );
-      ctx.fillRect(
-        Math.floor(brick.x),
-        Math.floor(brick.y),
-        2,
-        brick.height
-      );
-      
-      // Add 8-bit style shadow (darker on bottom/right)
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-      ctx.fillRect(
-        Math.floor(brick.x),
-        Math.floor(brick.y + brick.height - 2),
-        brick.width,
-        2
-      );
-      ctx.fillRect(
-        Math.floor(brick.x + brick.width - 2),
-        Math.floor(brick.y),
-        2,
-        brick.height
-      );
-    });
-  };
+    // Initialize the p5 instance using the global window.p5
+    p5Instance.current = new window.p5(sketch);
+    
+    // Cleanup function
+    return () => {
+      if (p5Instance.current) {
+        p5Instance.current.remove();
+        p5Instance.current = null;
+      }
+    };
+  }, [p5Loaded, landingHeight]);
   
   // Helper function for random number between min and max
   const randomBetween = (min: number, max: number): number => {
@@ -301,10 +304,17 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({
   };
   
   return (
-    <div className={styles.canvasContainer}>
-      <canvas ref={canvasRef} className={styles.brickCanvas} />
+    <div ref={containerRef} className={styles.canvasContainer}>
+      {!p5Loaded && <div className={styles.loading}>Loading...</div>}
     </div>
   );
 };
+
+// Add p5 to the window type
+declare global {
+  interface Window {
+    p5: any;
+  }
+}
 
 export default BrickCanvas;
