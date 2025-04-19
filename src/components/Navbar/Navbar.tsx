@@ -72,11 +72,11 @@ const Navbar: React.FC = () => {
             </li>
             <li>
               <NavLink 
-                to="/contact"
+                to="/connect"
                 className={({ isActive }) => isActive ? styles.active : ''}
                 onClick={closeMenu}
               >
-                Contact
+                Connect
               </NavLink>
             </li>
           </ul>

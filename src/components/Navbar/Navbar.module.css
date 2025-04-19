@@ -83,9 +83,11 @@
 }
 
 .navMenu a {
+  font-family: "arial-nova", sans-serif; /* Correct font-family for Arial Nova */
+  font-weight: 400;
+  font-style: normal;
   color: var(--color-text);
   text-decoration: none;
-  font-weight: 400;
   font-size: 0.95rem;
   padding: 0.5rem;
   position: relative;
@@ -101,14 +103,17 @@
   height: 0;
   bottom: 0;
   left: 50%;
-  background-color: var(--color-text);
-  transition: height 0.3s ease;
+  background-color: var(--color-text); /* Revert to text color or a static color */
+  transition: height 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
   transform: translateX(-50%);
+  filter: blur(0); /* Initial blur effect */
 }
 
 .navMenu a:hover::after,
 .navMenu a.active::after {
   height: 100%;
+  background-color: rgb(115, 216, 175); /* Revert to text color or a static color */
+  filter: blur(2px); /* Add blur effect on hover/active */
 }
 
 .menuButton {

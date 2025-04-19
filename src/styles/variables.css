@@ -30,8 +30,8 @@
   --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
   
   /* Neon scrollbar glow colors */
-  --scrollbar-glow-light: rgba(0, 102, 204, 0.7);
-  --scrollbar-glow-shadow: 0 0 8px rgba(0, 102, 204, 0.8), 0 0 12px rgba(0, 102, 204, 0.5);
+  --scrollbar-glow-light: rgb(123, 250, 172);
+  --scrollbar-glow-shadow: 0 0 8px rgba(0, 255, 140, 0.8), 0 0 12px rgba(0, 102, 204, 0.5);
   
   /* Typography - Updated for modern sans-serif font */
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 

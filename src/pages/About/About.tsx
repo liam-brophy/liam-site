@@ -12,8 +12,6 @@ const About: React.FC = () => {
         </div>
         
         <div className={styles.content}>
-          <h1>About Me</h1>
-          <h2>Liam Brophy - Full Stack Developer</h2>
           
           <p>
           Visual storyteller turned code wrangler who transforms ideas into seamless digital experiences. Since 2021, I've been navigating the creative-technical spectrum with equal parts intuition and precision.
@@ -41,8 +39,8 @@ const About: React.FC = () => {
             <Button variant="primary" onClick={() => window.open('/resume.pdf', '_blank')}>
               Download Resume
             </Button>
-            <Button variant="secondary" onClick={() => window.location.href = '/contact'}>
-              Contact Me
+            <Button variant="secondary" onClick={() => window.location.href = '/connect'}>
+              Connect Me
             </Button>
           </div>
         </div>

@@ -76,7 +76,7 @@ const Home: React.FC = () => {
               <span className={styles.pixelscriptLetter}>H</span>i, I'm  
               <span className={styles.pixelscriptLetter}> L</span>iam
             </h1>
-            <p className={styles.subtitle}>full stack designer, always building.</p>
+            <p className={styles.subtitle} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>full stack designer, always building.</p>
             <div className={styles.scrollIndicator}>
               <div className={styles.arrow}></div>
             </div>
@@ -97,10 +97,10 @@ const Home: React.FC = () => {
               >
                 <div className={styles.projectContent}>
                   <StyledHeading level={3}>{project.title}</StyledHeading>
-                  <p>{project.description}</p>
+                  <p style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{project.description}</p>
                   <div className={styles.tags}>
                     {project.tags.map((tag, index) => (
-                      <span key={index} className={styles.tag}>{tag}</span>
+                      <span key={index} className={styles.tag} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -112,10 +112,10 @@ const Home: React.FC = () => {
       
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p className={styles.copyright}>&copy; {new Date().getFullYear()} Liam Brophy. All rights reserved.</p>
+          <p className={styles.copyright} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>&copy; {new Date().getFullYear()} Liam Brophy. All rights reserved.</p>
           <div className={styles.socialLinks}>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>GitHub</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>LinkedIn</a>
           </div>
         </div>
       </footer>

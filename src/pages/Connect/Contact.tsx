@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './Contact.module.css';
 import Button from '../../components/Button/Button';
 
-const Contact: React.FC = () => {
+// Renaming the Contact component to Connect
+const Connect: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -137,4 +138,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default Contact;
+export default Connect;

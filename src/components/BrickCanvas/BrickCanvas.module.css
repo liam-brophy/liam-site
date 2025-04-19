@@ -9,15 +9,6 @@
   display: block; /* Ensure proper display */
 }
 
-/* Add interactive cursor for brick interaction */
-.canvasContainer.interactive {
-  cursor: grab; /* Hand cursor to indicate draggable elements */
-}
-
-.canvasContainer.dragging {
-  cursor: grabbing; /* Changed cursor while actively dragging */
-}
-
 .brickCanvas {
   display: block;
   width: 100%;

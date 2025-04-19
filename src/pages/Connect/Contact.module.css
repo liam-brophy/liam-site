@@ -16,19 +16,19 @@ h1 {
   max-width: 800px;
 }
 
-.contactWrapper {
+.connectWrapper {
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
 }
 
 @media (min-width: 768px) {
-  .contactWrapper {
+  .connectWrapper {
     grid-template-columns: 3fr 2fr;
   }
 }
 
-.contactForm {
+.connectForm {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -73,35 +73,35 @@ h1 {
   color: #c62828;
 }
 
-.contactInfo {
+.connectInfo {
   background-color: #f5f5f5;
   padding: 2rem;
   border-radius: 8px;
 }
 
-.contactInfo h2 {
+.connectInfo h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-.contactMethod {
+.connectMethod {
   margin-bottom: 1.5rem;
 }
 
-.contactMethod h3 {
+.connectMethod h3 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
-.contactMethod p {
+.connectMethod p {
   margin: 0;
 }
 
-.contactMethod a {
+.connectMethod a {
   color: #0066cc;
   text-decoration: none;
 }
 
-.contactMethod a:hover {
+.connectMethod a:hover {
   text-decoration: underline;
 }
