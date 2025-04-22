@@ -24,8 +24,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Changed from space-between to reduce gap */
-  min-height: calc(100vh - var(--header-height, 64px));
-  padding: 4rem 0;
+  min-height: calc(100vh - var(--header-height, 64px) - 2rem); /* Reduced minimum height */
+  padding: 4rem 0 2rem; /* Reduced bottom padding */
   width: 100%;
   position: relative;
   overflow: hidden; /* Important: prevent content from overflowing */
@@ -109,9 +109,9 @@
 }
 
 .subtitle {
-  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-size: clamp(1.1rem, 3vw, 1.8rem); /* Smaller, more adaptive sizing */
   font-weight: 400;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem; /* Reduced spacing */
   opacity: 0.8;
   margin: 0; /* Remove default paragraph margin */
 }
@@ -179,7 +179,7 @@
 
 /* Projects Section */
 .projectsSection {
-  padding: 4rem 0;
+  padding: 2rem 0 4rem; /* Reduced top padding to close gap */
   width: 100%;
   background-color: var(--color-background);
 }
@@ -341,12 +341,14 @@
   }
 }
 
-/* Responsive Styles */
+/* Responsive Styles - Updated for better mobile support */
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
-    justify-content: center;
-    padding: 2rem 0;
+    justify-content: flex-start;
+    padding: 4rem 0 2rem;
+    gap: 2rem;
+    min-height: 100vh; /* Full height on mobile */
   }
 
   .heroContent {
@@ -354,27 +356,38 @@
     padding: 0 1.5rem;
     max-width: 100%;
     text-align: center;
-    margin-bottom: 2rem;
+    order: 1; /* Content first on mobile */
   }
   
   .heroTitle {
     white-space: normal; /* Allow text to wrap on mobile */
     font-size: clamp(2rem, 10vw, 3.5rem); /* Slightly smaller on mobile */
+    margin-top: 1rem; /* Add space at the top on mobile */
+  }
+  
+  .subtitle {
+    font-size: clamp(1rem, 5vw, 1.5rem); /* Smaller font on mobile */
+    margin-bottom: 2rem;
   }
   
   .heroCanvasContainer {
     width: 85%; /* Not full width to maintain padding */
     height: 300px; /* Fixed height on mobile */
     min-height: unset;
-    max-height: 50vh;
+    max-height: 40vh;
     margin: 0 auto;
-    opacity: 0.7; /* More visible on mobile */
-    pointer-events: none; /* Disable interaction on mobile */
+    opacity: 0.8; /* More visible on mobile */
+    order: 2; /* Canvas after content on mobile */
+  }
+  
+  .projectsSection {
+    padding: 3rem 0 4rem;
   }
   
   .projectsList {
-    gap: 1.5rem;
-    padding: 0 1rem;
+    gap: 2rem;
+    padding: 0 1.5rem;
+    grid-template-columns: 1fr; /* Single column on mobile */
   }
   
   .project {
@@ -382,29 +395,46 @@
   }
   
   .projectContent {
-    padding: 1rem;
+    padding: 1.25rem;
   }
   
   .project h3 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
   
   .project p {
-    font-size: 1rem;
-    max-width: 100%;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
   }
   
-  .projectsList {
-    gap: 4rem;
+  .tags {
+    flex-wrap: wrap;
+  }
+  
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
   }
 
   .footerContent {
     flex-direction: column;
     text-align: center;
+    padding: 0 1.5rem;
   }
   
   .socialLinks {
     margin-top: 1rem;
     justify-content: center;
+    gap: 1.5rem; /* Reduced gap on mobile */
+  }
+  
+  .copyright {
+    margin: 0.5rem 0;
+  }
+  
+  /* Make the scroll indicator more visible on mobile */
+  .scrollIndicator {
+    margin: 1.5rem auto 0;
+    align-items: center;
   }
 }

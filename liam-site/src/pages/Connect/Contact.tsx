@@ -56,84 +56,106 @@ const Connect: React.FC = () => {
   
   return (
     <div className={styles.container}>
-      <h1>Contact Me</h1>
-      <p className={styles.intro}>
-        I'm always open to new opportunities and collaborations. 
-        Feel free to reach out with any questions or projects you'd like to discuss.
-      </p>
       
-      <div className={styles.contactWrapper}>
-        <form className={styles.contactForm} onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          
-          <div className={styles.formGroup}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          
-          <div className={styles.formGroup}>
-            <label htmlFor="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              rows={5}
-              value={formData.message}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          
-          <Button 
-            type="submit" 
-            variant="primary" 
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </Button>
-          
-          {submitStatus && (
-            <div className={`${styles.formStatus} ${submitStatus.success ? styles.success : styles.error}`}>
-              {submitStatus.message}
-            </div>
-          )}
-        </form>
+      {/* Profile Section (from About page) */}
+      <section className={styles.profile}>
+        <div className={styles.imageContainer}>
+          {/* Replace with actual image when available */}
+          <div className={styles.imagePlaceholder}>Profile Photo</div>
+        </div>
         
-        <div className={styles.contactInfo}>
-          <h2>Other Ways to Connect</h2>
+        <div className={styles.bioContent}>
+          <p>
+            Visual storyteller turned code wrangler who transforms ideas into seamless digital experiences. Since 2021, I've been navigating the creative-technical spectrum with equal parts intuition and precision.
+          </p>
           
-          <div className={styles.contactMethod}>
-            <h3>Email</h3>
-            <p><a href="mailto:contact@liambrophy.com">contact@liambrophy.com</a></p>
-          </div>
+          <p>
+            After mastering design tools as a book designer (covers, interiors, and marketing collateral), I expanded my toolkit through software engineering training in 2025. Now I blend pixel-perfect design sensibilities with robust development practices most commonly using React, TypeScript, Python, and Tailwind CSS.
+          </p>
+
+          <p>
+            Looking to continue growing as a developer, designer, and creative technologist in environments where digital experiences and human connection intersect.
+          </p>
           
-          <div className={styles.contactMethod}>
-            <h3>LinkedIn</h3>
-            <p><a href="https://linkedin.com/in/liambrophy" target="_blank" rel="noopener noreferrer">linkedin.com/in/liambrophy</a></p>
-          </div>
+          <h3>Skills</h3>
+          <ul className={styles.skillsList}>
+            <li>JavaScript/TypeScript</li>
+            <li>React & React Native</li>
+            <li>Node.js</li>
+            <li>HTML/CSS</li>
+            <li>UI/UX Design</li>
+            <li>Database Design</li>
+          </ul>
           
-          <div className={styles.contactMethod}>
-            <h3>GitHub</h3>
-            <p><a href="https://github.com/liambrophy" target="_blank" rel="noopener noreferrer">github.com/liambrophy</a></p>
+          <div className={styles.actions}>
+            <Button variant="primary" onClick={() => window.open('/resume.pdf', '_blank')}>
+              Download Resume
+            </Button>
           </div>
         </div>
-      </div>
+      </section>
+      
+      {/* Contact Section */}
+      <section className={styles.contactSection}>
+        <p className={styles.intro}>
+          I'm always open to new opportunities and collaborations. 
+          Feel free to reach out with any questions or projects you'd like to discuss.
+        </p>
+        
+        <div className={styles.contactWrapper}>
+          <form className={styles.contactForm} onSubmit={handleSubmit}>
+            <div className={styles.formGroup}>
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label htmlFor="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            
+            <Button 
+              type="submit" 
+              variant="primary" 
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </Button>
+            
+            {submitStatus && (
+              <div className={`${styles.formStatus} ${submitStatus.success ? styles.success : styles.error}`}>
+                {submitStatus.message}
+              </div>
+            )}
+          </form>
+        </div>
+      </section>
     </div>
   );
 };

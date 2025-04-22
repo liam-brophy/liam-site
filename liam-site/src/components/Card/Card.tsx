@@ -8,6 +8,7 @@ interface CardProps {
   link?: string;
   image?: string;
   tags?: string[];
+  external?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -15,7 +16,8 @@ const Card: React.FC<CardProps> = ({
   description,
   link,
   image,
-  tags = []
+  tags = [],
+  external = false
 }) => {
   const cardContent = (
     <>
@@ -43,6 +45,16 @@ const Card: React.FC<CardProps> = ({
   );
 
   if (link) {
+    // Use an anchor tag for external links
+    if (external) {
+      return (
+        <a href={link} className={styles.card} target="_blank" rel="noopener noreferrer">
+          {cardContent}
+        </a>
+      );
+    }
+    
+    // Use React Router Link for internal navigation
     return (
       <Link to={link} className={styles.card}>
         {cardContent}

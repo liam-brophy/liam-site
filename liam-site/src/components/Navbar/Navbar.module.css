@@ -149,6 +149,18 @@
   transform: translateY(8px);
 }
 
+/* Overlay to capture clicks outside menu */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2); /* Reduced opacity from 0.5 to 0.2 for less darkness */
+  z-index: 999; /* Overlay below the menu but above everything else */
+  display: none;
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .navbar {
@@ -197,16 +209,16 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    max-width: 300px;
+    max-width: 180px; /* Reduced from 220px to make menu even narrower */
     background-color: var(--color-background);
     backdrop-filter: blur(10px);
     flex-direction: column;
     align-items: flex-end;
-    padding: 6rem 2rem 2rem;
+    padding: 4rem 1.25rem 2rem; /* Reduced top padding for menu items */
     transform: translateX(100%);
     transition: transform 0.3s ease;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
-    z-index: 100;
+    z-index: 1000;
     margin: 0;
   }
 
@@ -224,12 +236,40 @@
     display: block;
     font-size: 1.1rem;
     padding: 0.5rem 0;
+    position: relative; /* Ensure links are positioned correctly */
+    z-index: 1002; /* Higher z-index to ensure links are clickable */
+  }
+  
+  /* Add overlay to content area only */
+  .hasOverlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 990;
+  }
+  
+  /* Remove the navbar::before pseudo-element that was adding the overlay */
+  .navbar.menuOpen::before {
+    content: none;
+  }
+  
+  /* Hide the previous overlay class */
+  .overlay {
+    display: none !important;
   }
   
   .menuButton {
     display: block;
-    z-index: 101;
+    z-index: 1001;
     margin-top: 0;
+    position: fixed; /* Position fixed to stay in place */
+    top: 15px; /* Position from top */
+    right: 15px; /* Position from right */
+    padding: 10px;
   }
 
   /* Menu button animation when open */
@@ -243,5 +283,17 @@
 
   .menuOpen .menuIcon::after {
     transform: rotate(-45deg);
+  }
+  
+  /* Show overlay when menu is open */
+  .navbar.menuOpen .overlay {
+    display: block;
+  }
+  
+  /* Add class for body to prevent scrolling when menu is open */
+  :global(.no-scroll) {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
@@ -7,6 +7,7 @@ import Clock from '../Clock/Clock';
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navMenuRef = useRef<HTMLUListElement>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,6 +16,28 @@ const Navbar: React.FC = () => {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMenuOpen && 
+          navMenuRef.current && 
+          !navMenuRef.current.contains(event.target as Node) &&
+          !(event.target as Element).closest(`.${styles.menuButton}`)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    // Add event listener when menu is open
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    // Clean up the event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   // Add scroll event listener to add background when scrolling
   useEffect(() => {
@@ -32,6 +55,33 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
+  // Handle mobile responsive behavior - lock body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('no-scroll');
+      // Add overlay to page content only when menu is open
+      const contentElement = document.querySelector('.content-wrapper');
+      if (contentElement) {
+        contentElement.classList.add(styles.hasOverlay);
+      }
+    } else {
+      document.body.classList.remove('no-scroll');
+      // Remove overlay from page content when menu is closed
+      const contentElement = document.querySelector('.content-wrapper');
+      if (contentElement) {
+        contentElement.classList.remove(styles.hasOverlay);
+      }
+    }
+    
+    return () => {
+      document.body.classList.remove('no-scroll');
+      const contentElement = document.querySelector('.content-wrapper');
+      if (contentElement) {
+        contentElement.classList.remove(styles.hasOverlay);
+      }
+    };
+  }, [isMenuOpen]);
+
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''} ${isMenuOpen ? styles.menuOpen : ''}`}>
       <div className={styles.container}>
@@ -42,7 +92,7 @@ const Navbar: React.FC = () => {
         
         {/* Main navigation links */}
         <div className={styles.navGroup}>
-          <ul className={`${styles.navMenu} ${isMenuOpen ? styles.menuOpen : ''}`}>
+          <ul ref={navMenuRef} className={`${styles.navMenu} ${isMenuOpen ? styles.menuOpen : ''}`}>
             <li>
               <NavLink 
                 to="/"
@@ -63,15 +113,6 @@ const Navbar: React.FC = () => {
             </li>
             <li>
               <NavLink 
-                to="/about"
-                className={({ isActive }) => isActive ? styles.active : ''}
-                onClick={closeMenu}
-              >
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
                 to="/connect"
                 className={({ isActive }) => isActive ? styles.active : ''}
                 onClick={closeMenu}
@@ -80,14 +121,8 @@ const Navbar: React.FC = () => {
               </NavLink>
             </li>
           </ul>
-        </div>
-        
-        {/* Theme toggle at the bottom of sidebar */}
-        <div className={styles.bottomSection}>
-          <div className={styles.themeToggleContainer}>
-            <ThemeToggle />
-          </div>
           
+          {/* Close button in top-right of menu on mobile */}
           <button 
             className={`${styles.menuButton} ${isMenuOpen ? styles.menuOpen : ''}`}
             onClick={toggleMenu}
@@ -97,9 +132,16 @@ const Navbar: React.FC = () => {
             <span className={styles.menuIcon}></span>
           </button>
         </div>
+        
+        {/* Theme toggle at the bottom of sidebar */}
+        <div className={styles.bottomSection}>
+          <div className={styles.themeToggleContainer}>
+            <ThemeToggle />
+          </div>
+        </div>
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;

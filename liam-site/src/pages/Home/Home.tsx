@@ -44,8 +44,8 @@ const Home: React.FC = () => {
       tags: ['React', 'Publishing', 'Design Systems']
     },
     {
-      id: 'Storied',
-      title: 'Mobile App Three',
+      id: 'project3',
+      title: 'Storied',
       description: 'Cross-platform mobile application developed with React Native.',
       tags: ['React Native', 'Firebase', 'Mobile']
     }

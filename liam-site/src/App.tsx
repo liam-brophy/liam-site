@@ -1,9 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home/Home'
 import Work from './pages/Work/Work'
-import About from './pages/About/About'
 import Connect from './pages/Connect/Contact'
 import { ThemeProvider } from './context/ThemeContext'
 import './App.css'
@@ -155,7 +154,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/work" element={<Work />} />
-                  <Route path="/about" element={<About />} />
+                  <Route path="/about" element={<Navigate to="/connect" replace />} />
                   <Route path="/connect" element={<Connect />} />
                 </Routes>
               </main>
