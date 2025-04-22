@@ -81,13 +81,32 @@
 }
 
 .actions {
-  display: flex;
-  gap: 1rem;
+  display: block; /* Change from flex to block */
+  width: 100%;   /* Ensure it takes full width of .content */
   margin-top: 2rem;
+}
+
+.actions > :global(button) {
+  /* Add spacing between buttons if needed when block */
+  margin-right: var(--spacing-sm); /* Adjust as needed */
+}
+
+.actions > :global(button):last-child {
+  margin-right: 0;
 }
 
 @media (max-width: 480px) {
   .actions {
-    flex-direction: column;
+    /* display: block; <- Already set above */
+  }
+
+  .actions > :global(button) {
+    width: 100%; /* Ensure full width on small screens */
+    margin-right: 0; /* Remove horizontal margin */
+    margin-bottom: var(--spacing-sm); /* Add vertical margin */
+  }
+
+  .actions > :global(button):last-child {
+    margin-bottom: 0;
   }
 }

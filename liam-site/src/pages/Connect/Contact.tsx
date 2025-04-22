@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styles from './Contact.module.css';
 import Button from '../../components/Button/Button';
 
-// Renaming the Contact component to Connect
 const Connect: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -56,53 +55,69 @@ const Connect: React.FC = () => {
   
   return (
     <div className={styles.container}>
-      
-      {/* Profile Section (from About page) */}
-      <section className={styles.profile}>
-        <div className={styles.imageContainer}>
-          {/* Replace with actual image when available */}
-          <div className={styles.imagePlaceholder}>Profile Photo</div>
-        </div>
-        
-        <div className={styles.bioContent}>
-          <p>
-            Visual storyteller turned code wrangler who transforms ideas into seamless digital experiences. Since 2021, I've been navigating the creative-technical spectrum with equal parts intuition and precision.
-          </p>
-          
-          <p>
-            After mastering design tools as a book designer (covers, interiors, and marketing collateral), I expanded my toolkit through software engineering training in 2025. Now I blend pixel-perfect design sensibilities with robust development practices most commonly using React, TypeScript, Python, and Tailwind CSS.
-          </p>
+      {/* Main wrapper for layout */}
+      <div className={styles.connectLayout}>
 
-          <p>
-            Looking to continue growing as a developer, designer, and creative technologist in environments where digital experiences and human connection intersect.
+        {/* Second Column: Bio/Profile (Now First Column) */}
+        <section className={styles.profileColumn}>
+          <div className={styles.bioContent}>
+            <p>
+              Visual storyteller turned code wrangler who transforms ideas into seamless digital experiences. Since 2021, I've been navigating the creative-technical spectrum with equal parts intuition and precision.
+            </p>
+            
+            <p>
+              After mastering design tools as a book designer (covers, interiors, and marketing collateral), I expanded my toolkit through software engineering training in 2025. Now I blend pixel-perfect design sensibilities with robust development practices most commonly using React, TypeScript, Python, and Tailwind CSS.
+            </p>
+
+            <p>
+              Looking to continue growing as a developer, designer, and creative technologist in environments where digital experiences and human connection intersect.
+            </p>
+            
+            <h3>Skills</h3>
+            <ul className={styles.skillsList}>
+              {/* Frontend */}
+              <li data-discipline="frontend">JavaScript (ES6+)</li>
+              <li data-discipline="frontend">TypeScript</li>
+              <li data-discipline="frontend">React</li>
+              <li data-discipline="frontend">React Native</li>
+              <li data-discipline="frontend">HTML5</li>
+              <li data-discipline="frontend">CSS3 / SCSS</li>
+              <li data-discipline="frontend">Tailwind CSS</li>
+              <li data-discipline="frontend">Vite</li>
+              {/* Backend */}
+              <li data-discipline="backend">Node.js</li>
+              <li data-discipline="backend">Express</li>
+              <li data-discipline="backend">Python</li>
+              <li data-discipline="backend">Flask</li>
+              <li data-discipline="backend">SQL (PostgreSQL)</li>
+              <li data-discipline="backend">NoSQL (MongoDB)</li>
+              <li data-discipline="backend">REST APIs</li>
+              {/* Design */}
+              <li data-discipline="design">UI/UX Design</li>
+              <li data-discipline="design">Figma</li>
+              <li data-discipline="design">Adobe Creative Suite</li>
+              <li data-discipline="design">Wireframing</li>
+              <li data-discipline="design">Prototyping</li>
+              {/* Tools/Other */}
+              <li data-discipline="tools">Git & GitHub</li>
+              <li data-discipline="tools">Docker</li>
+            </ul>
+            
+            <div className={styles.actions}>
+              <Button variant="primary" onClick={() => window.open('/resume.pdf', '_blank')} fullWidth>
+                Download Resume
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Third Column: Contact Form (Now Second Column) */}
+        <section className={styles.contactColumn}>
+          <p className={styles.intro}>
+            I'm always open to new opportunities and collaborations. 
+            Feel free to reach out with any questions or projects you'd like to discuss.
           </p>
           
-          <h3>Skills</h3>
-          <ul className={styles.skillsList}>
-            <li>JavaScript/TypeScript</li>
-            <li>React & React Native</li>
-            <li>Node.js</li>
-            <li>HTML/CSS</li>
-            <li>UI/UX Design</li>
-            <li>Database Design</li>
-          </ul>
-          
-          <div className={styles.actions}>
-            <Button variant="primary" onClick={() => window.open('/resume.pdf', '_blank')}>
-              Download Resume
-            </Button>
-          </div>
-        </div>
-      </section>
-      
-      {/* Contact Section */}
-      <section className={styles.contactSection}>
-        <p className={styles.intro}>
-          I'm always open to new opportunities and collaborations. 
-          Feel free to reach out with any questions or projects you'd like to discuss.
-        </p>
-        
-        <div className={styles.contactWrapper}>
           <form className={styles.contactForm} onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
               <label htmlFor="name">Name</label>
@@ -144,6 +159,7 @@ const Connect: React.FC = () => {
               type="submit" 
               variant="primary" 
               disabled={isSubmitting}
+              fullWidth
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </Button>
@@ -154,8 +170,8 @@ const Connect: React.FC = () => {
               </div>
             )}
           </form>
-        </div>
-      </section>
+        </section>
+      </div> 
     </div>
   );
 };

@@ -5,6 +5,7 @@ import Home from './pages/Home/Home'
 import Work from './pages/Work/Work'
 import Connect from './pages/Connect/Contact'
 import { ThemeProvider } from './context/ThemeContext'
+// Removed: import WaterFlowCanvas from './components/WaterFlowCanvas/WaterFlowCanvas';
 import './App.css'
 
 // Custom scrollbar component
@@ -147,6 +148,7 @@ function App() {
           <div className="navbar-wrapper">
             <Navbar />
           </div>
+          {/* Removed animation wrapper */}
           <div className="content-wrapper">
             <CustomScrollbar containerRef={appRef} />
             <div className="app" ref={appRef}>

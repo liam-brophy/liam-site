@@ -62,13 +62,17 @@
   width: var(--navbar-width, 80px);
   z-index: 1100;
   position: relative;
+  /* Add background or border if needed */
 }
+
+/* Removed .animation-wrapper styles */
 
 .content-wrapper {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
   height: 100%;
+  /* Revert width calculation */
   width: calc(100vw - var(--navbar-width, 80px));
   max-width: 100%;
   overflow: hidden;
@@ -198,6 +202,15 @@ main {
   
   main {
     padding-bottom: 60px; /* Add padding to prevent content from being hidden by mobile nav */
+  }
+
+  /* Removed rule to hide .animation-wrapper */
+
+  .content-wrapper {
+     /* Revert width calculation for mobile */
+    width: 100%;
+    height: calc(100vh - var(--header-height, 64px));
+    margin-top: var(--header-height, 64px);
   }
 }
 

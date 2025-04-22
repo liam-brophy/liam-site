@@ -8,9 +8,11 @@
   --color-border: #dee2e6;
   
   /* Colors - Updated to match the clean, minimal aesthetic */
-  --color-primary: #0066cc;
-  --color-primary-light: #4d94ff;
-  --color-primary-dark: #004c99;
+  --color-primary: var(--color-text); /* Black in light theme */
+  --color-primary-text: var(--color-background); /* White text on black */
+  /* Remove unused primary light/dark or adjust if needed elsewhere */
+  /* --color-primary-light: #4d94ff; */
+  /* --color-primary-dark: #004c99; */
   
   --color-secondary: #6c757d;
   --color-secondary-light: #adb5bd;
@@ -101,6 +103,20 @@
   --z-index-modal: 1050;
   --z-index-popover: 1060;
   --z-index-tooltip: 1070;
+
+  /* Skill Tag Colors - Light Theme */
+  --color-skill-frontend-bg: #e0f2fe; /* Light Blue */
+  --color-skill-frontend-text: #0c4a6e; /* Dark Blue */
+  --color-skill-frontend-border: #7dd3fc; /* Medium Blue */
+  --color-skill-backend-bg: #fef9c3; /* Light Yellow */
+  --color-skill-backend-text: #854d0e; /* Dark Yellow/Brown */
+  --color-skill-backend-border: #fde047; /* Medium Yellow */
+  --color-skill-design-bg: #fee2e2; /* Light Red/Pink */
+  --color-skill-design-text: #991b1b; /* Dark Red */
+  --color-skill-design-border: #fca5a5; /* Medium Red */
+  --color-skill-tools-bg: #f3f4f6; /* Light Gray */
+  --color-skill-tools-text: #374151; /* Dark Gray */
+  --color-skill-tools-border: #d1d5db; /* Medium Gray */
 }
 
 /* Dark theme */
@@ -112,9 +128,11 @@
   --color-heading: #f8f9fa;
   --color-border: #444;
   
-  --color-primary: #4d94ff;
-  --color-primary-light: #80b5ff;
-  --color-primary-dark: #0066cc;
+  --color-primary: var(--color-text); /* White in dark theme */
+  --color-primary-text: var(--color-background); /* Dark text on white */
+  /* Remove unused primary light/dark or adjust if needed elsewhere */
+  /* --color-primary-light: #80b5ff; */
+  /* --color-primary-dark: #0066cc; */
   
   --color-secondary: #adb5bd;
   --color-secondary-light: #ced4da;
@@ -137,4 +155,18 @@
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.25);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
   --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  /* Skill Tag Colors - Dark Theme */
+  --color-skill-frontend-bg: #0c4a6e; /* Dark Blue */
+  --color-skill-frontend-text: #e0f2fe; /* Light Blue */
+  --color-skill-frontend-border: #38bdf8; /* Brighter Blue */
+  --color-skill-backend-bg: #854d0e; /* Dark Yellow/Brown */
+  --color-skill-backend-text: #fef9c3; /* Light Yellow */
+  --color-skill-backend-border: #facc15; /* Brighter Yellow */
+  --color-skill-design-bg: #991b1b; /* Dark Red */
+  --color-skill-design-text: #fee2e2; /* Light Red/Pink */
+  --color-skill-design-border: #f87171; /* Brighter Red */
+  --color-skill-tools-bg: #374151; /* Dark Gray */
+  --color-skill-tools-text: #f3f4f6; /* Light Gray */
+  --color-skill-tools-border: #6b7280; /* Medium Gray */
 }
