@@ -1,0 +1,18 @@
+
+.canvasContainer {
+  width: 100%;
+  height: 100%;
+  min-height: 300px; /* Ensure a minimum height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevent sketch overflow */
+  position: relative; /* Needed for absolute positioning of canvas */
+}
+
+/* Ensure the p5 canvas fills the container */
+.canvasContainer > div {
+  width: 100%;
+  height: 100%;
+  display: block; /* Remove any extra space */
+}

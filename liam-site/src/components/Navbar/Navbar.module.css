@@ -1,0 +1,247 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--navbar-width, 80px);
+  z-index: 1000;
+  background-color: transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: rgba(255, 255, 204, 0.95); /* Uses light theme color with transparency */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(5px);
+}
+
+[data-theme='dark'] .navbar.scrolled {
+  background-color: rgba(0, 112, 112, 0.95); /* Uses dark theme color with transparency */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 1.5rem 0;
+}
+
+/* Top section for clock */
+.topSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 0.5rem;
+}
+
+/* Bottom section for theme toggle */
+.bottomSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: relative; /* Added position relative */
+  z-index: 1002; /* Higher z-index to ensure visibility */
+}
+
+/* Make the theme toggle container visible */
+.themeToggleContainer {
+  display: inline-block;
+  position: relative;
+  z-index: 1005; /* Even higher z-index */
+  width: 40px;
+  height: 40px;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Group for navigation elements */
+.navGroup {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+  width: 100%;
+}
+
+.navMenu li {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.navMenu a {
+  font-family: "arial-nova", sans-serif; /* Correct font-family for Arial Nova */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.5rem;
+  position: relative;
+  transition: color 0.3s ease;
+  letter-spacing: 0.02em;
+  display: inline-block;
+}
+
+.navMenu a::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 0;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--color-text); /* Revert to text color or a static color */
+  transition: height 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
+  transform: translateX(-50%);
+  filter: blur(0); /* Initial blur effect */
+}
+
+.navMenu a:hover::after,
+.navMenu a.active::after {
+  height: 100%;
+  background-color: rgb(115, 216, 175); /* Revert to text color or a static color */
+  filter: blur(2px); /* Add blur effect on hover/active */
+}
+
+.menuButton {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: '';
+  position: absolute;
+}
+
+.menuIcon::before {
+  transform: translateY(-8px);
+}
+
+.menuIcon::after {
+  transform: translateY(8px);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .navbar {
+    top: 0;
+    right: 0;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    height: var(--header-height, 64px);
+  }
+  
+  .container {
+    flex-direction: row;
+    padding: 0 1.5rem;
+    height: var(--header-height, 64px);
+  }
+  
+  .topSection {
+    margin-right: auto;
+  }
+  
+  .bottomSection {
+    flex-direction: row;
+    gap: 0.5rem;
+    margin-left: auto; /* Align to the right on mobile */
+    position: relative;
+    z-index: 1002;
+  }
+  
+  .themeToggleContainer {
+    margin-right: 10px; /* Add some spacing on mobile */
+  }
+  
+  .navGroup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    overflow: hidden;
+  }
+  
+  .navMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 300px;
+    background-color: var(--color-background);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 6rem 2rem 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+    margin: 0;
+  }
+
+  .navMenu.menuOpen {
+    transform: translateX(0);
+  }
+
+  .navMenu li {
+    margin: 0 0 2rem;
+    width: 100%;
+    text-align: right;
+  }
+  
+  .navMenu a {
+    display: block;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+  }
+  
+  .menuButton {
+    display: block;
+    z-index: 101;
+    margin-top: 0;
+  }
+
+  /* Menu button animation when open */
+  .menuOpen .menuIcon {
+    background-color: transparent;
+  }
+
+  .menuOpen .menuIcon::before {
+    transform: rotate(45deg);
+  }
+
+  .menuOpen .menuIcon::after {
+    transform: rotate(-45deg);
+  }
+}
