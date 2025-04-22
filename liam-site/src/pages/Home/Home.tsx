@@ -3,7 +3,8 @@ import styles from './Home.module.css';
 import { Link } from 'react-router-dom';
 import StyledHeading from '../../components/StyledHeading/StyledHeading';
 import BrickCanvas from '../../components/BrickCanvas/BrickCanvas';
-import GrowingCanvas from '../../components/GrowingCanvas/GrowingCanvas'; // Import the new component
+import GrowingCanvas from '../../components/GrowingCanvas/GrowingCanvas';
+import ConnectingCanvas from '../../components/ConnectingCanvas/ConnectingCanvas'; // Import ConnectingCanvas
 
 interface Project {
   id: string;
@@ -77,7 +78,7 @@ const Home: React.FC = () => {
             {/* Conditionally render canvas based on the current phrase */}
             {phrases[currentPhraseIndex] === "always building." && <BrickCanvas />}
             {phrases[currentPhraseIndex] === "always growing." && <GrowingCanvas />} {/* Use GrowingCanvas */}
-            {phrases[currentPhraseIndex] === "always connecting." && <div>{/* Placeholder for Connecting Canvas */}Connecting Canvas Placeholder</div>}
+            {phrases[currentPhraseIndex] === "always connecting." && <ConnectingCanvas />} {/* Use ConnectingCanvas */}
           </div> {/* This closing div was missing or misplaced */}
         </section>
         
