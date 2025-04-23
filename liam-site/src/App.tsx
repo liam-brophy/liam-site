@@ -5,7 +5,7 @@ import Home from './pages/Home/Home'
 import Work from './pages/Work/Work'
 import Connect from './pages/Connect/Contact'
 import { ThemeProvider } from './context/ThemeContext'
-// Removed: import WaterFlowCanvas from './components/WaterFlowCanvas/WaterFlowCanvas';
+import { animateFavicon } from './utils/helpers' // Import the new function
 import './App.css'
 
 // Custom scrollbar component
@@ -140,6 +140,43 @@ const CustomScrollbar = ({ containerRef }: { containerRef: React.RefObject<HTMLD
 
 function App() {
   const appRef = useRef<HTMLDivElement>(null);
+
+  // Add useEffect to handle favicon animation
+  useEffect(() => {
+    // --- USER ACTION REQUIRED --- 
+    // Replace with the actual paths to your favicon frames in the public folder
+    const faviconFrames = [
+      '/favicons/frame_01.png',
+      '/favicons/frame_02.png',
+      '/favicons/frame_03.png',
+      '/favicons/frame_04.png',
+      '/favicons/frame_05.png',
+      '/favicons/frame_06.png',
+      '/favicons/frame_07.png',
+      '/favicons/frame_08.png',
+      '/favicons/frame_09.png',
+      '/favicons/frame_10.png',
+      '/favicons/frame_11.png',
+      '/favicons/frame_12.png',
+      '/favicons/frame_13.png',
+      '/favicons/frame_14.png',
+      '/favicons/frame_15.png',
+      '/favicons/frame_16.png',
+      '/favicons/frame_17.png',
+      '/favicons/frame_18.png',
+      '/favicons/frame_19.png',
+      '/favicons/frame_20.png',
+      '/favicons/frame_21.png',
+      '/favicons/frame_22.png'
+    ];
+    const animationInterval = 200; // Adjust interval in milliseconds (e.g., 200ms)
+
+    // Start the animation and get the cleanup function
+    const stopAnimation = animateFavicon(faviconFrames, animationInterval);
+
+    // Return the cleanup function to stop animation on component unmount
+    return stopAnimation;
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   return (
     <ThemeProvider>

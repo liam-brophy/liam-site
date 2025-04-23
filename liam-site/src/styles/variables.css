@@ -1,6 +1,6 @@
 :root {
   /* Theme colors - Light theme is default */
-  --color-background: #FFFFCC; /* Light theme background - requested color */
+  --color-background: #fcfced; /* Light theme background - requested color */
   --color-background-alt: #f8f9fa;
   --color-text: #212529;
   --color-text-light: #6c757d;
@@ -27,8 +27,8 @@
   --color-info: #17a2b8;
   
   /* Custom scrollbar colors */
-  --scrollbar-track: rgb(255, 250, 199);
-  --scrollbar-thumb: rgb(216, 250, 204);
+  --scrollbar-track: rgb(255, 251, 228);
+  --scrollbar-thumb: rgb(219, 251, 221);
   --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
   
   /* Neon scrollbar glow colors */
@@ -121,7 +121,7 @@
 
 /* Dark theme */
 [data-theme='dark'] {
-  --color-background: #007070; /* Dark theme background - requested color */
+  --color-background: #001f1f; /* Dark theme background - requested color */
   --color-background-alt: #005858;
   --color-text: #e9ecef;
   --color-text-light: #ced4da;

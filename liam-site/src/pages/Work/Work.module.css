@@ -2,6 +2,7 @@
   max-width: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrollbars during animation */
 }
 
 h1 {
@@ -22,4 +23,24 @@ h1 {
   display: flex;
   flex-direction: column;
   width: 100%;
+  align-items: center; /* Center cards horizontally */
+  /* Add padding to give space at top/bottom for scaling */
+  padding: 50vh 0; 
+  /* Optional: Add perspective for a more 3D wheel effect */
+  /* perspective: 1000px; */
 }
+
+.projectCardWrapper {
+  width: 100%; /* Make wrapper full width */
+  z-index: 1; /* Base z-index */
+  margin-bottom: var(--spacing-md);
+  /* Add will-change to hint browser about upcoming changes */
+  will-change: transform, opacity;
+}
+
+.projectCardWrapper:last-child {
+  margin-bottom: 0; 
+}
+
+/* Remove isVisible class styles */
+/* .projectCardWrapper.isVisible { ... } */
