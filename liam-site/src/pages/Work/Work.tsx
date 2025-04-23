@@ -62,8 +62,18 @@ const Work: React.FC = () => {
       id: 5,
       title: "Children's Books",
       description: 'A detailed description of project 5 including technologies used and challenges overcome.',
-      image: '/path/to/image5.jpg',
-      link: '/work/project5'
+      imageFrames: [
+        '/childrens/Childrens_frames-01.png',
+        '/childrens/Childrens_frames-02.png',
+        '/childrens/Childrens_frames-03.png',
+        '/childrens/Childrens_frames-04.png',
+        '/childrens/Childrens_frames-05.png',
+        '/childrens/Childrens_frames-06.png',
+        '/childrens/Childrens_frames-07.png',
+        '/childrens/Childrens_frames-08.png',
+      ],
+      link: '/work/project5',
+      animationInterval: 800 // Explicitly set interval for this card
     }
   ];
 
@@ -154,8 +164,10 @@ const Work: React.FC = () => {
               title={project.title}
               description={project.description}
               image={project.image}
+              imageFrames={project.imageFrames}
               link={project.link}
               external={project.external}
+              animationInterval={project.animationInterval} // Pass the interval prop
             />
           </div>
         ))}

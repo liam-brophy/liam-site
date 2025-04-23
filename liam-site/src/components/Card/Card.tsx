@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Card.module.css';
+import AnimatedImage from '../AnimatedImage/AnimatedImage'; // Import the new component
 
 interface CardProps {
   title: string;
   description: string;
   link?: string;
-  image?: string;
+  image?: string; // Keep for single static images
+  imageFrames?: string[]; // Add prop for animated images
   tags?: string[];
   external?: boolean;
+  animationInterval?: number; // Add prop to Card to control interval
 }
 
 const Card: React.FC<CardProps> = ({
@@ -16,14 +19,26 @@ const Card: React.FC<CardProps> = ({
   description,
   link,
   image,
+  imageFrames, // Destructure the new prop
   tags = [],
-  external = false
+  external = false,
+  animationInterval, // Destructure the new prop
 }) => {
   const cardContent = (
     <>
-      {image && (
+      {/* Conditionally render AnimatedImage or static img */}
+      {(image || imageFrames) && (
         <div className={styles.imageContainer}>
-          <img src={image} alt={title} className={styles.image} />
+          {imageFrames && imageFrames.length > 0 ? (
+            <AnimatedImage 
+              frameUrls={imageFrames} 
+              alt={title} 
+              className={styles.image} 
+              intervalMs={animationInterval} // Pass the interval down
+            />
+          ) : image ? (
+            <img src={image} alt={title} className={styles.image} loading="lazy" />
+          ) : null}
         </div>
       )}
       
