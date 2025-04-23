@@ -73,7 +73,8 @@ const Work: React.FC = () => {
         '/childrens/Childrens_frames-08.png',
       ],
       link: '/work/project5',
-      animationInterval: 800 // Explicitly set interval for this card
+      animationInterval: 100, // Faster interval for intermediate frames
+      longAnimationInterval: 1500 // Longer interval for first and last frames
     }
   ];
 
@@ -168,6 +169,7 @@ const Work: React.FC = () => {
               link={project.link}
               external={project.external}
               animationInterval={project.animationInterval} // Pass the interval prop
+              longAnimationInterval={project.longAnimationInterval} // Pass the long interval prop
             />
           </div>
         ))}

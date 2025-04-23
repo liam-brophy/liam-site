@@ -12,6 +12,7 @@ interface CardProps {
   tags?: string[];
   external?: boolean;
   animationInterval?: number; // Add prop to Card to control interval
+  longAnimationInterval?: number; // Add prop for long pause interval
 }
 
 const Card: React.FC<CardProps> = ({
@@ -23,6 +24,7 @@ const Card: React.FC<CardProps> = ({
   tags = [],
   external = false,
   animationInterval, // Destructure the new prop
+  longAnimationInterval, // Destructure the new prop
 }) => {
   const cardContent = (
     <>
@@ -34,7 +36,8 @@ const Card: React.FC<CardProps> = ({
               frameUrls={imageFrames} 
               alt={title} 
               className={styles.image} 
-              intervalMs={animationInterval} // Pass the interval down
+              shortIntervalMs={animationInterval} // Pass animationInterval as shortIntervalMs
+              longIntervalMs={longAnimationInterval} // Pass longAnimationInterval as longIntervalMs
             />
           ) : image ? (
             <img src={image} alt={title} className={styles.image} loading="lazy" />
