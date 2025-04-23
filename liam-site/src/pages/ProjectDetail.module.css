@@ -1,0 +1,51 @@
+.projectDetailContainer {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-radius: 8px;
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
+}
+
+.projectTitle {
+  text-align: left; /* Align to the left */
+  margin-bottom: 1rem; /* Reduce bottom margin */
+  font-size: 1.8rem; /* Reduce font size */
+  font-weight: 600; /* Adjust font weight if needed */
+  color: var(--color-text-light); /* Use a less prominent color */
+  /* Optional: Add padding if needed */
+  /* padding-left: 1rem; */
+}
+
+.carouselWrapper {
+  margin-bottom: 2rem;
+}
+
+.projectContent {
+  line-height: 1.6;
+}
+
+.projectContent h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.3rem;
+  display: inline-block;
+}
+
+.tagsList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tagItem {
+  background-color: var(--secondary-background-color);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}

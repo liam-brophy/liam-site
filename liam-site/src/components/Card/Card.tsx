@@ -13,6 +13,8 @@ interface CardProps {
   external?: boolean;
   animationInterval?: number; // Add prop to Card to control interval
   longAnimationInterval?: number; // Add prop for long pause interval
+  date?: string; // Add date prop
+  category?: 'design' | 'development'; // Add category prop
 }
 
 const Card: React.FC<CardProps> = ({
@@ -25,6 +27,8 @@ const Card: React.FC<CardProps> = ({
   external = false,
   animationInterval, // Destructure the new prop
   longAnimationInterval, // Destructure the new prop
+  date, // Destructure date
+  category, // Destructure category
 }) => {
   const cardContent = (
     <>
@@ -46,8 +50,19 @@ const Card: React.FC<CardProps> = ({
       )}
       
       <div className={styles.content}>
-        <h3 className={styles.title}>{title}</h3>
+        {/* <h3 className={styles.title}>{title}</h3> */} {/* Removed title header */}
         <p className={styles.description}>{description}</p>
+
+        {/* Display Date and Category Combined */}
+        {(date || category) && (
+          <div className={styles.meta}>
+            <p className={styles.metaText}>
+              {date && <span>{date}</span>}
+              {date && category && <span className={styles.separator}> | </span>}
+              {category && <span className={styles.category}>{category}</span>}
+            </p>
+          </div>
+        )}
         
         {tags.length > 0 && (
           <div className={styles.tags}>

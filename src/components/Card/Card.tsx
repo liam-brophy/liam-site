@@ -7,7 +7,12 @@ interface CardProps {
   description: string;
   link?: string;
   image?: string;
-  tags?: string[];
+  imageFrames?: string[];
+  animationInterval?: number;
+  longAnimationInterval?: number;
+  external?: boolean;
+  date?: string;
+  category?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -15,7 +20,12 @@ const Card: React.FC<CardProps> = ({
   description,
   link,
   image,
-  tags = []
+  imageFrames,
+  animationInterval,
+  longAnimationInterval,
+  external,
+  date,
+  category,
 }) => {
   const cardContent = (
     <>
@@ -27,17 +37,14 @@ const Card: React.FC<CardProps> = ({
       
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <p className={styles.description}>{description}</p>
-        
-        {tags.length > 0 && (
-          <div className={styles.tags}>
-            {tags.map((tag, index) => (
-              <span key={index} className={styles.tag}>
-                {tag}
-              </span>
-            ))}
+        {(date || category) && (
+          <div className={styles.meta}>
+            {date && <span>{date}</span>}
+            {date && category && <span className={styles.separator}> | </span>}
+            {category && <span>{category}</span>}
           </div>
         )}
+        <p className={styles.description}>{description}</p>
       </div>
     </>
   );

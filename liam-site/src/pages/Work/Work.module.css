@@ -22,16 +22,19 @@ h1 {
 .projectGrid {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  align-items: center; /* Center cards horizontally */
-  /* Add padding to give space at top/bottom for scaling */
-  padding: 50vh 0; 
-  /* Optional: Add perspective for a more 3D wheel effect */
+  /* width: 100%; */ /* Remove full width */
+  max-width: 800px; /* Add a max-width */
+  margin-left: auto; /* Center the grid */
+  margin-right: auto; /* Center the grid */
+  align-items: center; /* Keep this to center wrappers if grid is wider than card max-width */
+  padding: 40vh 0 50vh 0; /* Increased top padding back slightly */
   /* perspective: 1000px; */
 }
 
 .projectCardWrapper {
   width: 100%; /* Make wrapper full width */
+  display: flex; /* Add flex display */
+  justify-content: center; /* Center content (the Card) horizontally */
   z-index: 1; /* Base z-index */
   margin-bottom: var(--spacing-md);
   /* Add will-change to hint browser about upcoming changes */
