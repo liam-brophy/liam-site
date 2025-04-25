@@ -1,11 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home/Home'
 import Work from './pages/Work/Work'
-import About from './pages/About/About'
 import Connect from './pages/Connect/Contact'
+import Project4 from './pages/Project4/Project4'; // Import Project 4 page
+import Project5 from './pages/Project5/Project5'; // Import Project 5 page
+import CustomCursor from './components/CustomCursor/CustomCursor';
 import { ThemeProvider } from './context/ThemeContext'
+import { animateFavicon } from './utils/helpers' // Import the new function
 import './App.css'
 
 // Custom scrollbar component
@@ -141,13 +144,52 @@ const CustomScrollbar = ({ containerRef }: { containerRef: React.RefObject<HTMLD
 function App() {
   const appRef = useRef<HTMLDivElement>(null);
 
+  // Add useEffect to handle favicon animation
+  useEffect(() => {
+    // --- USER ACTION REQUIRED --- 
+    // Replace with the actual paths to your favicon frames in the public folder
+    const faviconFrames = [
+      '/favicons/frame_01.png',
+      '/favicons/frame_02.png',
+      '/favicons/frame_03.png',
+      '/favicons/frame_04.png',
+      '/favicons/frame_05.png',
+      '/favicons/frame_06.png',
+      '/favicons/frame_07.png',
+      '/favicons/frame_08.png',
+      '/favicons/frame_09.png',
+      '/favicons/frame_10.png',
+      '/favicons/frame_11.png',
+      '/favicons/frame_12.png',
+      '/favicons/frame_13.png',
+      '/favicons/frame_14.png',
+      '/favicons/frame_15.png',
+      '/favicons/frame_16.png',
+      '/favicons/frame_17.png',
+      '/favicons/frame_18.png',
+      '/favicons/frame_19.png',
+      '/favicons/frame_20.png',
+      '/favicons/frame_21.png',
+      '/favicons/frame_22.png'
+    ];
+    const animationInterval = 200; // Adjust interval in milliseconds (e.g., 200ms)
+
+    // Start the animation and get the cleanup function
+    const stopAnimation = animateFavicon(faviconFrames, animationInterval);
+
+    // Return the cleanup function to stop animation on component unmount
+    return stopAnimation;
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   return (
     <ThemeProvider>
       <Router>
+        <CustomCursor />
         <div className="app-wrapper">
           <div className="navbar-wrapper">
             <Navbar />
           </div>
+          {/* Removed animation wrapper */}
           <div className="content-wrapper">
             <CustomScrollbar containerRef={appRef} />
             <div className="app" ref={appRef}>
@@ -155,8 +197,14 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/work" element={<Work />} />
-                  <Route path="/about" element={<About />} />
+                  {/* Add routes for individual project pages */}
+                  <Route path="/work/project4" element={<Project4 />} />
+                  <Route path="/work/project5" element={<Project5 />} />
+                  {/* Redirect /about to /connect */}
+                  <Route path="/about" element={<Navigate to="/connect" replace />} />
                   <Route path="/connect" element={<Connect />} />
+                  {/* Optional: Add a catch-all route or a specific route for project IDs */}
+                  {/* <Route path="/work/:projectId" element={<ProjectDetail />} /> */}
                 </Routes>
               </main>
             </div>

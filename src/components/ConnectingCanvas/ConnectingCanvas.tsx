@@ -12,6 +12,15 @@ interface GridDot {
   baseSize: number;
   active: boolean;
   color: string;
+  id: number; // Unique identifier for each dot
+}
+
+// Interface for a line in the path
+interface PathLine {
+  start: GridDot;
+  end: GridDot;
+  timestamp: number; // When the line was created
+  opacity: number; // Current opacity value
 }
 
 function sketch(p5Instance: P5CanvasInstance) {
@@ -23,6 +32,9 @@ function sketch(p5Instance: P5CanvasInstance) {
   let connectDistance: number;
   let mousePos: p5.Vector;
   let margin: number; // Margin to prevent dots from being at the edges
+  let path: PathLine[] = []; // Store the path of connected dots
+  let lastActiveDotIndex: number = -1; // Track the index of the last active dot
+  const FADE_DURATION = 10000; // 10 seconds in milliseconds
 
   const updateThemeColors = () => {
     if (typeof document !== 'undefined') {
@@ -70,6 +82,8 @@ function sketch(p5Instance: P5CanvasInstance) {
     // Uniform dot size based on canvas dimensions for consistency with other canvases
     const dotSize = p5Instance.min(p5Instance.width, p5Instance.height) / 80;
     
+    let id = 0; // Unique identifier for each dot
+    
     for (let i = 0; i < cols; i++) {
       for (let j = 0; j < rows; j++) {
         dots.push({
@@ -80,10 +94,15 @@ function sketch(p5Instance: P5CanvasInstance) {
           size: dotSize,
           baseSize: dotSize,
           active: false,
-          color: primaryColor
+          color: primaryColor,
+          id: id++
         });
       }
     }
+    
+    // Reset path when grid is reinitialized
+    path = [];
+    lastActiveDotIndex = -1;
   };
 
   p5Instance.draw = () => {
@@ -98,60 +117,72 @@ function sketch(p5Instance: P5CanvasInstance) {
     dots.forEach(dot => {
       dot.active = false;
       dot.size = dot.baseSize;
-      dot.color = primaryColor;
     });
     
-    // Find active dots (near mouse)
-    dots.forEach(dot => {
+    // Find the closest dot to the mouse that is within the connect distance
+    let closestDotIndex = -1;
+    let closestDistance = connectDistance;
+    
+    for (let i = 0; i < dots.length; i++) {
+      const dot = dots[i];
       const d = p5Instance.dist(dot.pos.x, dot.pos.y, mousePos.x, mousePos.y);
-      if (d < connectDistance) {
-        dot.active = true;
-        // Increase dot size based on proximity to mouse, but keep the growth subtle
-        dot.size = p5Instance.map(d, 0, connectDistance, dot.baseSize * 2, dot.baseSize);
-      }
-    });
-    
-    // Draw connections between active dots
-    const activeDots = dots.filter(dot => dot.active);
-    
-    // Sort connections by distance for better layering
-    let connections = [];
-    for (let i = 0; i < activeDots.length; i++) {
-      for (let j = i + 1; j < activeDots.length; j++) {
-        const dot1 = activeDots[i];
-        const dot2 = activeDots[j];
-        const d = p5Instance.dist(dot1.pos.x, dot1.pos.y, dot2.pos.x, dot2.pos.y);
-        
-        // Only connect if within reasonable distance
-        const maxConnectDist = connectDistance * 1.2;
-        if (d < maxConnectDist) {
-          connections.push({
-            dot1, 
-            dot2, 
-            distance: d
-          });
-        }
+      if (d < closestDistance) {
+        closestDistance = d;
+        closestDotIndex = i;
       }
     }
     
-    // Sort connections by distance (farthest first for better layering)
-    connections.sort((a, b) => b.distance - a.distance);
+    // If we found a closest dot, mark it as active
+    if (closestDotIndex >= 0) {
+      dots[closestDotIndex].active = true;
+      dots[closestDotIndex].size = dots[closestDotIndex].baseSize * 1.5; // Make it slightly larger
+      
+      // If this is a different dot than the last active dot, add a line to the path
+      if (lastActiveDotIndex >= 0 && lastActiveDotIndex !== closestDotIndex) {
+        path.push({
+          start: dots[lastActiveDotIndex],
+          end: dots[closestDotIndex],
+          timestamp: Date.now(),
+          opacity: 255 // Start fully opaque
+        });
+      }
+      
+      // Update the last active dot
+      lastActiveDotIndex = closestDotIndex;
+    }
     
-    // Draw connections
-    connections.forEach(conn => {
-      // Map distance to opacity: closer dots have stronger lines
-      const alpha = p5Instance.map(conn.distance, 0, connectDistance * 1.2, 180, 30);
-      let lineColor = p5Instance.color(primaryColor);
-      lineColor.setAlpha(alpha);
+    // Update and draw the path
+    const currentTime = Date.now();
+    
+    // Filter out lines that have fully faded
+    path = path.filter(line => {
+      const age = currentTime - line.timestamp;
+      return age < FADE_DURATION;
+    });
+    
+    // Draw all lines in the path
+    p5Instance.noFill();
+    path.forEach(line => {
+      // Calculate opacity based on age
+      const age = currentTime - line.timestamp;
+      const opacity = p5Instance.map(age, 0, FADE_DURATION, 255, 0);
+      line.opacity = opacity;
+      
+      const lineColor = p5Instance.color(primaryColor);
+      lineColor.setAlpha(opacity);
       p5Instance.stroke(lineColor);
-      p5Instance.strokeWeight(p5Instance.map(conn.distance, 0, connectDistance * 1.2, 1.2, 0.3));
-      p5Instance.line(conn.dot1.pos.x, conn.dot1.pos.y, conn.dot2.pos.x, conn.dot2.pos.y);
+      p5Instance.strokeWeight(1.2);
+      p5Instance.line(line.start.pos.x, line.start.pos.y, line.end.pos.x, line.end.pos.y);
     });
     
     // Draw all dots
     p5Instance.noStroke();
     dots.forEach(dot => {
-      p5Instance.fill(dot.color);
+      const dotColor = p5Instance.color(primaryColor);
+      if (!dot.active) {
+        dotColor.setAlpha(150);
+      }
+      p5Instance.fill(dotColor);
       p5Instance.ellipse(dot.pos.x, dot.pos.y, dot.size, dot.size);
     });
   };

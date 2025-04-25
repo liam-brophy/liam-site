@@ -1,18 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Card.module.css';
+import AnimatedImage from '../AnimatedImage/AnimatedImage'; // Import the new component
 
 interface CardProps {
   title: string;
   description: string;
   link?: string;
-  image?: string;
-  imageFrames?: string[];
-  animationInterval?: number;
-  longAnimationInterval?: number;
+  image?: string; // Keep for single static images
+  imageFrames?: string[]; // Add prop for animated images
+  tags?: string[];
   external?: boolean;
-  date?: string;
-  category?: string;
+  animationInterval?: number; // Add prop to Card to control interval
+  longAnimationInterval?: number; // Add prop for long pause interval
+  date?: string; // Add date prop
+  category?: 'design' | 'development'; // Add category prop
 }
 
 const Card: React.FC<CardProps> = ({
@@ -20,36 +22,72 @@ const Card: React.FC<CardProps> = ({
   description,
   link,
   image,
-  imageFrames,
-  animationInterval,
-  longAnimationInterval,
-  external,
-  date,
-  category,
+  imageFrames, // Destructure the new prop
+  tags = [],
+  external = false,
+  animationInterval, // Destructure the new prop
+  longAnimationInterval, // Destructure the new prop
+  date, // Destructure date
+  category, // Destructure category
 }) => {
   const cardContent = (
     <>
-      {image && (
+      {/* Conditionally render AnimatedImage or static img */}
+      {(image || imageFrames) && (
         <div className={styles.imageContainer}>
-          <img src={image} alt={title} className={styles.image} />
+          {imageFrames && imageFrames.length > 0 ? (
+            <AnimatedImage 
+              frameUrls={imageFrames} 
+              alt={title} 
+              className={styles.image} 
+              shortIntervalMs={animationInterval} // Pass animationInterval as shortIntervalMs
+              longIntervalMs={longAnimationInterval} // Pass longAnimationInterval as longIntervalMs
+            />
+          ) : image ? (
+            <img src={image} alt={title} className={styles.image} loading="lazy" />
+          ) : null}
         </div>
       )}
       
       <div className={styles.content}>
-        <h3 className={styles.title}>{title}</h3>
+        {/* <h3 className={styles.title}>{title}</h3> */} {/* Removed title header */}
+        <p className={styles.description}>{description}</p>
+
+        {/* Display Date and Category Combined */}
         {(date || category) && (
           <div className={styles.meta}>
-            {date && <span>{date}</span>}
-            {date && category && <span className={styles.separator}> | </span>}
-            {category && <span>{category}</span>}
+            <p className={styles.metaText}>
+              {date && <span>{date}</span>}
+              {date && category && <span className={styles.separator}> | </span>}
+              {category && <span className={styles.category}>{category}</span>}
+            </p>
           </div>
         )}
-        <p className={styles.description}>{description}</p>
+        
+        {tags.length > 0 && (
+          <div className={styles.tags}>
+            {tags.map((tag, index) => (
+              <span key={index} className={styles.tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
 
   if (link) {
+    // Use an anchor tag for external links
+    if (external) {
+      return (
+        <a href={link} className={styles.card} target="_blank" rel="noopener noreferrer">
+          {cardContent}
+        </a>
+      );
+    }
+    
+    // Use React Router Link for internal navigation
     return (
       <Link to={link} className={styles.card}>
         {cardContent}

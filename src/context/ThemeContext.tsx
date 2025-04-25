@@ -49,8 +49,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       // Apply theme to document - ensure we're targeting the html element
       document.documentElement.setAttribute('data-theme', theme);
       
-      // Also update the body for broader compatibility
-      document.body.className = theme === 'dark' ? 'dark-theme' : 'light-theme';
+      // Update the body classes properly
+      if (theme === 'dark') {
+        document.body.classList.remove('light-theme');
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+      }
     }
   }, [theme]);
 
@@ -59,7 +65,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Ensure the theme is applied on first render
     if (typeof window !== 'undefined') {
       document.documentElement.setAttribute('data-theme', theme);
-      document.body.className = theme === 'dark' ? 'dark-theme' : 'light-theme';
+      
+      // Update the body classes properly for initial render
+      if (theme === 'dark') {
+        document.body.classList.remove('light-theme');
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+      }
     }
   }, []);
 

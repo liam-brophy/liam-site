@@ -12,6 +12,19 @@ interface Brick {
   color: string;
   velocityY: number;
   landed: boolean;
+  crumbling: boolean; // Track if the brick is in the process of crumbling
+}
+
+interface Particle {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  color: string;
+  velocityX: number;
+  velocityY: number;
+  opacity: number;
+  lifespan: number;
 }
 
 interface BrickCanvasProps {
@@ -22,6 +35,7 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const p5Instance = useRef<any | null>(null);
   const bricks = useRef<Brick[]>([]);
+  const particles = useRef<Particle[]>([]); // Store particles for dissolving effect
   const isDragging = useRef<boolean>(false);
   const draggedBrickId = useRef<number | null>(null);
   const dragOffset = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
@@ -86,8 +100,10 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
       p.draw = () => {
         p.clear();
         updateBricks(p);
+        updateParticles(p);
         drawBricks(p);
-        // Debug line removed
+        drawParticles(p);
+        checkTopCollision(p); // Check if bricks have reached the top
       };
       
       // Handle window resizing
@@ -164,7 +180,8 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
           // Use white in dark mode, black in light mode for better contrast
           color: isDarkTheme ? '#FFFFFF' : '#000000',
           velocityY: randomBetween(0.5, 1), // Slowed down velocity
-          landed: false
+          landed: false,
+          crumbling: false // Initialize as not crumbling
         };
         
         bricks.current.push(newBrick);
@@ -283,6 +300,101 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
             brick.height
           );
         });
+      };
+
+      // Update particles for dissolving effect
+      const updateParticles = (p: any) => {
+        particles.current = particles.current.filter(particle => {
+          // Update particle position
+          particle.x += particle.velocityX;
+          particle.y += particle.velocityY;
+          
+          // Apply gravity to particles
+          particle.velocityY += 0.05;
+          
+          // Reduce opacity over time (fade out)
+          particle.opacity -= 5;
+          
+          // Reduce lifespan
+          particle.lifespan -= 1;
+          
+          // Keep particle if still alive
+          return particle.lifespan > 0 && particle.opacity > 0;
+        });
+      };
+      
+      // Draw particles
+      const drawParticles = (p: any) => {
+        particles.current.forEach(particle => {
+          // Set fill color with opacity
+          const color = p.color(particle.color);
+          color.setAlpha(particle.opacity);
+          p.fill(color);
+          p.noStroke();
+          
+          // Draw particle
+          p.rect(
+            Math.floor(particle.x),
+            Math.floor(particle.y),
+            particle.size,
+            particle.size
+          );
+        });
+      };
+      
+      // Create particles when a brick crumbles
+      const createParticlesFromBrick = (brick: Brick, p: any) => {
+        // Number of particles based on brick size
+        const particleCount = Math.floor(brick.width * brick.height / 25);
+        
+        // Create particles
+        for (let i = 0; i < particleCount; i++) {
+          const particleSize = randomBetween(2, 6);
+          const particle: Particle = {
+            id: Date.now() + i,
+            x: brick.x + randomBetween(0, brick.width),
+            y: brick.y + randomBetween(0, brick.height),
+            size: particleSize,
+            color: brick.color,
+            velocityX: randomBetween(-1, 1),
+            velocityY: randomBetween(-2, 0.5), // Initial upward velocity for some particles
+            opacity: 255,
+            lifespan: randomBetween(30, 60)
+          };
+          
+          particles.current.push(particle);
+        }
+      };
+      
+      // Check if bricks have reached the top of the canvas
+      const checkTopCollision = (p: any) => {
+        const topThreshold = 50; // Height from top where bricks start triggering dissolution
+        
+        // Check if any brick has reached the top threshold
+        const brickReachedTop = bricks.current.some(brick => 
+          brick.landed && brick.y <= topThreshold && !brick.crumbling
+        );
+        
+        // If any brick reached the top, make ALL bricks crumble
+        if (brickReachedTop) {
+          // Create particles from all bricks
+          bricks.current.forEach(brick => {
+            if (!brick.crumbling) {
+              brick.crumbling = true;
+              createParticlesFromBrick(brick, p);
+            }
+          });
+          
+          // Remove all crumbling bricks after particles are created
+          bricks.current = bricks.current.filter(brick => !brick.crumbling);
+          
+          // Spawn a new brick after a short delay (300 frames) to restart the game
+          setTimeout(() => {
+            if (p5Instance.current) {
+              spawnBrick(p);
+            }
+          }, 2000);
+        }
       };
     };
     

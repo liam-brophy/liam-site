@@ -1,115 +1,121 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react'; // Removed useRef
 import styles from './Home.module.css';
 import { Link } from 'react-router-dom';
 import StyledHeading from '../../components/StyledHeading/StyledHeading';
 import BrickCanvas from '../../components/BrickCanvas/BrickCanvas';
+import GrowingCanvas from '../../components/GrowingCanvas/GrowingCanvas';
+import ConnectingCanvas from '../../components/ConnectingCanvas/ConnectingCanvas';
+import { projects } from '../../data/projects'; // Import projects data
+import { Project } from '../../types/project'; // Import the full Project type
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  tags: string[];
-}
+const featuredProjects = projects.slice(0, 3); // Example: Get first 3 projects
 
 const Home: React.FC = () => {
-  const projectsRef = useRef<HTMLDivElement>(null);
-
-  // Sample projects for initial development
-  const featuredProjects: Project[] = [
-    {
-      id: 'project1',
-      title: 'Full Stack App One',
-      description: 'A comprehensive web application built with React, Node.js, and MongoDB.',
-      tags: ['React', 'Node.js', 'MongoDB']
-    },
-    {
-      id: 'project2',
-      title: 'Design Project Two',
-      description: 'UI/UX design project focusing on user experience and accessibility.',
-      tags: ['UI/UX', 'Figma', 'Design Systems']
-    },
-    {
-      id: 'project3',
-      title: 'Mobile App Three',
-      description: 'Cross-platform mobile application developed with React Native.',
-      tags: ['React Native', 'Firebase', 'Mobile']
-    }
+  const phrases = [
+    "always building.",
+    "always growing.",
+    "always connecting."
   ];
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  // Removed projectsRef as it's not used
 
+  const handleNext = () => {
+    setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentPhraseIndex((prevIndex) => (prevIndex - 1 + phrases.length) % phrases.length);
+  };
+
+  // Add keyboard navigation for phrases
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowRight') {
+        handleNext();
+      } else if (event.key === 'ArrowLeft') {
+        handlePrev();
+      }
     };
 
-    const handleIntersect = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add(styles.visible);
-          observer.unobserve(entry.target);
-        }
-      });
-    };
+    window.addEventListener('keydown', handleKeyDown);
 
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
-
-    // Observe all project elements
-    if (projectsRef.current) {
-      const projectElements = projectsRef.current.querySelectorAll(`.${styles.project}`);
-      projectElements.forEach(element => {
-        observer.observe(element);
-      });
-    }
-
+    // Cleanup function to remove the event listener
     return () => {
-      observer.disconnect();
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, []); // Empty dependency array means this effect runs once on mount
 
   return (
-    <>
-      <div className={styles.container}>
-        <section className={styles.hero}>
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>
-              <span className={styles.pixelscriptLetter}>H</span>i, I'm  
-              <span className={styles.pixelscriptLetter}> L</span>iam
-            </h1>
-            <p className={styles.subtitle} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>full stack designer, always building.</p>
-            <div className={styles.scrollIndicator}>
-              <div className={styles.arrow}></div>
-            </div>
-          </div>
-          <div className={styles.heroCanvasContainer}>
-            <BrickCanvas />
-          </div>
-        </section>
-        
-        <section className={styles.projectsSection} id="projects">
-          <div className={styles.projectsList} ref={projectsRef}>
-            {featuredProjects.map((project) => (
-              <Link 
-                to={`/work/${project.id}`} 
-                key={project.id}
-                className={`${styles.project}`}
-                aria-label={`View project: ${project.title}`}
+    <div className={styles.homeContainer}> {/* Changed from Fragment to div */} 
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>
+            <span className={styles.pixelscriptLetter}>H</span>i, I'm  
+            <span className={styles.pixelscriptLetter}> L</span>iam
+          </h1>
+          <div className={styles.subtitleContainer}> {/* Container for layout */}
+            <p className={styles.subtitle} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal', display: 'inline' }}> {/* Changed fontStyle to normal, added display inline */}
+              Full stack designer, 
+              <button 
+                className={styles.inlineArrowButton} 
+                onClick={handlePrev} 
+                aria-label="Previous phrase"
               >
-                <div className={styles.projectContent}>
-                  <StyledHeading level={3}>{project.title}</StyledHeading>
-                  <p style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{project.description}</p>
+                ←
+              </button>
+              <span className={styles.animatedPhrase}> {/* Added wrapper span for animation */}
+                <span style={{ fontStyle: 'italic', margin: '0 5px' }}>{phrases[currentPhraseIndex]}</span>
+              </span>
+              <button 
+                className={styles.inlineArrowButton} 
+                onClick={handleNext} 
+                aria-label="Next phrase"
+              >
+                →
+              </button>
+            </p>
+          </div>
+          <div className={styles.scrollIndicator}>
+            <div className={styles.arrow}></div>
+          </div>
+        </div>
+        <div className={styles.heroCanvasContainer}>
+          {/* Conditionally render canvas based on the current phrase */}
+          {phrases[currentPhraseIndex] === "always building." && <BrickCanvas />}
+          {phrases[currentPhraseIndex] === "always growing." && <GrowingCanvas />} {/* Use GrowingCanvas */}
+          {phrases[currentPhraseIndex] === "always connecting." && <ConnectingCanvas />} {/* Use ConnectingCanvas */}
+        </div>
+      </section>
+      
+      <section className={styles.projectsSection} id="projects">
+        <div className={styles.projectsList}>
+          {featuredProjects.map((project: Project) => ( // Use the imported Project type
+            <Link 
+              to={project.external ? project.link : `/work/${project.id}`} // Adjust link based on external flag
+              key={project.id}
+              className={styles.project}
+              aria-label={`View project: ${project.title}`}
+              target={project.external ? '_blank' : '_self'} // Open external links in new tab
+              rel={project.external ? 'noopener noreferrer' : ''}
+            >
+              <div className={styles.projectContent}>
+                <StyledHeading level={3}>{project.title}</StyledHeading>
+                <p style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{project.description}</p>
+                {/* Removed Date and Category display from here */}
+                {project.tags && project.tags.length > 0 && ( // Check if tags exist
                   <div className={styles.tags}>
                     {project.tags.map((tag, index) => (
                       <span key={index} className={styles.tag} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{tag}</span>
                     ))}
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      </div>
-      
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer section moved outside the main content sections but inside the main container div */}
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <p className={styles.copyright} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>&copy; {new Date().getFullYear()} Liam Brophy. All rights reserved.</p>
@@ -119,7 +125,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </footer>
-    </>
+    </div> // Closing tag for homeContainer
   );
 };
 

@@ -1,56 +1,218 @@
 .container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 4rem 2rem; /* Increased side padding */
+  min-height: 100vh; 
+  display: flex;
+  align-items: center;
+}
+
+/* Media queries for responsive padding */
+@media (max-width: 768px) {
+  .container {
+    padding: 3rem 1.5rem; /* Adjusted padding for tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 2rem 1.25rem; /* Adjusted padding for mobile */
+  }
 }
 
 h1 {
   font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
   margin-bottom: 1.5rem;
 }
 
-.intro {
+h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+}
+
+h4 {
   font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 2.5rem;
-  max-width: 800px;
+  margin-bottom: 0.5rem;
 }
 
-.connectWrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
+/* Profile Section Styles (from About page) */
+.profile {
+  margin-bottom: 0; /* Remove bottom margin */
+  padding-bottom: 0; /* Remove bottom padding */
+  border-bottom: none; /* Remove border */
 }
 
-@media (min-width: 768px) {
-  .connectWrapper {
-    grid-template-columns: 3fr 2fr;
+.bioContent p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  text-align: justify; /* Add this line */
+}
+
+.bioContent p:first-of-type::first-letter {
+  font-family: var(--font-heading-first-letter); /* Use pixelscript font */
+  font-size: 4em; /* Make the first letter significantly larger */
+  float: left; /* Float the letter to the left */
+  line-height: 0.8; /* Adjust line height for better alignment */
+  margin-right: 0.1em; /* Add some space to the right */
+  margin-top: 0.05em; /* Fine-tune vertical alignment */
+  font-weight: normal; /* Adjust weight if needed for the pixel font */
+  color: var(--color-heading); /* Use heading color */
+}
+
+.skillsList {
+  display: flex; /* Change to flexbox */
+  flex-wrap: wrap; /* Allow tags to wrap */
+  gap: 0.75rem; /* Adjust gap between tags */
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+/* Color coding for skills based on discipline */
+.skillsList li[data-discipline="frontend"] {
+  background-color: var(--color-skill-frontend-bg, #e0f2fe); /* Light blue */
+  color: var(--color-skill-frontend-text, #0c4a6e);
+  border-color: var(--color-skill-frontend-border, #7dd3fc);
+}
+
+.skillsList li[data-discipline="backend"] {
+  background-color: var(--color-skill-backend-bg, #dcfce7); /* Light green */
+  color: var(--color-skill-backend-text, #166534);
+  border-color: var(--color-skill-backend-border, #86efac);
+}
+
+.skillsList li[data-discipline="design"] {
+  background-color: var(--color-skill-design-bg, #fef3c7); /* Light yellow */
+  color: var(--color-skill-design-text, #92400e);
+  border-color: var(--color-skill-design-border, #fcd34d);
+}
+
+.skillsList li[data-discipline="tools"] {
+  background-color: var(--color-skill-tools-bg, #e5e7eb); /* Light gray */
+  color: var(--color-skill-tools-text, #374151);
+  border-color: var(--color-skill-tools-border, #9ca3af);
+}
+
+/* Hover states for skill tags */
+.skillsList li[data-discipline="frontend"]:hover {
+  background-color: var(--color-skill-frontend-text, #0c4a6e);
+  color: var(--color-skill-frontend-bg, #e0f2fe);
+}
+
+.skillsList li[data-discipline="backend"]:hover {
+  background-color: var(--color-skill-backend-text, #166534);
+  color: var(--color-skill-backend-bg, #dcfce7);
+}
+
+.skillsList li[data-discipline="design"]:hover {
+  background-color: var(--color-skill-design-text, #92400e);
+  color: var(--color-skill-design-bg, #fef3c7);
+}
+
+.skillsList li[data-discipline="tools"]:hover {
+  background-color: var(--color-skill-tools-text, #374151);
+  color: var(--color-skill-tools-bg, #e5e7eb);
+}
+
+.skillsList li {
+  background-color: var(--color-primary-muted); /* Use a muted primary color */
+  color: var(--color-primary); /* Use primary color for text */
+  padding: 0.4rem 0.8rem; /* Adjust padding for pill shape */
+  border-radius: 1rem; /* More rounded corners for pill shape */
+  font-size: 0.85rem; /* Slightly smaller font */
+  font-weight: 500; /* Medium font weight */
+  text-align: center;
+  border: 1px solid var(--color-primary-border); /* Add a subtle border */
+  transition: background-color 0.2s ease, color 0.2s ease; /* Add hover effect */
+  font-family: var(--font-heading-rest); /* Use Argent Pixel font */
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.skillsList li:hover {
+  background-color: var(--color-primary); /* Darken background on hover */
+  color: var(--color-background); /* Change text color on hover */
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
   }
 }
 
-.connectForm {
+/* Contact Section Styles */
+.contactSection {
+  margin-top: 0; /* Remove top margin as it's now in a column */
+}
+
+.intro {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  margin-bottom: 2.5rem;
+  max-width: 800px;
+  font-family: var(--font-heading-rest); /* Use Argent Pixel font */
+}
+
+.contactWrapper {
+  display: block; /* Reset display */
+  max-width: none; /* Reset max-width */
+  margin: 0; /* Reset margin */
+}
+
+@media (min-width: 768px) {
+  .contactWrapper {
+    grid-template-columns: 1fr;
+    max-width: none;
+    margin: 0;
+  }
+}
+
+.contactForm {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem; /* Increased gap for more space */
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem; /* Reduced gap between label and input */
 }
 
 .formGroup label {
-  font-weight: bold;
+  font-weight: normal; /* Lighter label */
+  font-size: 0.9rem; /* Slightly smaller label */
+  color: var(--color-text-light);
 }
 
 .formGroup input,
 .formGroup textarea {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 0.8rem 0.2rem; /* Adjusted padding, less horizontal */
+  border: none; /* Remove default border */
+  border-bottom: 1px solid var(--color-border); /* Add bottom border */
+  border-radius: 0; /* Remove border radius */
   font-family: inherit;
   font-size: 1rem;
+  background-color: transparent; /* Make background transparent */
+  color: var(--color-text);
+  transition: border-color 0.2s ease-in-out; /* Add transition for focus */
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none; /* Remove default focus outline */
+  border-bottom-color: var(--color-primary); /* Highlight bottom border on focus */
 }
 
 .formGroup textarea {
@@ -58,9 +220,10 @@ h1 {
 }
 
 .formStatus {
-  margin-top: 1.5rem;
-  padding: 1rem;
+  margin-top: 1rem; /* Reduced margin */
+  padding: 0.75rem 1rem; /* Adjusted padding */
   border-radius: 4px;
+  font-size: 0.9rem;
 }
 
 .success {
@@ -73,35 +236,78 @@ h1 {
   color: #c62828;
 }
 
-.connectInfo {
-  background-color: #f5f5f5;
+.contactInfo {
+  background-color: var(--color-background-alt);
   padding: 2rem;
   border-radius: 8px;
 }
 
-.connectInfo h2 {
-  font-size: 1.5rem;
+.contactMethod {
   margin-bottom: 1.5rem;
 }
 
-.connectMethod {
-  margin-bottom: 1.5rem;
-}
-
-.connectMethod h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.connectMethod p {
+.contactMethod p {
   margin: 0;
 }
 
-.connectMethod a {
-  color: #0066cc;
+.contactMethod a {
+  color: var(--color-primary);
   text-decoration: none;
 }
 
-.connectMethod a:hover {
+.contactMethod a:hover {
   text-decoration: underline;
+}
+
+/* Layout for the Connect page */
+.connectLayout {
+  display: grid;
+  /* Default: Profile and Contact stacked */
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  max-width: 1200px; /* Max width for the content part */
+  margin: 0 auto; /* Center the content part */
+  width: 100%; /* Ensure full width */
+}
+
+@media (min-width: 992px) { /* Apply two columns on larger screens */
+  .connectLayout {
+    /* Profile | Contact */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* Two equal columns */
+    gap: 6rem; /* Increased gap between columns for more space */
+    align-items: start;
+  }
+}
+
+/* Ensure correct stacking on mobile */
+@media (max-width: 991px) {
+  .connectLayout {
+    grid-template-columns: 1fr;
+    gap: 4rem; /* Maintain good spacing when stacked */
+    max-width: 700px; /* Limit width for better readability when stacked */
+  }
+  
+  .profileColumn,
+  .contactColumn {
+    width: 100%;
+    padding: 0 1rem; /* Add padding to columns when stacked */
+  }
+}
+
+@media (max-width: 767px) {
+  .connectLayout {
+    max-width: 600px; /* Further reduce max-width on smaller screens */
+  }
+  
+  .profileColumn,
+  .contactColumn {
+    padding: 0 1.5rem; /* Increase padding on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .profileColumn,
+  .contactColumn {
+    padding: 0 0.5rem; /* Adjust padding on very small screens */
+  }
 }

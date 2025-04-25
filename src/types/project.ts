@@ -1,15 +1,20 @@
 export interface Project {
   id: number;
   title: string;
-  slug: string;
   description: string;
-  summary: string;
-  imagePath: string;
-  technologies: string[];
-  url?: string;
-  githubUrl?: string;
-  featured: boolean;
-  date: string;
+  image?: string; // Optional static image
+  imageLight?: string; // Optional light theme image
+  imageDark?: string; // Optional dark theme image
+  imageFrames?: string[]; // Optional array of frames for animation
+  projectImages?: string[]; // Optional array of images for the project page
+  link: string;
+  external?: boolean; // Optional flag for external links
+  animationInterval?: number; // Optional animation speed
+  longAnimationInterval?: number; // Optional animation speed for first/last frames
+  tags?: string[]; // Optional tags
+  date?: string; // Optional project completion date
+  category?: 'design' | 'development'; // Optional category
+  // Add any other project properties you might need
 }
 
 export interface ProjectCategory {

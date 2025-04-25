@@ -1,0 +1,120 @@
+/* Custom Cursor Styles */
+
+/* Base cursor styles */
+:root {
+  --cursor-size: 32px;
+  --cursor-color: white;
+  --cursor-stroke: 2px;
+  --cursor-blend-mode: difference;
+}
+
+/* Hide default cursor throughout the application */
+html, 
+body, 
+a, 
+button, 
+input, 
+textarea, 
+select, 
+label,
+[role="button"],
+[tabindex],
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* Custom cursor container */
+.custom-cursor {
+  position: fixed;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: var(--cursor-blend-mode);
+  will-change: transform;
+  /* Only apply transition to opacity for smoother movement */
+  transition: opacity 0.15s ease;
+  /* Use hardware acceleration where possible */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+/* Visibility states */
+.custom-cursor.visible {
+  opacity: 1;
+}
+
+.custom-cursor.hidden {
+  opacity: 0;
+}
+
+/* Crosshair inner element */
+.custom-cursor-crosshair {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Improve rendering performance */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Horizontal line of crosshair */
+.custom-cursor-crosshair::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: var(--cursor-stroke);
+  background-color: var(--cursor-color);
+}
+
+/* Vertical line of crosshair */
+.custom-cursor-crosshair::after {
+  content: '';
+  position: absolute;
+  width: var(--cursor-stroke);
+  height: 100%;
+  background-color: var(--cursor-color);
+}
+
+/* Interactive state - when hovering over clickable elements */
+.custom-cursor.interactive .custom-cursor-crosshair::before,
+.custom-cursor.interactive .custom-cursor-crosshair::after {
+  background-color: var(--cursor-color);
+  /* Quick transition for interactive state */
+  transition: transform 0.1s ease;
+  transform: scale(1.2);
+}
+
+/* Media query to disable custom cursor on touch devices */
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+  
+  /* Restore default cursor on touch devices */
+  html, 
+  body, 
+  a, 
+  button, 
+  input, 
+  textarea, 
+  select, 
+  label,
+  [role="button"],
+  [tabindex],
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: auto !important;
+  }
+  
+  a, button, [role="button"], [tabindex] {
+    cursor: pointer !important;
+  }
+}
