@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Removed useRef
+import React, { useState, useEffect } from 'react';
 import styles from './Home.module.css';
 import { Link } from 'react-router-dom';
 import StyledHeading from '../../components/StyledHeading/StyledHeading';
@@ -7,8 +7,69 @@ import GrowingCanvas from '../../components/GrowingCanvas/GrowingCanvas';
 import ConnectingCanvas from '../../components/ConnectingCanvas/ConnectingCanvas';
 import { projects } from '../../data/projects'; // Import projects data
 import { Project } from '../../types/project'; // Import the full Project type
+import { useTheme } from '../../context/ThemeContext'; // Import useTheme
 
 const featuredProjects = projects.slice(0, 3); // Example: Get first 3 projects
+
+// New component for individual project card with image rotation
+const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+  const { theme } = useTheme();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = project.imageFrames || []; // Use imageFrames for rotation
+
+  // Determine the single fallback image based on theme
+  const fallbackImage = theme === 'dark' ? project.imageDark : project.imageLight;
+  const displayImages = images.length > 0 ? images : (fallbackImage ? [fallbackImage] : (project.image ? [project.image] : [])); // Use fallback if imageFrames is empty
+
+  useEffect(() => {
+    if (displayImages.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
+      }, project.animationInterval || 3000); // Use project interval or default to 3s
+
+      return () => clearInterval(interval); // Cleanup interval on unmount
+    }
+  }, [displayImages, project.animationInterval]); // Rerun effect if images or interval change
+
+  return (
+    <Link
+      to={project.external ? project.link : `/work/${project.id}`}
+      key={project.id}
+      className={styles.project}
+      aria-label={`View project: ${project.title}`}
+      target={project.external ? '_blank' : '_self'}
+      rel={project.external ? 'noopener noreferrer' : ''}
+    >
+      <div className={styles.projectImageContainer}> {/* Added image container */}
+        {displayImages.map((imgSrc, index) => (
+          <img
+            key={index}
+            src={imgSrc}
+            alt={`${project.title} preview ${index + 1}`}
+            className={styles.projectImage}
+            style={{ opacity: index === currentImageIndex ? 1 : 0 }} // Show only current image
+          />
+        ))}
+        {displayImages.length === 0 && ( // Optional: Placeholder if no images
+             <div className={styles.noImagePlaceholder}>No Image Available</div>
+        )}
+      </div>
+      <div className={styles.projectContent}>
+        <div> {/* Wrap title and description */}
+          <StyledHeading level={3}>{project.title}</StyledHeading>
+          <p style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{project.description}</p>
+        </div>
+        {project.tags && project.tags.length > 0 && (
+          <div className={styles.tags}>
+            {project.tags.map((tag, index) => (
+              <span key={index} className={styles.tag} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    </Link>
+  );
+};
 
 const Home: React.FC = () => {
   const phrases = [
@@ -17,7 +78,7 @@ const Home: React.FC = () => {
     "always connecting."
   ];
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  // Removed projectsRef as it's not used
+  const { theme } = useTheme(); // Get theme context
 
   const handleNext = () => {
     setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
@@ -46,7 +107,7 @@ const Home: React.FC = () => {
   }, []); // Empty dependency array means this effect runs once on mount
 
   return (
-    <div className={styles.homeContainer}> {/* Changed from Fragment to div */} 
+    <div className={styles.homeContainer}>
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
@@ -75,9 +136,9 @@ const Home: React.FC = () => {
               </button>
             </p>
           </div>
-          <div className={styles.scrollIndicator}>
-            <div className={styles.arrow}></div>
-          </div>
+          {/* <div className={styles.scrollIndicator}> */}
+          {/*   <div className={styles.arrow}></div> */}
+          {/* </div> */}
         </div>
         <div className={styles.heroCanvasContainer}>
           {/* Conditionally render canvas based on the current phrase */}
@@ -89,28 +150,8 @@ const Home: React.FC = () => {
       
       <section className={styles.projectsSection} id="projects">
         <div className={styles.projectsList}>
-          {featuredProjects.map((project: Project) => ( // Use the imported Project type
-            <Link 
-              to={project.external ? project.link : `/work/${project.id}`} // Adjust link based on external flag
-              key={project.id}
-              className={styles.project}
-              aria-label={`View project: ${project.title}`}
-              target={project.external ? '_blank' : '_self'} // Open external links in new tab
-              rel={project.external ? 'noopener noreferrer' : ''}
-            >
-              <div className={styles.projectContent}>
-                <StyledHeading level={3}>{project.title}</StyledHeading>
-                <p style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{project.description}</p>
-                {/* Removed Date and Category display from here */}
-                {project.tags && project.tags.length > 0 && ( // Check if tags exist
-                  <div className={styles.tags}>
-                    {project.tags.map((tag, index) => (
-                      <span key={index} className={styles.tag} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>{tag}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </Link>
+          {featuredProjects.map((project: Project) => (
+            <ProjectCard key={project.id} project={project} /> // Use the new ProjectCard component
           ))}
         </div>
       </section>
