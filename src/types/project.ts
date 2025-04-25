@@ -6,6 +6,7 @@ export interface Project {
   imageLight?: string; // Optional light theme image
   imageDark?: string; // Optional dark theme image
   imageFrames?: string[]; // Optional array of frames for animation
+  videoSrc?: string; // Optional video source path
   projectImages?: string[]; // Optional array of images for the project page
   link: string;
   external?: boolean; // Optional flag for external links

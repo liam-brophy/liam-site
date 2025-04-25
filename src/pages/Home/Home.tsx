@@ -11,7 +11,7 @@ import { useTheme } from '../../context/ThemeContext'; // Import useTheme
 
 const featuredProjects = projects.slice(0, 3); // Example: Get first 3 projects
 
-// New component for individual project card with image rotation
+// New component for individual project card with image rotation or video
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const { theme } = useTheme();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -22,14 +22,15 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const displayImages = images.length > 0 ? images : (fallbackImage ? [fallbackImage] : (project.image ? [project.image] : [])); // Use fallback if imageFrames is empty
 
   useEffect(() => {
-    if (displayImages.length > 1) {
+    // Only run the image rotation interval if there's no video and multiple images
+    if (!project.videoSrc && displayImages.length > 1) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % displayImages.length);
       }, project.animationInterval || 3000); // Use project interval or default to 3s
 
       return () => clearInterval(interval); // Cleanup interval on unmount
     }
-  }, [displayImages, project.animationInterval]); // Rerun effect if images or interval change
+  }, [displayImages, project.animationInterval, project.videoSrc]); // Add videoSrc to dependency array
 
   return (
     <Link
@@ -41,17 +42,31 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       rel={project.external ? 'noopener noreferrer' : ''}
     >
       <div className={styles.projectImageContainer}> {/* Added image container */}
-        {displayImages.map((imgSrc, index) => (
-          <img
-            key={index}
-            src={imgSrc}
-            alt={`${project.title} preview ${index + 1}`}
-            className={styles.projectImage}
-            style={{ opacity: index === currentImageIndex ? 1 : 0 }} // Show only current image
+        {project.videoSrc ? (
+          <video
+            src={project.videoSrc}
+            className={styles.projectImage} // Reuse the same style
+            autoPlay
+            loop
+            muted // Autoplay often requires muted
+            playsInline // Important for iOS Safari
+            aria-label={`${project.title} demo video`}
           />
-        ))}
-        {displayImages.length === 0 && ( // Optional: Placeholder if no images
-             <div className={styles.noImagePlaceholder}>No Image Available</div>
+        ) : (
+          <>
+            {displayImages.map((imgSrc, index) => (
+              <img
+                key={index}
+                src={imgSrc}
+                alt={`${project.title} preview ${index + 1}`}
+                className={styles.projectImage}
+                style={{ opacity: index === currentImageIndex ? 1 : 0 }} // Show only current image
+              />
+            ))}
+            {displayImages.length === 0 && ( // Optional: Placeholder if no images
+                 <div className={styles.noImagePlaceholder}>No Image Available</div>
+            )}
+          </>
         )}
       </div>
       <div className={styles.projectContent}>

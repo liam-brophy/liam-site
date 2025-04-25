@@ -8,6 +8,7 @@ export const projects: Project[] = [
     // Define base image paths, theme logic will be handled in the component
     imageDark: '/Project_thumbnails/Artifact_Logo_White.png',
     imageLight: '/Project_thumbnails/Artifact_Logo_Black.png',
+    videoSrc: '/project_videos/artifact_demo.mp4', // Added video source
     projectImages: ['/project_images/artifact/img1.png', '/project_images/artifact/img2.png'], // Added project images
     link: 'https://www.artifact.online',
     external: true,
