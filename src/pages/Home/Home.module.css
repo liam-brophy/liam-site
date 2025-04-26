@@ -231,6 +231,13 @@
   transform: scale(1.20); /* Zoom in by 20% */
 }
 
+/* Specific adjustment for Primer videos to ensure no content is cut off */
+.primerVideo {
+  transform: none !important; /* Remove scaling */
+  object-fit: contain !important; /* Ensure the entire video is visible */
+  background-color: black; /* Add black background for letterboxing */
+}
+
 .projectContent {
   padding: 1rem;
   flex-shrink: 0; 

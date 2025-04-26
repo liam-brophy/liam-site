@@ -1,0 +1,17 @@
+.timerContainer {
+  font-family: "argent-pixel-cf", monospace;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+  padding: 5px;
+  background-color: transparent;
+  width: fit-content; 
+}
+
+.timerContainer:hover {
+  opacity: 1;
+}
+
+.timerText {
+  color: black; /* Keep text color black */
+}

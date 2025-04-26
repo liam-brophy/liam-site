@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import styles from './Work.module.css';
 import Card from '../../components/Card/Card';
 import { useTheme } from '../../context/ThemeContext';
-import { projects } from '../../data/projects'; // Import projects data
-import { Project } from '../../types/project'; // Import the full Project type
+import { projects } from '../../data/projects';
+import { Project } from '../../types/project';
 
 const Work: React.FC = () => {
   const { theme } = useTheme();
@@ -85,7 +85,7 @@ const Work: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.projectGrid}>
-        {projects.map((project: Project, index) => { // Ensure Project type is used
+        {projects.map((project: Project, index) => {
           // Determine the correct image based on theme
           let displayImage = project.image;
           if (project.imageLight && project.imageDark) {
@@ -95,21 +95,23 @@ const Work: React.FC = () => {
           return (
             <div
               key={project.id}
-              ref={projectRefs.current[index]} // Assign ref correctly
+              ref={projectRefs.current[index]}
               className={styles.projectCardWrapper}
               style={{ transform: 'scale(0.7)', opacity: '0.3' }}
             >
               <Card
                 title={project.title}
                 description={project.description}
-                image={displayImage} // Use the theme-dependent image
+                image={displayImage}
                 imageFrames={project.imageFrames}
+                videoSrc={project.videoSrc}
                 link={project.link}
                 external={project.external}
                 animationInterval={project.animationInterval}
                 longAnimationInterval={project.longAnimationInterval}
-                date={project.date} // Pass date
-                category={project.category} // Pass category
+                date={project.date}
+                category={project.category}
+                showVideo={false} // Don't show videos on Work page
               />
             </div>
           );

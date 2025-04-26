@@ -1,20 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Card.module.css';
-import AnimatedImage from '../AnimatedImage/AnimatedImage'; // Import the new component
+import AnimatedImage from '../AnimatedImage/AnimatedImage';
 
 interface CardProps {
   title: string;
   description: string;
   link?: string;
-  image?: string; // Keep for single static images
-  imageFrames?: string[]; // Add prop for animated images
+  image?: string;
+  imageFrames?: string[];
+  videoSrc?: string;
   tags?: string[];
   external?: boolean;
-  animationInterval?: number; // Add prop to Card to control interval
-  longAnimationInterval?: number; // Add prop for long pause interval
-  date?: string; // Add date prop
-  category?: 'design' | 'development'; // Add category prop
+  animationInterval?: number;
+  longAnimationInterval?: number;
+  date?: string;
+  category?: 'design' | 'development' | 'Content Management';
+  showVideo?: boolean; // Add prop to control whether videos should be shown
 }
 
 const Card: React.FC<CardProps> = ({
@@ -22,26 +24,43 @@ const Card: React.FC<CardProps> = ({
   description,
   link,
   image,
-  imageFrames, // Destructure the new prop
+  imageFrames,
+  videoSrc,
   tags = [],
   external = false,
-  animationInterval, // Destructure the new prop
-  longAnimationInterval, // Destructure the new prop
-  date, // Destructure date
-  category, // Destructure category
+  animationInterval,
+  longAnimationInterval,
+  date,
+  category,
+  showVideo = true, // Default to true for backward compatibility
 }) => {
   const cardContent = (
     <>
-      {/* Conditionally render AnimatedImage or static img */}
-      {(image || imageFrames) && (
+      {/* Show video if available AND showVideo is true, otherwise show image */}
+      {videoSrc && showVideo ? (
+        <div className={`${styles.imageContainer} ${styles.videoContainer}`}>
+          <div className={styles.videoWrapper}>
+            <video 
+              src={videoSrc}
+              className={`${styles.video} ${title === 'Primer' ? styles.primerVideo : ''}`}
+              muted
+              loop
+              autoPlay
+              playsInline
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      ) : (image || imageFrames) && (
         <div className={styles.imageContainer}>
           {imageFrames && imageFrames.length > 0 ? (
             <AnimatedImage 
               frameUrls={imageFrames} 
               alt={title} 
               className={styles.image} 
-              shortIntervalMs={animationInterval} // Pass animationInterval as shortIntervalMs
-              longIntervalMs={longAnimationInterval} // Pass longAnimationInterval as longIntervalMs
+              shortIntervalMs={animationInterval}
+              longIntervalMs={longAnimationInterval}
             />
           ) : image ? (
             <img src={image} alt={title} className={styles.image} loading="lazy" />
@@ -50,10 +69,8 @@ const Card: React.FC<CardProps> = ({
       )}
       
       <div className={styles.content}>
-        {/* <h3 className={styles.title}>{title}</h3> */} {/* Removed title header */}
         <p className={styles.description}>{description}</p>
 
-        {/* Display Date and Category Combined */}
         {(date || category) && (
           <div className={styles.meta}>
             <p className={styles.metaText}>

@@ -14,7 +14,7 @@ export interface Project {
   longAnimationInterval?: number; // Optional animation speed for first/last frames
   tags?: string[]; // Optional tags
   date?: string; // Optional project completion date
-  category?: 'design' | 'development'; // Optional category
+  category?: 'design' | 'development' | 'Content Management'; // Updated to include Content Management
   // Add any other project properties you might need
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
-import Clock from '../Clock/Clock';
+import Timer from '../Timer/Timer';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -85,9 +85,9 @@ const Navbar: React.FC = () => {
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''} ${isMenuOpen ? styles.menuOpen : ''}`}>
       <div className={styles.container}>
-        {/* Clock at the top of sidebar */}
+        {/* Timer at the top of sidebar */}
         <div className={styles.topSection}>
-          <Clock />
+          <Timer />
         </div>
         
         {/* Main navigation links */}

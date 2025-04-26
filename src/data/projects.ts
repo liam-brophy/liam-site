@@ -23,6 +23,7 @@ export const projects: Project[] = [
     // Define base image paths, theme logic will be handled in the component
     imageDark: '/Project_thumbnails/Primer_Logo_White.png',
     imageLight: '/Project_thumbnails/Primer_Logo_Black.png',
+    videoSrc: '/project_videos/primer_demo.mp4', // Added video source
     projectImages: ['/project_images/primer/img1.png', '/project_images/primer/img2.png'], // Added project images
     link: 'https://www.primer.press',
     external: true,
@@ -43,6 +44,20 @@ export const projects: Project[] = [
   },
   {
     id: 4,
+    title: 'GoCA',
+    description: 'Gallery of Contemporary Art digital platform for exhibitions and artist showcases.',
+    // Define base image paths, theme logic will be handled in the component
+    imageDark: '/Project_thumbnails/GoCA_Secondary-Lockup_light.png',
+    imageLight: '/Project_thumbnails/GoCA_Secondary-Lockup_dark.png',
+    projectImages: ['/project_images/goca/img1.png', '/project_images/goca/img2.png'],
+    link: 'https://www.goca.org',
+    external: true,
+    tags: ['React', 'TypeScript', 'UI/UX Design', 'Gallery Management'],
+    date: '2025',
+    category: 'Content Management'
+  },
+  {
+    id: 5,
     title: 'Editorial Design',
     description: 'Covers, interiors, and report design work for various publications.',
     imageFrames: [
@@ -72,7 +87,7 @@ export const projects: Project[] = [
     category: 'design' // Added category
   },
   {
-    id: 5,
+    id: 6,
     title: "Children's Books",
     description: 'Children\'s book design work for various publications.',
     imageFrames: [

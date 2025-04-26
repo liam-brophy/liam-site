@@ -45,7 +45,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         {project.videoSrc ? (
           <video
             src={project.videoSrc}
-            className={styles.projectImage} // Reuse the same style
+            className={`${styles.projectImage} ${project.title === 'Primer' ? styles.primerVideo : ''}`}
             autoPlay
             loop
             muted // Autoplay often requires muted
