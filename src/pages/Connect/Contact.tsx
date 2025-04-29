@@ -83,15 +83,15 @@ const Connect: React.FC = () => {
         <section className={styles.profileColumn}>
           <div className={styles.bioContent}>
             <p>
-              Visual storyteller turned code wrangler who transforms ideas into seamless digital experiences. Since 2021, I've been navigating the creative-technical spectrum with equal parts intuition and precision.
+              Visual storyteller turned front-end engineer, transforming ideas into seamless digital experiences. Since 2021, I've navigated the creative-technical spectrum with equal parts intuition and precision — from book design and publishing to full-stack web development.
             </p>
             
             <p>
-              After mastering design tools as a book designer (covers, interiors, and marketing collateral), I expanded my toolkit through software engineering training in 2025. Now I blend design sensibilities with robust development practices most commonly using React, TypeScript, Python, and Tailwind CSS.
+              After mastering visual design through covers, interiors, and marketing collateral, I expanded my toolkit with software engineering training in 2025. Today, I combine strong design sensibilities with robust development practices, primarily using React, Next.js, Python, and SQL.
             </p>
 
             <p>
-              Looking to continue growing as a developer, designer, and creative technologist in environments where digital experiences and human connection intersect.
+              I'm passionate about creating digital experiences where technology and human connection meet — and excited to keep growing as a developer, designer, and creative technologist.
             </p>
             
             <ul className={styles.skillsList}>
