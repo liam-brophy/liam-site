@@ -4,8 +4,7 @@ import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home/Home'
 import Work from './pages/Work/Work'
 import Connect from './pages/Connect/Contact'
-import Project4 from './pages/Project4/Project4'; // Import Project 4 page
-import Project5 from './pages/Project5/Project5'; // Import Project 5 page
+import ProjectDetail from './pages/ProjectDetail'; // Import ProjectDetail instead of individual Project pages
 import CustomCursor from './components/CustomCursor/CustomCursor';
 import { ThemeProvider } from './context/ThemeContext'
 import { animateFavicon } from './utils/helpers' // Import the new function
@@ -197,14 +196,11 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/work" element={<Work />} />
-                  {/* Add routes for individual project pages */}
-                  <Route path="/work/project4" element={<Project4 />} />
-                  <Route path="/work/project5" element={<Project5 />} />
+                  {/* Use ProjectDetail for all project routes */}
+                  <Route path="/work/project/:projectId" element={<ProjectDetail />} />
                   {/* Redirect /about to /connect */}
                   <Route path="/about" element={<Navigate to="/connect" replace />} />
                   <Route path="/connect" element={<Connect />} />
-                  {/* Optional: Add a catch-all route or a specific route for project IDs */}
-                  {/* <Route path="/work/:projectId" element={<ProjectDetail />} /> */}
                 </Routes>
               </main>
             </div>

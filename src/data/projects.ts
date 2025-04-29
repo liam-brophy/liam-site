@@ -37,7 +37,7 @@ export const projects: Project[] = [
     description: 'Collaborate on stories with your friends and editors, get feedback on your writing, and share your work.',
     image: '/path/to/image3.jpg', // Keep single image if no theme variation
     projectImages: ['/project_images/storied/img1.png', '/project_images/storied/img2.png'], // Added project images
-    link: '/work/project3',
+    link: '/work/project/3', // Updated link format to match others
     tags: ['React Native', 'Database Design', 'UI/UX Design'], // Updated tags
     date: '2025', // Updated date
     category: 'development' // Added category
@@ -79,7 +79,7 @@ export const projects: Project[] = [
       '/editorial/editorial_frame-016.png',
     ],
     projectImages: ['/project_images/editorial/img1.png', '/project_images/editorial/img2.png'], // Added project images
-    link: '/work/project4',
+    link: '/work/project/5', // Updated link format
     animationInterval: 100,
     longAnimationInterval: 1500,
     tags: ['UI/UX Design', 'HTML/CSS'], // Updated tags
@@ -101,7 +101,7 @@ export const projects: Project[] = [
       '/childrens/Childrens_frames-08.png',
     ],
     projectImages: ['/project_images/childrens/img1.png', '/project_images/childrens/img2.png'], // Added project images
-    link: '/work/project5',
+    link: '/work/project/6', // Updated link format
     animationInterval: 100,
     longAnimationInterval: 1500,
     tags: ['UI/UX Design'], // Updated tags
