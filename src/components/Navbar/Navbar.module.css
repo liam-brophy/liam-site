@@ -123,14 +123,14 @@
   cursor: pointer;
   padding: 0.5rem;
   margin-top: 1rem;
+  z-index: 1001;
 }
 
-.menuIcon,
-.menuIcon::before,
-.menuIcon::after {
+.menuIcon {
+  position: relative;
   display: block;
   width: 24px;
-  height: 1px;
+  height: 2px; /* Increased from 1px to 2px for better visibility */
   background-color: var(--color-text);
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -139,14 +139,19 @@
 .menuIcon::after {
   content: '';
   position: absolute;
+  width: 24px;
+  height: 2px; /* Increased from 1px to 2px for better visibility */
+  background-color: var(--color-text);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  left: 0;
 }
 
 .menuIcon::before {
-  transform: translateY(-8px);
+  transform: translateY(-7px);
 }
 
 .menuIcon::after {
-  transform: translateY(8px);
+  transform: translateY(7px);
 }
 
 /* Overlay to capture clicks outside menu */
@@ -166,7 +171,7 @@
   .navbar {
     top: 0;
     right: 0;
-    left: auto;
+    left: 0;
     bottom: auto;
     width: 100%;
     height: var(--header-height, 64px);
@@ -176,6 +181,7 @@
     flex-direction: row;
     padding: 0 1.5rem;
     height: var(--header-height, 64px);
+    position: relative;
   }
   
   .topSection {
@@ -197,10 +203,20 @@
   .navGroup {
     position: fixed;
     top: 0;
+    left: 0;
     right: 0;
-    bottom: 0;
-    width: 0;
+    height: 100vh;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
     overflow: hidden;
+    transition: visibility 0.3s ease, opacity 0.3s ease;
+    z-index: 999;
+  }
+  
+  .navbar.menuOpen .navGroup {
+    visibility: visible;
+    opacity: 1;
   }
   
   .navMenu {
@@ -252,42 +268,34 @@
     z-index: 990;
   }
   
-  /* Remove the navbar::before pseudo-element that was adding the overlay */
-  .navbar.menuOpen::before {
-    content: none;
-  }
-  
-  /* Hide the previous overlay class */
-  .overlay {
-    display: none !important;
-  }
-  
+  /* Show menu button in mobile view */
   .menuButton {
     display: block;
-    z-index: 1001;
-    margin-top: 0;
-    position: fixed; /* Position fixed to stay in place */
-    top: 15px; /* Position from top */
-    right: 15px; /* Position from right */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
     padding: 10px;
+    z-index: 1001;
+    margin: 0;
+    width: 44px; /* Set explicit width for better touch target */
+    height: 44px; /* Set explicit height for better touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* Menu button animation when open */
-  .menuOpen .menuIcon {
+  .menuButton.menuOpen .menuIcon {
     background-color: transparent;
   }
 
-  .menuOpen .menuIcon::before {
+  .menuButton.menuOpen .menuIcon::before {
     transform: rotate(45deg);
   }
 
-  .menuOpen .menuIcon::after {
+  .menuButton.menuOpen .menuIcon::after {
     transform: rotate(-45deg);
-  }
-  
-  /* Show overlay when menu is open */
-  .navbar.menuOpen .overlay {
-    display: block;
   }
   
   /* Add class for body to prevent scrolling when menu is open */

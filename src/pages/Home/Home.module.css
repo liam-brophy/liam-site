@@ -109,7 +109,7 @@
 }
 
 .subtitle {
-  font-size: clamp(1.1rem, 3vw, 1.8rem); /* Smaller, more adaptive sizing */
+  font-size: clamp(1rem, 2.8vw, 1.6rem); /* Reduced from clamp(1.1rem, 3vw, 1.8rem) */
   font-weight: 400;
   margin-bottom: 2rem; /* Reduced spacing */
   opacity: 0.8;
@@ -119,18 +119,20 @@
 .inlineArrowButton {
   background: none;
   border: none;
-  padding: 0 5px; /* Adjust padding */
-  margin: 0; /* Remove default button margin */
+  padding: 0 5px;
+  margin: 0;
   cursor: pointer;
-  font-size: inherit; /* Match surrounding text size */
-  color: inherit; /* Match surrounding text color */
-  font-style: normal; /* Ensure buttons aren't italic */
-  display: inline; /* Ensure buttons are inline */
-  vertical-align: baseline; /* Align with text baseline */
+  font-size: 1rem; /* Reduced from 1.2rem to match carousel triangles */
+  color: var(--color-text);
+  font-style: normal;
+  display: inline;
+  vertical-align: baseline;
+  opacity: 0.6; /* Start with reduced opacity like carousel buttons */
+  transition: opacity 0.3s ease; /* Smooth transition for hover effect */
 }
 
 .inlineArrowButton:hover {
-  opacity: 0.7; /* Subtle hover effect */
+  opacity: 1; /* Full opacity on hover */
 }
 
 /* Add keyframes for bobbing animation */
@@ -193,6 +195,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0;
+  justify-content: center; /* Center the grid items horizontally */
 }
 
 .project {
@@ -358,14 +361,15 @@
 /* Responsive media queries for projects grid */
 @media (min-width: 768px) {
   .projectsList {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 500px)); /* Two equal columns with max width */
     gap: 2rem;
   }
 }
 
 @media (min-width: 1200px) {
   .projectsList {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 500px)); /* Keep at two columns */
+    gap: 3rem; /* Increase gap for larger screens */
   }
 }
 
@@ -394,7 +398,7 @@
   }
   
   .subtitle {
-    font-size: clamp(1rem, 5vw, 1.5rem); /* Smaller font on mobile */
+    font-size: clamp(1rem, 2.8vw, 1.6rem); /* Reduced from clamp(1.1rem, 3vw, 1.8rem) */
     margin-bottom: 2rem;
   }
   

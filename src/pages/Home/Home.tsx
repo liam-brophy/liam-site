@@ -9,7 +9,8 @@ import { projects } from '../../data/projects'; // Import projects data
 import { Project } from '../../types/project'; // Import the full Project type
 import { useTheme } from '../../context/ThemeContext'; // Import useTheme
 
-const featuredProjects = projects.slice(0, 3); // Example: Get first 3 projects
+// Filter out hidden projects and get the first 2 projects
+const featuredProjects = projects.filter(project => !project.hidden).slice(0, 2);
 
 // New component for individual project card with image rotation or video
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
@@ -137,7 +138,7 @@ const Home: React.FC = () => {
                 onClick={handlePrev} 
                 aria-label="Previous phrase"
               >
-                ←
+                &#9664;
               </button>
               <span className={styles.animatedPhrase}> {/* Added wrapper span for animation */}
                 <span style={{ fontStyle: 'italic', margin: '0 5px' }}>{phrases[currentPhraseIndex]}</span>
@@ -147,7 +148,7 @@ const Home: React.FC = () => {
                 onClick={handleNext} 
                 aria-label="Next phrase"
               >
-                →
+                &#9654;
               </button>
             </p>
           </div>
@@ -176,8 +177,8 @@ const Home: React.FC = () => {
         <div className={styles.footerContent}>
           <p className={styles.copyright} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>&copy; {new Date().getFullYear()} Liam Brophy. All rights reserved.</p>
           <div className={styles.socialLinks}>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>GitHub</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>LinkedIn</a>
+            <a href="https://github.com/liam-brophy" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>GitHub</a>
+            <a href="https://www.linkedin.com/in/liam--brophy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>LinkedIn</a>
           </div>
         </div>
       </footer>

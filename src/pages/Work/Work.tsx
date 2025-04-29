@@ -10,11 +10,12 @@ const Work: React.FC = () => {
   const projectRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
   const scrollContainerRef = useRef<Element | null>(null); // Ref for the scrolling element
 
-  // Projects data is now imported from ../../data/projects
+  // Filter out hidden projects
+  const visibleProjects = projects.filter(project => !project.hidden);
 
-  // Ensure refs array has the same length as projects
-  if (projectRefs.current.length !== projects.length) {
-    projectRefs.current = Array(projects.length).fill(null).map((_, i) => projectRefs.current[i] || React.createRef<HTMLDivElement>());
+  // Ensure refs array has the same length as visible projects
+  if (projectRefs.current.length !== visibleProjects.length) {
+    projectRefs.current = Array(visibleProjects.length).fill(null).map((_, i) => projectRefs.current[i] || React.createRef<HTMLDivElement>());
   }
 
   // Scroll handler directly manipulates styles
@@ -85,7 +86,7 @@ const Work: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.projectGrid}>
-        {projects.map((project: Project, index) => {
+        {visibleProjects.map((project: Project, index) => {
           // Determine the correct image based on theme
           let displayImage = project.image;
           if (project.imageLight && project.imageDark) {

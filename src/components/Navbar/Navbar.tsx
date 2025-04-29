@@ -121,16 +121,6 @@ const Navbar: React.FC = () => {
               </NavLink>
             </li>
           </ul>
-          
-          {/* Close button in top-right of menu on mobile */}
-          <button 
-            className={`${styles.menuButton} ${isMenuOpen ? styles.menuOpen : ''}`}
-            onClick={toggleMenu}
-            aria-expanded={isMenuOpen}
-            aria-label="Toggle navigation menu"
-          >
-            <span className={styles.menuIcon}></span>
-          </button>
         </div>
         
         {/* Theme toggle at the bottom of sidebar */}
@@ -139,6 +129,16 @@ const Navbar: React.FC = () => {
             <ThemeToggle />
           </div>
         </div>
+
+        {/* Moved menu button outside of navGroup for better mobile positioning */}
+        <button 
+          className={`${styles.menuButton} ${isMenuOpen ? styles.menuOpen : ''}`}
+          onClick={toggleMenu}
+          aria-expanded={isMenuOpen}
+          aria-label="Toggle navigation menu"
+        >
+          <span className={styles.menuIcon}></span>
+        </button>
       </div>
     </nav>
   );

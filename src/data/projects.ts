@@ -35,12 +35,15 @@ export const projects: Project[] = [
     id: 3,
     title: 'Storied',
     description: 'Collaborate on stories with your friends and editors, get feedback on your writing, and share your work.',
-    image: '/path/to/image3.jpg', // Keep single image if no theme variation
-    projectImages: ['/project_images/storied/img1.png', '/project_images/storied/img2.png'], // Added project images
-    link: '/work/project/3', // Updated link format to match others
-    tags: ['React Native', 'Database Design', 'UI/UX Design'], // Updated tags
-    date: '2025', // Updated date
-    category: 'development' // Added category
+    imageDark: '/Project_thumbnails/Storied_Logo_White.png',
+    imageLight: '/Project_thumbnails/Storied_Logo_Black.png',
+    wip: '/WIP_liamsite.png', // Added WIP image reference
+    projectImages: ['/project_images/storied/img1.png', '/project_images/storied/img2.png'],
+    link: '/work/project/3',
+    tags: ['React Native', 'Database Design', 'UI/UX Design'],
+    date: '2025',
+    category: 'development',
+    hidden: true // Flag to hide this project from navigation
   },
   {
     id: 4,
@@ -59,7 +62,7 @@ export const projects: Project[] = [
   {
     id: 5,
     title: 'Editorial Design',
-    description: 'Covers, interiors, and report design work for various publications.',
+    description: 'Covers, interiors, and report design work.',
     imageFrames: [
       '/editorial/editorial_frame-01.png',
       '/editorial/editorial_frame-02.png',
@@ -78,18 +81,34 @@ export const projects: Project[] = [
       '/editorial/editorial_frame-15.png',
       '/editorial/editorial_frame-016.png',
     ],
-    projectImages: ['/project_images/editorial/img1.png', '/project_images/editorial/img2.png'], // Added project images
-    link: '/work/project/5', // Updated link format
+    projectImages: ['/project_images/editorial/img1.png', '/project_images/editorial/img2.png'],
+    // Add editorial work images similar to children's book images
+    editorialWorkImages: [
+      '/editorial-work/AtlanticCouncil/AC_1.jpg',
+      '/editorial-work/AtlanticCouncil/AC_2.jpg',
+      '/editorial-work/AtlanticCouncil/AC_3.jpg',
+      '/editorial-work/AtlanticCouncil/AC_5.jpg',
+      '/editorial-work/AtlanticCouncil/AC_6.jpg',
+      '/editorial-work/AtlanticCouncil/AC_7.jpg',
+      '/editorial-work/AtlanticCouncil/AC_8.jpg',
+      '/editorial-work/AtlanticCouncil/AC_10.jpg',
+      '/editorial-work/Covers/AManual_v1.png',
+      '/editorial-work/Covers/BrainOn_HRCover.jpg',
+      '/editorial-work/Covers/ChildrenOfTime3.jpg',
+      '/editorial-work/Covers/HealingPowerofLaughter_HR (1).jpg',
+      '/editorial-work/Covers/WheretheShadowsDance_HRCover.jpg',
+    ],
+    link: '/work/project/5',
     animationInterval: 100,
     longAnimationInterval: 1500,
-    tags: ['UI/UX Design', 'HTML/CSS'], // Updated tags
-    date: '2024', // Updated date
-    category: 'design' // Added category
+    tags: ['UI/UX Design', 'Publication Design', 'Editorial Design'],
+    date: '2024',
+    category: 'design'
   },
   {
     id: 6,
     title: "Children's Books",
-    description: 'Children\'s book design work for various publications.',
+    description: 'Children\'s book design work.',
     imageFrames: [
       '/childrens/Childrens_frames-01.png',
       '/childrens/Childrens_frames-02.png',

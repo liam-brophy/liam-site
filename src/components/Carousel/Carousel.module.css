@@ -19,44 +19,60 @@
 
 .image {
   display: block;
-  width: 100%;
+  width: auto;
   height: auto;
   object-fit: contain;
-  max-height: 90vh;
+  max-height: 80vh;
+  max-width: 80%; /* Reduced from 85% to create more space for buttons */
+  margin: 0 auto;
   transition: opacity 0.5s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
 }
 
-.arrow {
+/* No shadow variant for images that already have their own styling */
+.noShadow {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Dark mode adjustment for drop shadow */
+:global([data-theme='dark']) .image {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Simple arrow styles */
+.simpleArrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.15);
-  color: rgba(255, 255, 255, 0.7);
+  background-color: transparent;
   border: none;
-  padding: 10px 15px;
+  padding: 0;
   cursor: pointer;
-  font-size: 1.5rem;
   z-index: 10;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.3s ease, background-color 0.3s ease;
+  font-family: "argent-pixel-cf", sans-serif;
+  font-size: 1rem; /* Reduced from 1.2rem to make arrows smaller */
   opacity: 0;
+  transition: opacity 0.3s ease;
+  color: rgba(0, 0, 0, 0.5); /* Reduced opacity for light mode */
 }
 
-.arrow:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+/* Color adjustment for dark mode */
+:global([data-theme='dark']) .simpleArrow {
+  color: rgba(255, 255, 255, 0.6); /* Reduced opacity for dark mode */
+}
+
+.simpleArrow.visible {
+  opacity: 0.6; /* More subtle visibility when hovered */
 }
 
 .leftArrow {
-  left: 10px;
+  left: 25px;
 }
 
 .rightArrow {
-  right: 10px;
+  right: 25px;
 }
 
 .dots {
@@ -74,15 +90,16 @@
   display: inline-block;
   height: 8px;
   width: 8px;
-  background-color: rgba(187, 187, 187, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   margin: 0 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .activeDot {
-  background-color: rgba(113, 113, 113, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.2);
 }
 
 .visible {

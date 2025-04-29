@@ -9,6 +9,7 @@ export interface Project {
   videoSrc?: string; // Optional video source path
   projectImages?: string[]; // Optional array of images for the project page
   childrensBookImages?: string[]; // Optional array of children's book images
+  editorialWorkImages?: string[]; // Optional array of editorial work images
   link: string;
   external?: boolean; // Optional flag for external links
   animationInterval?: number; // Optional animation speed
