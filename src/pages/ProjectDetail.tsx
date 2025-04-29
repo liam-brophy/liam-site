@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styles from './ProjectDetail.module.css';
 import { projects } from '../data/projects';
 import { Project } from '../types/project';
+import Carousel from '../components/Carousel/Carousel';
 
 const ProjectDetail: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -10,8 +11,6 @@ const ProjectDetail: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Find the project by ID
-    // Convert projectId string to number for comparison
     const id = projectId ? parseInt(projectId, 10) : -1;
     const foundProject = projects.find(p => p.id === id);
     setProject(foundProject || null);
@@ -26,6 +25,60 @@ const ProjectDetail: React.FC = () => {
     return <div>Project not found</div>;
   }
 
+  // For the children's book project (ID 6), show the split layout
+  if (project.id === 6 && project.childrensBookImages && project.childrensBookImages.length > 0) {
+    return (
+      <div className={styles.splitLayout}>
+        <div className={styles.carouselColumn}>
+          <Carousel 
+            images={project.childrensBookImages} 
+            altText={`${project.title} Book Cover`} 
+          />
+        </div>
+        <div className={styles.contentColumn}>
+          <div className={styles.contentWrapper}>
+            <h1 className={styles.projectTitle}>Children's Books</h1>
+            
+            <p className={styles.contentParagraph}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel feugiat urna. 
+              Curabitur vitae justo sed nisi imperdiet vestibulum. Praesent eget varius ligula.
+            </p>
+            
+            <div className={styles.logoContainer}>
+              <a 
+                href="https://amplifypublishinggroup.com/imprints/childrens-book-publisher/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.logoLink}
+              >
+                <img 
+                  src="/childrens-work/mascotkids.png" 
+                  alt="Mascot Kids Logo" 
+                  className={styles.logo}
+                />
+              </a>
+              
+              <a 
+                href="https://amplifypublishinggroup.com/imprints/childrens-book-publisher/" 
+                className={styles.contentLink} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                See more
+              </a>
+            </div>
+            
+            <p className={styles.contentParagraph}>
+              Ut efficitur elit at vehicula volutpat. Nulla facilisi. Nunc dignissim massa vel 
+              pulvinar tincidunt. Mauris quis efficitur turpis, at convallis enim.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Regular project display for other projects
   return (
     <div className={styles.projectDetailContainer}>
       <h1 className={styles.projectTitle}>{project.title}</h1>

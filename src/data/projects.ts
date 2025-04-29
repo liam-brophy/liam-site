@@ -100,12 +100,33 @@ export const projects: Project[] = [
       '/childrens/Childrens_frames-07.png',
       '/childrens/Childrens_frames-08.png',
     ],
-    projectImages: ['/project_images/childrens/img1.png', '/project_images/childrens/img2.png'], // Added project images
-    link: '/work/project/6', // Updated link format
+    projectImages: ['/project_images/childrens/img1.png', '/project_images/childrens/img2.png'],
+    // Add a new property for the children's book carousel images
+    childrensBookImages: [
+      '/childrens-work/AmysCoat_3D (1).png',
+      '/childrens-work/BentleysDayOut_3D+copy (1).png',
+      '/childrens-work/Bull&Bear_3D+copy (1).png',
+      '/childrens-work/CockaDoodleDont_3D+copy (1).png',
+      '/childrens-work/DaisyDoesn\'tDockDive_3D+copy.png',
+      '/childrens-work/Hay_3D+copy (1).png',
+      '/childrens-work/HearofGold_3D+copy (1).png',
+      '/childrens-work/HomeThatLoveBuilt_3D (1).png',
+      '/childrens-work/Iam_SelfDiscovery_3D+copy (1).png',
+      '/childrens-work/IsYourDoctor_3D+copy.png',
+      '/childrens-work/IzzyandRubes_3D+copy (1).png',
+      '/childrens-work/JulieO\'Day_FrontCover_3D+copy.png',
+      '/childrens-work/JustUs3_3D+copy (1).png',
+      '/childrens-work/LifeofaGothicBaby_3D+copy (1).png',
+      '/childrens-work/LittleToad_3D+copy (1).png',
+      '/childrens-work/OtistheTrashTalkingOctopus_3D.png',
+      '/childrens-work/WilliamEntemann_3D (1).png',
+      '/childrens-work/WorldsNextGreatestBook_3D (1).png'
+    ],
+    link: '/work/project/6',
     animationInterval: 100,
     longAnimationInterval: 1500,
-    tags: ['UI/UX Design'], // Updated tags
-    date: '2024', // Updated date
-    category: 'design' // Added category
+    tags: ['UI/UX Design', 'Book Design', 'Children\'s Literature'], // Updated tags
+    date: '2024',
+    category: 'design'
   }
 ];
