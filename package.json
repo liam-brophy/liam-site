@@ -13,6 +13,7 @@
     "mcp-server": "npm run build-server && npm run start-server"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "cors": "^2.8.5",

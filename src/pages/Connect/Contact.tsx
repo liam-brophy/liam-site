@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './Contact.module.css';
 import Button from '../../components/Button/Button';
+import emailjs from '@emailjs/browser';
 
 const Connect: React.FC = () => {
+  useEffect(() => {
+    // Initialize EmailJS
+    emailjs.init("QXC_gA8JjKOrvtKxl");
+  }, []);
+
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,11 +33,24 @@ const Connect: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
     
     try {
-      // In a real app, you would send the form data to your backend
-      // Simulating API call with a timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Set up template parameters for EmailJS
+      const templateParams = {
+        to_email: 'hello@liam.site',
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message
+      };
+      
+      // Send the email using EmailJS with your credentials
+      await emailjs.send(
+        'service_fzes7ia', // Your EmailJS service ID
+        'template_v4x1sp9', // Your EmailJS template ID
+        templateParams,
+        'QXC_gA8JjKOrvtKxl' // Your EmailJS public key
+      );
       
       setSubmitStatus({
         success: true,
@@ -44,6 +64,7 @@ const Connect: React.FC = () => {
         message: ''
       });
     } catch (error) {
+      console.error('Failed to send message:', error);
       setSubmitStatus({
         success: false,
         message: 'Failed to send your message. Please try again later.'
@@ -95,7 +116,7 @@ const Connect: React.FC = () => {
             </ul>
             
             <div className={styles.actions}>
-              <Button variant="primary" onClick={() => window.open('/resume.pdf', '_blank')} fullWidth>
+              <Button variant="primary" onClick={() => window.open('/LiamBrophy_Resume.pdf', '_blank')} fullWidth>
                 Download Resume
               </Button>
             </div>
@@ -109,7 +130,7 @@ const Connect: React.FC = () => {
             Feel free to reach out with any questions or projects you'd like to discuss.
           </p>
           
-          <form className={styles.contactForm} onSubmit={handleSubmit}>
+          <form ref={formRef} className={styles.contactForm} onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
               <label htmlFor="name">Name</label>
               <input

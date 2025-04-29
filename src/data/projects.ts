@@ -50,7 +50,7 @@ export const projects: Project[] = [
     imageDark: '/Project_thumbnails/GoCA_Secondary-Lockup_light.png',
     imageLight: '/Project_thumbnails/GoCA_Secondary-Lockup_dark.png',
     projectImages: ['/project_images/goca/img1.png', '/project_images/goca/img2.png'],
-    link: 'https://www.goca.org',
+    link: 'https://www.goca.gallery',
     external: true,
     tags: ['React', 'TypeScript', 'UI/UX Design', 'Gallery Management'],
     date: '2025',
