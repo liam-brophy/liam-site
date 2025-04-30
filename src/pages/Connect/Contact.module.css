@@ -1,9 +1,11 @@
 .container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 4rem 2rem; /* Increased side padding */
-  min-height: 100vh; 
+  padding: 4rem 2rem 2rem; /* Reduced bottom padding */
+  min-height: 100vh;
   display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: space-between; /* This pushes footer to bottom */
   align-items: center;
 }
 
@@ -141,13 +143,64 @@ h4 {
 
 .actions {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
-@media (max-width: 480px) {
-  .actions {
+.socialButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.socialButtons button {
+  flex: 1;
+  font-family: "argent-pixel-cf", sans-serif !important;
+}
+
+/* Specific colors for social buttons */
+.githubButton {
+  background-color: #f8e473 !important; /* Yellow for GitHub */
+  color: #212121 !important;
+  border-color: #e6d25d !important;
+}
+
+.mediumButton {
+  background-color: #e45f56 !important; /* Red for Medium */
+  color: white !important;
+  border-color: #c94940 !important;
+}
+
+.linkedinButton {
+  background-color: #0077b5 !important; /* Blue for LinkedIn */
+  color: white !important;
+  border-color: #005f92 !important;
+}
+
+/* Dark mode adjustments - lighter colors */
+:global([data-theme='dark']) .githubButton {
+  background-color: #fff9c4 !important; /* Lighter Yellow */
+  color: #212121 !important; /* Dark text for contrast */
+  border-color: #fff176 !important;
+}
+
+:global([data-theme='dark']) .mediumButton {
+  background-color: #ffcdd2 !important; /* Lighter Red */
+  color: #212121 !important; /* Dark text for contrast */
+  border-color: #ef9a9a !important;
+}
+
+:global([data-theme='dark']) .linkedinButton {
+  background-color: #bbdefb !important; /* Lighter Blue */
+  color: #212121 !important; /* Dark text for contrast */
+  border-color: #90caf9 !important;
+}
+
+@media (max-width: 576px) {
+  .socialButtons {
     flex-direction: column;
+    gap: 0.75rem;
   }
 }
 
@@ -310,4 +363,38 @@ h4 {
   .contactColumn {
     padding: 0 0.5rem; /* Adjust padding on very small screens */
   }
+}
+
+/* Footer styles */
+.footer {
+  width: 100%;
+  margin-top: 4rem; /* Increased margin to create more space between content and footer */
+  padding: 1rem 0;
+  background-color: transparent;
+}
+
+.footerContent {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center; /* Center the links */
+  gap: 3rem; /* Increased gap for more even spacing between links */
+}
+
+.socialLinks a {
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0.5rem 0;
+  font-family: "argent-pixel-cf", sans-serif !important; /* Ensure Argent Pixel font is used */
 }

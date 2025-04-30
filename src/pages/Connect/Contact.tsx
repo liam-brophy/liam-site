@@ -95,27 +95,36 @@ const Connect: React.FC = () => {
             </p>
             
             <ul className={styles.skillsList}>
-              {/* Frontend */}
+              {/* Temporarily commented out skill buttons
               <li data-discipline="frontend">JavaScript</li>
               <li data-discipline="frontend">TypeScript</li>
               <li data-discipline="frontend">React</li>
               <li data-discipline="frontend">HTML / CSS</li>
               <li data-discipline="frontend">Tailwind</li>
               <li data-discipline="frontend">Vite</li>
-              {/* Backend */}
               <li data-discipline="backend">Python</li>
               <li data-discipline="backend">Flask</li>
               <li data-discipline="backend">SQL (Postgres)</li>
               <li data-discipline="backend">REST APIs</li>
-              {/* Design */}
               <li data-discipline="design">Figma</li>
               <li data-discipline="design">Adobe Creative Suite</li>
-              {/* Tools/Other */}
               <li data-discipline="tools">Git</li>
               <li data-discipline="tools">Docker</li>
+              */}
             </ul>
             
             <div className={styles.actions}>
+              <div className={styles.socialButtons}>
+                <Button variant="outline" onClick={() => window.open('https://github.com/liam-brophy', '_blank')} className={styles.githubButton}>
+                  GitHub
+                </Button>
+                <Button variant="outline" onClick={() => window.open('https://medium.com/@liam.tech', '_blank')} className={styles.mediumButton}>
+                  Medium
+                </Button>
+                <Button variant="outline" onClick={() => window.open('https://www.linkedin.com/in/liam--brophy/', '_blank')} className={styles.linkedinButton}>
+                  LinkedIn
+                </Button>
+              </div>
               <Button variant="primary" onClick={() => window.open('/LiamBrophy_Resume.pdf', '_blank')} fullWidth>
                 Download Resume
               </Button>

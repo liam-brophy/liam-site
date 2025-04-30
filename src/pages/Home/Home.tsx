@@ -175,10 +175,10 @@ const Home: React.FC = () => {
       {/* Footer section moved outside the main content sections but inside the main container div */}
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p className={styles.copyright} style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>&copy; {new Date().getFullYear()} Liam Brophy. All rights reserved.</p>
           <div className={styles.socialLinks}>
-            <a href="https://github.com/liam-brophy" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>GitHub</a>
-            <a href="https://www.linkedin.com/in/liam--brophy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style={{ fontFamily: 'arial-nova, sans-serif', fontWeight: 400, fontStyle: 'normal' }}>LinkedIn</a>
+            <a href="https://github.com/liam-brophy" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+            <a href="https://medium.com/@liam.tech" target="_blank" rel="noopener noreferrer" aria-label="Medium">Medium</a>
+            <a href="https://www.linkedin.com/in/liam--brophy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
           </div>
         </div>
       </footer>

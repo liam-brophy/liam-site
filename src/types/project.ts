@@ -10,6 +10,7 @@ export interface Project {
   projectImages?: string[]; // Optional array of images for the project page
   childrensBookImages?: string[]; // Optional array of children's book images
   editorialWorkImages?: string[]; // Optional array of editorial work images
+  wip?: string; // Optional work in progress image path
   link: string;
   external?: boolean; // Optional flag for external links
   animationInterval?: number; // Optional animation speed
@@ -17,6 +18,7 @@ export interface Project {
   tags?: string[]; // Optional tags
   date?: string; // Optional project completion date
   category?: 'design' | 'development' | 'Content Management'; // Updated to include Content Management
+  hidden?: boolean; // Optional flag to hide project from navigation
   // Add any other project properties you might need
 }
 
