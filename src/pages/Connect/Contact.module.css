@@ -1,24 +1,24 @@
 .container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 4rem 2rem 2rem; /* Reduced bottom padding */
+  padding: 0 2rem; /* Removed top/bottom padding to allow for true centering */
   min-height: 100vh;
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: space-between; /* This pushes footer to bottom */
+  flex-direction: column;
+  justify-content: center; /* Changed from space-between to center for vertical centering */
   align-items: center;
 }
 
 /* Media queries for responsive padding */
 @media (max-width: 768px) {
   .container {
-    padding: 3rem 1.5rem; /* Adjusted padding for tablet */
+    padding: 0 1.5rem; /* Removed top/bottom padding, kept horizontal padding */
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 2rem 1.25rem; /* Adjusted padding for mobile */
+    padding: 0 1.25rem; /* Removed top/bottom padding, kept horizontal padding */
   }
 }
 
@@ -321,6 +321,7 @@ h4 {
   max-width: 1200px; /* Max width for the content part */
   margin: 0 auto; /* Center the content part */
   width: 100%; /* Ensure full width */
+  align-self: center; /* Added to help with vertical centering */
 }
 
 @media (min-width: 992px) { /* Apply two columns on larger screens */
@@ -328,7 +329,7 @@ h4 {
     /* Profile | Contact */
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* Two equal columns */
     gap: 6rem; /* Increased gap between columns for more space */
-    align-items: start;
+    align-items: center; /* Changed from start to center to vertically center content */
   }
 }
 
@@ -368,9 +369,9 @@ h4 {
 /* Footer styles */
 .footer {
   width: 100%;
-  margin-top: 4rem; /* Increased margin to create more space between content and footer */
   padding: 1rem 0;
   background-color: transparent;
+  /* Removed margin-top as it's no longer needed with vertical centering */
 }
 
 .footerContent {

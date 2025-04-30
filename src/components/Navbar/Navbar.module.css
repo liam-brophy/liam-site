@@ -142,6 +142,11 @@
   z-index: 1001;
 }
 
+/* Custom cursor overrides - make sure the menu button is clickable */
+.menuButton {
+  cursor: pointer !important; /* Force cursor to be visible on the button despite custom cursor */
+}
+
 .menuIcon {
   position: relative;
   display: block;
@@ -195,13 +200,15 @@
   
   .container {
     flex-direction: row;
-    padding: 0 1.5rem;
+    padding: 0 1rem; /* Apply consistent padding on both sides */
     height: var(--header-height, 64px);
     position: relative;
   }
   
   .topSection {
     margin-right: auto;
+    padding-left: 0.5rem; /* Add a small consistent padding */
+    justify-content: flex-start; /* Align content to the start (left) */
   }
   
   .bottomSection {
@@ -289,16 +296,76 @@
     display: block;
     position: absolute;
     top: 50%;
-    right: 15px;
+    right: 1rem; /* Consistent spacing from the right edge */
     transform: translateY(-50%);
-    padding: 10px;
-    z-index: 1001;
+    padding: 8px; /* Keep padding for better touch target */
+    z-index: 10000; /* Keep high z-index */
     margin: 0;
-    width: 44px; /* Set explicit width for better touch target */
-    height: 44px; /* Set explicit height for better touch target */
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: transparent; /* Remove visible background */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    cursor: pointer !important;
+    border: none; /* Remove visible border */
+    pointer-events: auto !important;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+    outline: none;
+    touch-action: manipulation;
+  }
+
+  /* Keep subtle hover effect but make it less visible */
+  .menuButton:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Very subtle hover effect */
+  }
+
+  .menuButton:active {
+    opacity: 0.9;
+  }
+
+  [data-theme='dark'] .menuButton {
+    background-color: transparent; /* Remove visible background in dark mode */
+    border: none; /* Remove visible border in dark mode */
+  }
+
+  [data-theme='dark'] .menuButton:hover {
+    background-color: rgba(255, 255, 255, 0.08); /* Very subtle hover effect in dark mode */
+  }
+
+  /* Ensure the icon is centered in the button */
+  .menuIcon {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 3px; /* Slightly thicker for better visibility */
+    background-color: var(--color-text);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin: 0 auto; /* Center the icon */
+    border-radius: 1px; /* Slightly rounded edges */
+  }
+
+  .menuIcon::before,
+  .menuIcon::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 3px; /* Match the main icon thickness */
+    background-color: var(--color-text);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    left: 0;
+    border-radius: 1px; /* Slightly rounded edges */
+  }
+
+  .menuIcon::before {
+    transform: translateY(-8px); /* Slightly more separation */
+  }
+
+  .menuIcon::after {
+    transform: translateY(8px); /* Slightly more separation */
   }
 
   /* Menu button animation when open */

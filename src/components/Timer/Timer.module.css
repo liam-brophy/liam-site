@@ -5,7 +5,17 @@
   transition: opacity 0.3s ease;
   padding: 5px;
   background-color: transparent;
-  width: fit-content; 
+  width: fit-content;
+  margin: 0;
+  text-align: left;
+}
+
+/* Adjust timer spacing on mobile devices */
+@media (max-width: 768px) {
+  .timerContainer {
+    align-self: flex-start;
+    padding: 5px;
+  }
 }
 
 .timerContainer:hover {

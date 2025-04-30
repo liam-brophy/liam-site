@@ -6,6 +6,7 @@
   --cursor-color: white;
   --cursor-stroke: 2px;
   --cursor-blend-mode: difference;
+  --z-index-cursor: 9998; /* Lower than our menu button z-index */
 }
 
 /* Hide default cursor throughout the application */
@@ -30,7 +31,7 @@ label,
   width: var(--cursor-size);
   height: var(--cursor-size);
   pointer-events: none;
-  z-index: 9999;
+  z-index: var(--z-index-cursor);
   mix-blend-mode: var(--cursor-blend-mode);
   will-change: transform;
   /* Only apply transition to opacity for smoother movement */
@@ -117,4 +118,10 @@ label,
   a, button, [role="button"], [tabindex] {
     cursor: pointer !important;
   }
+}
+
+/* Menu button override - specifically allow normal cursor behavior on menu button */
+.menuButton,
+.menuButton * {
+  cursor: pointer !important;
 }
