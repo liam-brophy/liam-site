@@ -100,7 +100,7 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
       p.draw = () => {
         p.clear();
         updateBricks(p);
-        updateParticles(p);
+        updateParticles();
         drawBricks(p);
         drawParticles(p);
         checkTopCollision(p); // Check if bricks have reached the top
@@ -303,7 +303,7 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
       };
 
       // Update particles for dissolving effect
-      const updateParticles = (p: any) => {
+      const updateParticles = () => {
         particles.current = particles.current.filter(particle => {
           // Update particle position
           particle.x += particle.velocityX;
@@ -343,7 +343,7 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
       };
       
       // Create particles when a brick crumbles
-      const createParticlesFromBrick = (brick: Brick, p: any) => {
+      const createParticlesFromBrick = (brick: Brick) => {
         // Number of particles based on brick size
         const particleCount = Math.floor(brick.width * brick.height / 25);
         
@@ -381,7 +381,7 @@ const BrickCanvas: React.FC<BrickCanvasProps> = ({ landingHeight }) => {
           bricks.current.forEach(brick => {
             if (!brick.crumbling) {
               brick.crumbling = true;
-              createParticlesFromBrick(brick, p);
+              createParticlesFromBrick(brick);
             }
           });
           

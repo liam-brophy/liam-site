@@ -94,7 +94,7 @@ const Home: React.FC = () => {
     "always connecting."
   ];
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const { theme } = useTheme(); // Get theme context
+  // Removed the unused theme variable from useTheme()
 
   const handleNext = () => {
     setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
