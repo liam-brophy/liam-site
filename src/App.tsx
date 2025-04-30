@@ -4,10 +4,11 @@ import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home/Home'
 import Work from './pages/Work/Work'
 import Connect from './pages/Connect/Contact'
-import ProjectDetail from './pages/ProjectDetail'; // Import ProjectDetail instead of individual Project pages
-import CustomCursor from './components/CustomCursor/CustomCursor';
+import ProjectDetail from './pages/ProjectDetail'
+import NotFound from './pages/NotFound/NotFound' // Import the NotFound component
+import CustomCursor from './components/CustomCursor/CustomCursor'
 import { ThemeProvider } from './context/ThemeContext'
-import { animateFavicon } from './utils/helpers' // Import the new function
+import { animateFavicon } from './utils/helpers'
 import './App.css'
 
 // Custom scrollbar component
@@ -201,6 +202,8 @@ function App() {
                   {/* Redirect /about to /connect */}
                   <Route path="/about" element={<Navigate to="/connect" replace />} />
                   <Route path="/connect" element={<Connect />} />
+                  {/* Catch-all route for 404 Not Found page */}
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
             </div>

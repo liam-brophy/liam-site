@@ -96,6 +96,22 @@
   display: inline-block;
 }
 
+/* Special styling for "the Lab" link */
+.labLink {
+  opacity: 0.75; /* Slightly faded appearance */
+  color: var(--color-text-light) !important; /* Use lighter text color */
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.labLink:hover {
+  color: rgb(115, 175, 216) !important; /* Different hover color - bluish tone */
+  opacity: 1; /* Full opacity on hover */
+}
+
+.labLink::after {
+  background-color: rgb(115, 175, 216) !important; /* Match the hover color */
+}
+
 .navMenu a::after {
   content: '';
   position: absolute;

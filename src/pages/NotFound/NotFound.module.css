@@ -1,0 +1,81 @@
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.errorCode {
+  font-size: 10rem;
+  margin-bottom: 2rem;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  letter-spacing: 0.1em;
+}
+
+.pixelscriptLetter {
+  font-family: "pf-pixelscript", sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent-glow);
+  margin: 0 0.1em;
+  animation: pulsate 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.9;
+    text-shadow: 0 0 20px var(--color-accent-glow);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Add staggered animation timing for each digit */
+.pixelscriptLetter:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.pixelscriptLetter:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.pixelscriptLetter:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.message {
+  font-family: "argent-pixel-cf", sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.homeLink {
+  font-family: "argent-pixel-cf", sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.homeLink:hover {
+  color: var(--color-accent-light);
+  text-shadow: 0 0 8px var(--color-accent-glow);
+}

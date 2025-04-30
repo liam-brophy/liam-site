@@ -120,6 +120,17 @@ const Navbar: React.FC = () => {
                 Connect
               </NavLink>
             </li>
+            <li>
+              <a 
+                href="https://lab.liam.site" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+                className={styles.labLink}
+              >
+                the Lab
+              </a>
+            </li>
           </ul>
         </div>
         
