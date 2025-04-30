@@ -122,7 +122,7 @@ const Navbar: React.FC = () => {
             </li>
             <li>
               <a 
-                href="https://lab.liam.site" 
+                href="https://exceptional-experiments.onrender.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={closeMenu}
