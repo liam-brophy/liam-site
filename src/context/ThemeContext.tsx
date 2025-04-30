@@ -26,11 +26,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Check if we're in the browser environment
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
-      // Also check for system preference if no saved theme
-      if (!savedTheme && window.matchMedia) {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        return prefersDark ? 'dark' : 'light';
-      }
+      // Always default to 'light' if no saved theme exists
       return (savedTheme === 'dark' ? 'dark' : 'light');
     }
     return 'light';
