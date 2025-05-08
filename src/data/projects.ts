@@ -12,7 +12,7 @@ export const projects: Project[] = [
     projectImages: ['/project_images/artifact/img1.png', '/project_images/artifact/img2.png'], // Added project images
     link: 'https://www.artifact.online',
     external: true,
-    tags: ['React', 'Node.js', 'Database Design', 'UI/UX Design', 'TypeScript'], // Updated tags
+    tags: ['React', 'Node.js', 'Database Design', 'UI/UX Design'], // Removed TypeScript
     date: '2025', // Updated date
     category: 'development' // Added category
   },
@@ -27,7 +27,7 @@ export const projects: Project[] = [
     projectImages: ['/project_images/primer/img1.png', '/project_images/primer/img2.png'], // Added project images
     link: 'https://www.primer.press',
     external: true,
-    tags: ['React', 'UI/UX Design', 'TypeScript'], // Updated tags
+    tags: ['React', 'UI/UX Design', 'Editorial'], // Removed TypeScript, added Editorial
     date: '2025', // Updated date
     category: 'development' // Added category
   },
