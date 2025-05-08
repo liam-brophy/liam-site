@@ -4,7 +4,7 @@ export const projects: Project[] = [
   {
     id: 1,
     title: 'Artifact', // Added title
-    description: 'Discover and collect works from artists around the world.',
+    description: 'Share and collect artworks on a platform designed for discovery.',
     // Define base image paths, theme logic will be handled in the component
     imageDark: '/Project_thumbnails/Artifact_Logo_White.png',
     imageLight: '/Project_thumbnails/Artifact_Logo_Black.png',
@@ -48,7 +48,7 @@ export const projects: Project[] = [
   {
     id: 4,
     title: 'GoCA',
-    description: 'Gallery of Contemporary Art digital platform for exhibitions and artist showcases.',
+    description: 'Content Management and asset design for Garde\'s Gallery of Contemporary Art',
     // Define base image paths, theme logic will be handled in the component
     imageDark: '/Project_thumbnails/GoCA_Secondary-Lockup_light.png',
     imageLight: '/Project_thumbnails/GoCA_Secondary-Lockup_dark.png',
