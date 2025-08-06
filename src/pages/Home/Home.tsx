@@ -9,8 +9,8 @@ import { projects } from '../../data/projects'; // Import projects data
 import { Project } from '../../types/project'; // Import the full Project type
 import { useTheme } from '../../context/ThemeContext'; // Import useTheme
 
-// Filter out hidden projects and get the first 2 projects
-const featuredProjects = projects.filter(project => !project.hidden).slice(0, 2);
+// Filter out hidden projects and get Artifact and Primer specifically
+const featuredProjects = projects.filter(project => !project.hidden && (project.id === 1 || project.id === 2));
 
 // New component for individual project card with image rotation or video
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {

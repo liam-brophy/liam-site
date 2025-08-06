@@ -186,6 +186,76 @@ const ProjectDetail: React.FC = () => {
     );
   }
 
+  // For the hortus project (ID 7), show the split layout with hortus images
+  if (project.id === 7 && project.hortusImages) {
+    return (
+      <div className={styles.splitLayout}>
+        <div className={styles.carouselColumn}>
+          {/* Main design showcase */}
+          <h2 className={styles.sectionTitle}>Design System</h2>
+          <Carousel 
+            images={project.hortusImages} 
+            altText={`${project.title} Project`} 
+          />
+          
+          {/* Work examples section - new */}
+          {project.hortusWorkExamples && project.hortusWorkExamples.length > 0 && (
+            <>
+              <h2 className={styles.sectionTitle}>Implementation Examples</h2>
+              <Carousel 
+                images={project.hortusWorkExamples}
+                altText={`${project.title} Work Examples`}
+              />
+            </>
+          )}
+          
+          {/* User journey section - new */}
+          {project.hortusUserJourney && project.hortusUserJourney.length > 0 && (
+            <>
+              <h2 className={styles.sectionTitle}>User Journey</h2>
+              <Carousel 
+                images={project.hortusUserJourney}
+                altText={`${project.title} User Journey`}
+              />
+            </>
+          )}
+          
+          {/* Video section - new */}
+          {project.hortusVideo && (
+            <>
+              <h2 className={styles.sectionTitle}>Process Video</h2>
+              <video 
+                controls
+                src={project.hortusVideo}
+                width="100%"
+                className={styles.projectVideo}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </>
+          )}
+        </div>
+        <div className={styles.contentColumn}>
+          <div className={styles.contentWrapper}>
+            <h1 className={styles.projectTitle}>Hortus</h1>
+            
+            <p className={styles.contentParagraph}>
+              Hortus is a marketplace designed to help organizations make informed decisions about ethical AI selection. In an era where artificial intelligence plays an increasingly critical role in business operations, Hortus provides a curated platform for discovering, evaluating, and implementing AI solutions that align with ethical standards and responsible technology practices.
+            </p>
+            
+            <p className={styles.contentParagraph}>
+              The platform features comprehensive AI vendor profiles, ethical assessment frameworks, and community-driven reviews to ensure transparency in AI procurement. Through careful vetting processes and clear ethical guidelines, Hortus empowers organizations to make technology choices that reflect their values while meeting their operational needs.
+            </p>
+            
+            <p className={styles.contentParagraph}>
+              Key features include vendor verification systems, ethical scoring metrics, implementation guidance, and ongoing monitoring tools. The interface prioritizes clarity and trust, making complex AI evaluation processes accessible to decision-makers across various industries and organizational sizes.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Regular project display for other projects
   return (
     <div className={styles.projectDetailContainer}>

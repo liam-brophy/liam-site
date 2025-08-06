@@ -10,6 +10,10 @@ export interface Project {
   projectImages?: string[]; // Optional array of images for the project page
   childrensBookImages?: string[]; // Optional array of children's book images
   editorialWorkImages?: string[]; // Optional array of editorial work images
+  hortusImages?: string[]; // Optional array of hortus project images
+  hortusWorkExamples?: string[]; // Optional array of hortus work examples
+  hortusUserJourney?: string[]; // Optional array of hortus user journey images
+  hortusVideo?: string; // Optional hortus video content
   wip?: string; // Optional work in progress image path
   link: string;
   external?: boolean; // Optional flag for external links
