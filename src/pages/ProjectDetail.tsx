@@ -191,48 +191,37 @@ const ProjectDetail: React.FC = () => {
     return (
       <div className={styles.splitLayout}>
         <div className={styles.carouselColumn}>
-          {/* Main design showcase */}
-          <h2 className={styles.sectionTitle}>Design System</h2>
           <Carousel 
             images={project.hortusImages} 
             altText={`${project.title} Project`} 
           />
           
-          {/* Work examples section - new */}
+          {/* Work examples section */}
           {project.hortusWorkExamples && project.hortusWorkExamples.length > 0 && (
-            <>
-              <h2 className={styles.sectionTitle}>Implementation Examples</h2>
-              <Carousel 
-                images={project.hortusWorkExamples}
-                altText={`${project.title} Work Examples`}
-              />
-            </>
+            <Carousel 
+              images={project.hortusWorkExamples}
+              altText={`${project.title} Work Examples`}
+            />
           )}
           
-          {/* User journey section - new */}
+          {/* User journey section */}
           {project.hortusUserJourney && project.hortusUserJourney.length > 0 && (
-            <>
-              <h2 className={styles.sectionTitle}>User Journey</h2>
-              <Carousel 
-                images={project.hortusUserJourney}
-                altText={`${project.title} User Journey`}
-              />
-            </>
+            <Carousel 
+              images={project.hortusUserJourney}
+              altText={`${project.title} User Journey`}
+            />
           )}
           
-          {/* Video section - new */}
+          {/* Video section */}
           {project.hortusVideo && (
-            <>
-              <h2 className={styles.sectionTitle}>Process Video</h2>
-              <video 
-                controls
-                src={project.hortusVideo}
-                width="100%"
-                className={styles.projectVideo}
-              >
-                Your browser does not support the video tag.
-              </video>
-            </>
+            <video 
+              controls
+              src={project.hortusVideo}
+              width="100%"
+              className={styles.projectVideo}
+            >
+              Your browser does not support the video tag.
+            </video>
           )}
         </div>
         <div className={styles.contentColumn}>
@@ -240,15 +229,11 @@ const ProjectDetail: React.FC = () => {
             <h1 className={styles.projectTitle}>Hortus</h1>
             
             <p className={styles.contentParagraph}>
-              Hortus is a marketplace designed to help organizations make informed decisions about ethical AI selection. In an era where artificial intelligence plays an increasingly critical role in business operations, Hortus provides a curated platform for discovering, evaluating, and implementing AI solutions that align with ethical standards and responsible technology practices.
+              I oversaw a comprehensive redesign and componentization of a new design system for Hortus, a marketplace platform focused on ethical AI selection and responsible technology choices. This project involved establishing cohesive visual standards, creating reusable UI components, and implementing a scalable design framework that would support the platform's growth and complex feature requirements.
             </p>
             
             <p className={styles.contentParagraph}>
-              The platform features comprehensive AI vendor profiles, ethical assessment frameworks, and community-driven reviews to ensure transparency in AI procurement. Through careful vetting processes and clear ethical guidelines, Hortus empowers organizations to make technology choices that reflect their values while meeting their operational needs.
-            </p>
-            
-            <p className={styles.contentParagraph}>
-              Key features include vendor verification systems, ethical scoring metrics, implementation guidance, and ongoing monitoring tools. The interface prioritizes clarity and trust, making complex AI evaluation processes accessible to decision-makers across various industries and organizational sizes.
+              The design system prioritized clarity, trust, and accessibility while streamlining the user experience for organizations evaluating AI solutions. Through systematic component development and rigorous design documentation, I ensured consistency across all platform touchpoints and enabled efficient collaboration between design and development teams.
             </p>
           </div>
         </div>

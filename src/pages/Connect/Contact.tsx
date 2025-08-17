@@ -83,15 +83,15 @@ const Connect: React.FC = () => {
         <section className={styles.profileColumn}>
           <div className={styles.bioContent}>
             <p>
-              Book designer and visual storyteller with a passion for crafting meaningful narratives across mediums. Since 2021, I've built a career at the intersection of design and technology — specializing in compelling book covers, thoughtful interior layouts, and cohesive publishing experiences that connect deeply with audiences.
+              Designer and visual storyteller bridging publishing and technology to craft meaningful narratives across print and digital mediums. Since 2021, I've specialized in book covers, interior layouts, and cohesive publishing experiences that resonate with audiences while leveraging front-end and full-stack skills to enhance design execution and workflow.
             </p>
             
             <p>
-              With extensive experience in the publishing industry, I've designed and developed comprehensive visual identities for dozens of titles, helping authors bring their stories to life through careful typography, intentional imagery, and strategic marketing collateral. In 2025, I expanded my creative toolkit with front-end development skills to further bridge the gap between design vision and technical execution.
+              I have extensive experience shaping visual identities for dozens of titles, bringing stories to life through typography, imagery, and carefully structured layouts. By combining traditional book design expertise with responsive web development and technical problem-solving, I create integrated publishing solutions—from print-ready designs to interactive digital experiences—helping teams deliver work more efficiently and creatively.
             </p>
 
             <p>
-              Today, I bring a designer's eye to every project, whether it's crafting the perfect book cover or building responsive web experiences with React. I'm passionate about creating work where aesthetic intuition and technical precision meet — continuing to grow as a multidisciplinary creative who understands both the visual and technical dimensions of storytelling.
+              Whether designing a compelling book cover, refining interior layouts, or implementing digital prototypes, I bring a designer's eye, a developer's precision, and a passion for building seamless, audience-focused publishing experiences.
             </p>
             
             <ul className={styles.skillsList}>
@@ -125,7 +125,7 @@ const Connect: React.FC = () => {
                   LinkedIn
                 </Button>
               </div>
-              <Button variant="primary" onClick={() => window.open('/LiamBrophy_Resume.pdf', '_blank')} fullWidth>
+              <Button variant="primary" onClick={() => window.open('/LiamBrophy_Resume_2025.pdf', '_blank')} fullWidth>
                 Download Resume
               </Button>
             </div>
