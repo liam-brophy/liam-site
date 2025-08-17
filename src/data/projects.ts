@@ -13,7 +13,7 @@ export const projects: Project[] = [
     external: true,
     tags: ['React', 'UI/UX Design', 'Editorial'],
     date: '2025',
-    category: 'development'
+    category: 'design'
   },
   {
     id: 5,
@@ -122,7 +122,7 @@ export const projects: Project[] = [
     longAnimationInterval: 1500,
     tags: ['UI/UX Design', 'Product Design', 'Mobile App'],
     date: '2025',
-    category: 'design'
+    category: 'development'
   },
   {
     id: 1,
