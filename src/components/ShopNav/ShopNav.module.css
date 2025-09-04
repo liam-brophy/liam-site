@@ -1,0 +1,131 @@
+.shopNav {
+  width: 100%;
+  background-color: var(--color-background);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .shopNav {
+  background-color: var(--color-background);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+/* Search bar styles */
+.searchBar {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 0.25rem 0.5rem;
+  background-color: var(--color-background-alt);
+  transition: all 0.3s ease;
+}
+
+.searchBar:hover {
+  border-color: var(--color-accent);
+}
+
+[data-theme='dark'] .searchBar {
+  background-color: var(--color-background-dark);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .searchBar:hover {
+  border-color: var(--color-accent-orange);
+}
+
+.searchInput {
+  flex: 1;
+  font-family: sans-serif;
+  color: var(--color-text);
+}
+
+.searchButton {
+  color: var(--color-accent) !important;
+}
+
+[data-theme='dark'] .searchButton {
+  color: var(--color-accent-orange) !important;
+}
+
+.cartLink {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.cartIcon {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-heading);
+  transition: fill 0.3s ease;
+}
+
+[data-theme='dark'] .cartIcon {
+  fill: var(--color-text-dark);
+}
+
+.navLink:hover .cartIcon,
+.activeLink .cartIcon {
+  fill: var(--color-accent);
+}
+
+[data-theme='dark'] .navLink:hover .cartIcon,
+[data-theme='dark'] .activeLink .cartIcon {
+  fill: var(--color-accent-orange);
+}
+
+.navLink, .activeLink {
+  font-family: sans-serif;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+  color: var(--color-text);
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+}
+
+.navLink:hover {
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.activeLink {
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.cartText {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .navContainer {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .cartText {
+    display: none;
+  }
+  
+  .cartIcon {
+    margin-right: 0;
+    font-size: 1.8rem;
+  }
+}
