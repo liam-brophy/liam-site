@@ -1,42 +1,51 @@
 :root {
-  /* Theme colors - Light theme is default */
-  --color-background: #fcfced; /* Light theme background - requested color */
-  --color-background-alt: #f8f9fa;
-  --color-text: #212529;
-  --color-text-light: #6c757d;
-  --color-heading: #212529;
-  --color-border: #dee2e6;
+  /* Light theme - All white with colorful accents */
+  --color-background: #ffffff; /* Pure white background */
+  --color-background-alt: #fafafa; /* Very light gray alternative */
+  --color-text: #1a1a1a; /* Near-black text */
+  --color-text-light: #666666; /* Medium gray for secondary text */
+  --color-heading: #000000; /* Pure black for headings */
+  --color-border: #e0e0e0; /* Light gray borders */
   
-  /* Colors - Updated to match the clean, minimal aesthetic */
-  --color-primary: var(--color-text); /* Black in light theme */
-  --color-primary-text: var(--color-background); /* White text on black */
-  /* Remove unused primary light/dark or adjust if needed elsewhere */
-  /* --color-primary-light: #4d94ff; */
-  /* --color-primary-dark: #004c99; */
+  /* Primary colors using teal accent */
+  --color-primary: #14b8a6; /* Teal */
+  --color-primary-light: #5eead4; /* Light teal */
+  --color-primary-dark: #0f766e; /* Dark teal */
+  --color-primary-text: #ffffff; /* White text on teal */
   
-  --color-secondary: #6c757d;
-  --color-secondary-light: #adb5bd;
-  --color-secondary-dark: #343a40;
+  --color-secondary: #64748b; /* Slate gray */
+  --color-secondary-light: #94a3b8;
+  --color-secondary-dark: #475569;
   
-  --color-accent: #495057;
-  --color-accent-light: #ADB5BD;
+  /* Colorful accent palette */
+  --color-accent-teal: #14b8a6;
+  --color-accent-red: #ef4444;
+  --color-accent-blue: #3b82f6;
+  --color-accent-pink: #ec4899;
+  --color-accent-orange: #f97316;
+  --color-accent-yellow: #eab308;
   
-  --color-success: #28a745;
-  --color-warning: #ffc107;
-  --color-error: #dc3545;
-  --color-info: #17a2b8;
+  /* Main accent for UI elements */
+  --color-accent: var(--color-accent-teal);
+  --color-accent-light: var(--color-primary-light);
   
-  /* Custom scrollbar colors */
-  --scrollbar-track: rgb(255, 251, 228);
-  --scrollbar-thumb: rgb(219, 251, 221);
-  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
+  --color-success: #22c55e; /* Green */
+  --color-warning: #f59e0b; /* Amber */
+  --color-error: #ef4444; /* Red accent */
+  --color-info: #06b6d4; /* Cyan */
+  
+  /* Custom scrollbar colors - white theme */
+  --scrollbar-track: #f8f9fa;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
   
   /* Neon scrollbar glow colors */
-  --scrollbar-glow-light: rgb(123, 250, 172);
-  --scrollbar-glow-shadow: 0 0 8px rgba(0, 255, 140, 0.8), 0 0 12px rgba(0, 102, 204, 0.5);
+  --scrollbar-glow-light: var(--color-accent-teal);
+  --scrollbar-glow-shadow: 0 0 8px rgba(20, 184, 166, 0.4), 0 0 12px rgba(20, 184, 166, 0.2);
   
   /* Typography - Updated for modern sans-serif font */
-  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+  /* Assume a gothic lab-style font is desired; fall back to Inter/system fonts */
+  --font-main: 'UnifrakturCook', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
     'Open Sans', 'Helvetica Neue', sans-serif;
   --font-code: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   --font-heading-first-letter: "pf-pixelscript", sans-serif;
@@ -104,69 +113,82 @@
   --z-index-popover: 1060;
   --z-index-tooltip: 1070;
 
-  /* Skill Tag Colors - Light Theme */
-  --color-skill-frontend-bg: #e0f2fe; /* Light Blue */
-  --color-skill-frontend-text: #0c4a6e; /* Dark Blue */
-  --color-skill-frontend-border: #7dd3fc; /* Medium Blue */
-  --color-skill-backend-bg: #fef9c3; /* Light Yellow */
-  --color-skill-backend-text: #854d0e; /* Dark Yellow/Brown */
-  --color-skill-backend-border: #fde047; /* Medium Yellow */
-  --color-skill-design-bg: #fee2e2; /* Light Red/Pink */
-  --color-skill-design-text: #991b1b; /* Dark Red */
-  --color-skill-design-border: #fca5a5; /* Medium Red */
-  --color-skill-tools-bg: #f3f4f6; /* Light Gray */
-  --color-skill-tools-text: #374151; /* Dark Gray */
-  --color-skill-tools-border: #d1d5db; /* Medium Gray */
+  /* Skill Tag Colors - Light Theme with colorful accents */
+  --color-skill-frontend-bg: #dbeafe; /* Light Blue */
+  --color-skill-frontend-text: #1d4ed8; /* Blue */
+  --color-skill-frontend-border: var(--color-accent-blue);
+  --color-skill-backend-bg: #fef3c7; /* Light Yellow */
+  --color-skill-backend-text: #d97706; /* Orange */
+  --color-skill-backend-border: var(--color-accent-yellow);
+  --color-skill-design-bg: #fce7f3; /* Light Pink */
+  --color-skill-design-text: #be185d; /* Pink */
+  --color-skill-design-border: var(--color-accent-pink);
+  --color-skill-tools-bg: #f0fdf4; /* Light Green */
+  --color-skill-tools-text: #059669; /* Teal-Green */
+  --color-skill-tools-border: var(--color-accent-teal);
 }
 
-/* Dark theme */
+/* Dark theme - Silver and neon orange */
 [data-theme='dark'] {
-  --color-background: #001f1f; /* Dark theme background - requested color */
-  --color-background-alt: #005858;
-  --color-text: #e9ecef;
-  --color-text-light: #ced4da;
-  --color-heading: #f8f9fa;
-  --color-border: #444;
+  --color-background: #1a1a1a; /* Dark charcoal */
+  --color-background-alt: #2d2d2d; /* Lighter charcoal */
+  --color-text: #c0c0c0; /* Silver */
+  --color-text-light: #808080; /* Dark silver */
+  --color-heading: #e6e6e6; /* Light silver */
+  --color-border: #404040; /* Dark gray border */
   
-  --color-primary: var(--color-text); /* White in dark theme */
-  --color-primary-text: var(--color-background); /* Dark text on white */
-  /* Remove unused primary light/dark or adjust if needed elsewhere */
-  /* --color-primary-light: #80b5ff; */
-  /* --color-primary-dark: #0066cc; */
+  /* Silver and neon orange palette */
+  --color-primary: #ff6600; /* Neon orange */
+  --color-primary-light: #ff8533; /* Light neon orange */
+  --color-primary-dark: #cc5200; /* Dark neon orange */
+  --color-primary-text: #1a1a1a; /* Dark text on orange */
   
-  --color-secondary: #adb5bd;
-  --color-secondary-light: #ced4da;
-  --color-secondary-dark: #6c757d;
+  --color-secondary: #808080; /* Silver */
+  --color-secondary-light: #a0a0a0; /* Light silver */
+  --color-secondary-dark: #606060; /* Dark silver */
   
-  --color-accent: #CED4DA;
-  --color-accent-light: #E9ECEF;
+  /* Neon orange accent colors */
+  --color-accent-orange: #ff6600; /* Main neon orange */
+  --color-accent-red: #ff4444; /* Neon red-orange */
+  --color-accent-yellow: #ffaa00; /* Neon yellow-orange */
+  --color-accent-pink: #ff6699; /* Neon pink with orange tint */
+  --color-accent-blue: #66aaff; /* Cool blue for contrast */
+  --color-accent-teal: #00ccaa; /* Neon teal */
   
-  /* Custom scrollbar colors for dark theme */
-  --scrollbar-track: rgba(255, 255, 255, 0.05);
-  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
-  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+  --color-accent: var(--color-accent-orange);
+  --color-accent-light: var(--color-accent-yellow);
   
-  /* Neon scrollbar glow colors for dark theme */
-  --scrollbar-glow-light: rgba(77, 228, 228, 0.7);
-  --scrollbar-glow-shadow: 0 0 8px rgba(77, 228, 228, 0.8), 0 0 12px rgba(77, 228, 228, 0.5);
+  --color-success: #00ff88; /* Neon green */
+  --color-warning: #ffaa00; /* Neon yellow-orange */
+  --color-error: #ff4444; /* Neon red */
+  --color-info: #66aaff; /* Neon blue */
   
-  /* Update shadows for dark mode */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
-  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  /* Custom scrollbar colors - silver theme */
+  --scrollbar-track: rgba(64, 64, 64, 0.3);
+  --scrollbar-thumb: rgba(255, 102, 0, 0.6); /* Neon orange */
+  --scrollbar-thumb-hover: rgba(255, 102, 0, 0.8);
+  
+  /* Neon orange scrollbar glow */
+  --scrollbar-glow-light: rgba(255, 102, 0, 0.8);
+  --scrollbar-glow-shadow: 0 0 8px rgba(255, 102, 0, 0.6), 0 0 12px rgba(255, 102, 0, 0.4);
+  
+  /* Update shadows for dark theme */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.6);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 
-  /* Skill Tag Colors - Dark Theme */
-  --color-skill-frontend-bg: #0c4a6e; /* Dark Blue */
-  --color-skill-frontend-text: #e0f2fe; /* Light Blue */
-  --color-skill-frontend-border: #38bdf8; /* Brighter Blue */
-  --color-skill-backend-bg: #854d0e; /* Dark Yellow/Brown */
-  --color-skill-backend-text: #fef9c3; /* Light Yellow */
-  --color-skill-backend-border: #facc15; /* Brighter Yellow */
-  --color-skill-design-bg: #991b1b; /* Dark Red */
-  --color-skill-design-text: #fee2e2; /* Light Red/Pink */
-  --color-skill-design-border: #f87171; /* Brighter Red */
-  --color-skill-tools-bg: #374151; /* Dark Gray */
-  --color-skill-tools-text: #f3f4f6; /* Light Gray */
-  --color-skill-tools-border: #6b7280; /* Medium Gray */
+  /* Skill Tag Colors - Dark Theme with silver and neon orange */
+  --color-skill-frontend-bg: #66aaff; /* Neon blue */
+  --color-skill-frontend-text: #1a1a1a; /* Dark text */
+  --color-skill-frontend-border: #4d94ff; /* Bright blue */
+  --color-skill-backend-bg: #ff6600; /* Neon orange */
+  --color-skill-backend-text: #1a1a1a; /* Dark text */
+  --color-skill-backend-border: #ff8533; /* Light neon orange */
+  --color-skill-design-bg: #ff6699; /* Neon pink */
+  --color-skill-design-text: #1a1a1a; /* Dark text */
+  --color-skill-design-border: #ff99bb; /* Light neon pink */
+  --color-skill-tools-bg: #808080; /* Silver */
+  --color-skill-tools-text: #1a1a1a; /* Dark text */
+  --color-skill-tools-border: #a0a0a0; /* Light silver */
 }

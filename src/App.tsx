@@ -10,6 +10,9 @@ import CustomCursor from './components/CustomCursor/CustomCursor'
 import { ThemeProvider } from './context/ThemeContext'
 import { animateFavicon } from './utils/helpers'
 import './App.css'
+// Import bootstrap CSS for shop scaffolding
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Shop from './pages/Shop/Shop';
 
 // Custom scrollbar component
 const CustomScrollbar = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
@@ -183,7 +186,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      <Router>
+        <Router>
         <CustomCursor />
         <div className="app-wrapper">
           <div className="navbar-wrapper">
@@ -202,6 +205,7 @@ function App() {
                   {/* Redirect /about to /connect */}
                   <Route path="/about" element={<Navigate to="/connect" replace />} />
                   <Route path="/connect" element={<Connect />} />
+                    <Route path="/shop" element={<Shop />} />
                   {/* Catch-all route for 404 Not Found page */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
@@ -209,7 +213,7 @@ function App() {
             </div>
           </div>
         </div>
-      </Router>
+        </Router>
     </ThemeProvider>
   )
 }

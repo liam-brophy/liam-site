@@ -1,8 +1,11 @@
 /* Import CSS variables */
 @import './styles/variables.css';
+/* Ensure gothic font is loaded where globals are imported */
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap');
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Use the configured --font-main so changes in variables.css apply globally */
+  font-family: var(--font-main);
   line-height: 1.5;
   font-weight: 400;
 

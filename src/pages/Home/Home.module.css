@@ -297,11 +297,9 @@
 
 /* Footer */
 :global(footer) {
-  background: linear-gradient(135deg, #f9e7fe 0%, #d4f0f7 20%, #e0f7d4 40%, #f7ecd4 60%, #f7d4e0 80%, #e7d4f7 100%);
-  background-size: 400% 400%;
-  animation: gradientFlow 15s ease infinite;
-  color: #212529;
-  border-top: none;
+  background: var(--color-background-alt);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text);
   width: 100%;
   margin: 0;
   padding: 0;
@@ -311,18 +309,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Dark mode footer gradient */
-:global([data-theme='dark'] footer) {
-  background: linear-gradient(135deg, #3a284d 0%, #20353c 20%, #2c3c2a 40%, #3c3625 60%, #3c2832 80%, #332a3c 100%);
-  color: #e0e0e0; /* Lighter text color for dark mode */
-}
-
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 .footer {

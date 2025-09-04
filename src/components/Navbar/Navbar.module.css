@@ -10,14 +10,14 @@
 }
 
 .navbar.scrolled {
-  background-color: rgba(255, 255, 204, 0.95); /* Uses light theme color with transparency */
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
 }
 
 [data-theme='dark'] .navbar.scrolled {
-  background-color: rgba(0, 112, 112, 0.95); /* Uses dark theme color with transparency */
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  background-color: rgba(26, 26, 26, 0.95);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .container {
@@ -37,13 +37,12 @@
   padding: 0 0.5rem;
 }
 
-/* Bottom section for theme toggle */
+/* Bottom section for theme toggle only */
 .bottomSection {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
   position: relative; /* Added position relative */
   z-index: 1002; /* Higher z-index to ensure visibility */
 }
@@ -58,6 +57,27 @@
   visibility: visible;
   opacity: 1;
 }
+
+.cartContainer { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+.cartButton {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  position: relative;
+}
+.cartIcon { font-size: 18px; }
+.cartCount { background:#ef4444; color:white; border-radius:999px; padding:2px 6px; font-size:0.75rem; position:relative; top:-2px }
 
 /* Group for navigation elements */
 .navGroup {
@@ -83,7 +103,7 @@
 }
 
 .navMenu a {
-  font-family: "arial-nova", sans-serif; /* Correct font-family for Arial Nova */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 400;
   font-style: normal;
   color: var(--color-text);
