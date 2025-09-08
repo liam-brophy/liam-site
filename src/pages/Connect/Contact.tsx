@@ -83,15 +83,10 @@ const Connect: React.FC = () => {
         <section className={styles.profileColumn}>
           <div className={styles.bioContent}>
             <p>
-              Designer and visual storyteller bridging publishing and technology to craft meaningful narratives across print and digital mediums. Since 2021, I've specialized in book covers, interior layouts, and cohesive publishing experiences that resonate with audiences while leveraging front-end and full-stack skills to enhance design execution and workflow.
-            </p>
-            
-            <p>
-              I have extensive experience shaping visual identities for dozens of titles, bringing stories to life through typography, imagery, and carefully structured layouts. By combining traditional book design expertise with responsive web development and technical problem-solving, I create integrated publishing solutions—from print-ready designs to interactive digital experiences—helping teams deliver work more efficiently and creatively.
-            </p>
-
-            <p>
-              Whether designing a compelling book cover, refining interior layouts, or implementing digital prototypes, I bring a designer's eye, a developer's precision, and a passion for building seamless, audience-focused publishing experiences.
+              Designer working in publishing, development, and creative technology.
+              My publishing work includes visual identities for dozens of titles across genres, specializing in typography and cohesive design systems. On the technical side, I prototype digital reading experiences, build responsive websites, and solve complex development challenges. My fine art practice explores digital illustration and creative coding, informing my professional skills.
+              I'm always open to new opportunities and collaborations.
+              Feel free to reach out with any questions or projects you'd like to discuss.
             </p>
             
             <ul className={styles.skillsList}>
@@ -134,11 +129,6 @@ const Connect: React.FC = () => {
 
         {/* Third Column: Contact Form (Now Second Column) */}
         <section className={styles.contactColumn}>
-          <p className={styles.intro}>
-            I'm always open to new opportunities and collaborations. <br />
-            Feel free to reach out with any questions or projects you'd like to discuss.
-          </p>
-          
           <form ref={formRef} className={styles.contactForm} onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
               <label htmlFor="name">Name</label>

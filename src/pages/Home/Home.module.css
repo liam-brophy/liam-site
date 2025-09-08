@@ -6,15 +6,19 @@
 }
 
 .homeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
   background-color: var(--color-background);
   color: var(--color-text);
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  box-sizing: border-box; /* Include padding in width calculation */
-  max-width: 100%; /* Ensure no overflow */
-  position: relative; /* Create a new stacking context */
+  overflow-x: hidden;
+  box-sizing: border-box;
+  max-width: 100%;
+  position: relative;
   left: 0;
   right: 0;
 }
@@ -541,4 +545,14 @@
   background-color: var(--color-text);
   color: var(--color-background);
   opacity: 1;
+}
+
+.centeredText {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+}
+
+.argentPixel {
+  font-family: "argent-pixel-cf", sans-serif !important;
 }

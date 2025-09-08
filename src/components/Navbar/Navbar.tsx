@@ -134,7 +134,7 @@ const Navbar: React.FC = () => {
             <li>
               <NavLink
                 to="/shop"
-                className={({ isActive }) => `${isActive ? styles.active : ''} ${styles.labLink}`}
+                className={({ isActive }) => isActive ? styles.active : ''}
                 onClick={closeMenu}
               >
                 Shop

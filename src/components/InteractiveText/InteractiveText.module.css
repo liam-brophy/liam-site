@@ -1,0 +1,295 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px; /* Increased from 20px to 40px */
+  padding: 20px;
+}
+
+.text {
+  font-weight: normal;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.wave span {
+  display: inline-block;
+  animation: wave 1.5s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-5px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(5px); }
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.controls input, .controls select, .controls button {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tool {
+  display: flex;
+  align-items: center;
+  height: 40px; /* Consistent height for all tools */
+  gap: 12px; /* Increased from 8px for better spacing */
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.slider {
+  width: 100%; /* Full width of container */
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ddd;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  position: relative;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.sliderContainer {
+  position: relative;
+  width: 120px; /* Increased from 80px for more space */
+  height: 100%; /* Full height of tool container */
+  display: flex;
+  align-items: center;
+}
+
+.sliderThumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-weight: bold;
+  pointer-events: none;
+  transition: all 0.1s ease;
+  z-index: 10;
+  background: transparent;
+  border: none;
+}
+
+.colorPicker {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: none;
+  border-radius: 3px;
+}
+
+.customSelect {
+  position: relative;
+  height: 100%;
+}
+
+.selectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%; /* Full height of tool container */
+  padding: 0 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  min-width: 120px;
+}
+
+.selectTrigger:hover {
+  border-color: #bbb;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.arrow {
+  transition: transform 0.2s ease;
+  margin-left: 8px;
+}
+
+.arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+
+.option {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.option:last-child {
+  border-bottom: none;
+}
+
+.option:hover {
+  background-color: #f8f9fa;
+}
+
+.option.selected {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.waveIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.waveIcon:hover {
+  opacity: 0.8;
+}
+
+.shuffleIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: stroke 0.2s ease;
+}
+
+.shuffleIcon:hover {
+  stroke: #007bff !important;
+  opacity: 0.8;
+}
+
+.value {
+  font-size: 14px;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark mode styles */
+[data-theme='dark'] .text {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .tool {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .selectTrigger {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+[data-theme='dark'] .selectTrigger:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme='dark'] .dropdown {
+  background-color: rgba(26, 26, 26, 0.95);
+  border-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme='dark'] .option {
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .option.selected {
+  background-color: rgba(115, 216, 175, 0.2);
+  color: #73d8af;
+}
+
+[data-theme='dark'] .value {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .slider {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .colorPicker {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .shuffleIcon,
+[data-theme='dark'] .waveIcon {
+  filter: invert(1);
+}
