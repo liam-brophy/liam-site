@@ -23,7 +23,6 @@ const InteractiveText: React.FC = () => {
   // Shuffle functionality
   const originalText = "I'm Liam, a designer and developer.";
   const [displayText, setDisplayText] = useState(originalText);
-  const [shuffledText, setShuffledText] = useState('');
   const [isShuffled, setIsShuffled] = useState(false);
 
   const getThumbPosition = () => {
@@ -55,7 +54,6 @@ const InteractiveText: React.FC = () => {
     if (!isShuffled) {
       // Shuffle the text
       const shuffled = shuffleText(originalText);
-      setShuffledText(shuffled);
       setDisplayText(shuffled);
       setIsShuffled(true);
     } else {
