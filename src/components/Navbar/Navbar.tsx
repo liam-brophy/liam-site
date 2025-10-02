@@ -131,7 +131,8 @@ const Navbar: React.FC = () => {
                 Lab
               </a>
             </li>
-            <li>
+            {/* Temporarily hidden shop page */}
+            {/* <li>
               <NavLink
                 to="/shop"
                 className={({ isActive }) => isActive ? styles.active : ''}
@@ -139,7 +140,7 @@ const Navbar: React.FC = () => {
               >
                 Shop
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
         
