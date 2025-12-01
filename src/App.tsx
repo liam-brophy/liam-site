@@ -12,9 +12,10 @@ import { animateFavicon } from './utils/helpers'
 import './App.css'
 // Import bootstrap CSS for shop scaffolding
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Shop from './pages/Shop/Shop';
-import ProductDetail from './pages/ProductDetail/ProductDetail';
-import Cart from './pages/Cart/Cart';
+// Shop-related imports temporarily disabled
+// import Shop from './pages/Shop/Shop';
+// import ProductDetail from './pages/ProductDetail/ProductDetail';
+// import Cart from './pages/Cart/Cart';
 
 // Custom scrollbar component
 const CustomScrollbar = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) => {
@@ -207,9 +208,10 @@ function App() {
                   {/* Redirect /about to /connect */}
                   <Route path="/about" element={<Navigate to="/connect" replace />} />
                   <Route path="/connect" element={<Connect />} />
-                  <Route path="/shop" element={<Shop />} />
+                  {/* Shop routes temporarily disabled */}
+                  {/* <Route path="/shop" element={<Shop />} />
                   <Route path="/shop/product/:id" element={<ProductDetail />} />
-                  <Route path="/shop/cart" element={<Cart />} />
+                  <Route path="/shop/cart" element={<Cart />} /> */}
                   {/* Catch-all route for 404 Not Found page */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
