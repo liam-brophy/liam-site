@@ -131,16 +131,6 @@ const Navbar: React.FC = () => {
                 Lab
               </a>
             </li>
-            {/* Temporarily hidden shop page */}
-            {/* <li>
-              <NavLink
-                to="/shop"
-                className={({ isActive }) => isActive ? styles.active : ''}
-                onClick={closeMenu}
-              >
-                Shop
-              </NavLink>
-            </li> */}
           </ul>
         </div>
         
