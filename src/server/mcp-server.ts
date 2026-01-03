@@ -64,7 +64,7 @@ const generateHandler = (req: Request, res: Response): void => {
     // Default response if no specific content is requested
     res.json({ 
       response: { 
-        content: "Welcome to Liam's Portfolio MCP Server. You can request information about projects, bio, laboratory experiments, or contact details.",
+        content: "Welcome to Liam Allaire's Portfolio MCP Server. You can request information about projects, bio, laboratory experiments, or contact details.",
         metadata: { source: 'mcp-server', type: 'help' }
       } 
     });

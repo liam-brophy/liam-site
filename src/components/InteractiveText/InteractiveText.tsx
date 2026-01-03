@@ -21,7 +21,7 @@ const InteractiveText: React.FC = () => {
   const sliderRef = useRef<HTMLInputElement>(null);
 
   // Shuffle functionality
-  const originalText = "I'm Liam, a designer and developer.";
+  const originalText = "I'm Liam Allaire, a designer and developer.";
   const [displayText, setDisplayText] = useState(originalText);
   const [isShuffled, setIsShuffled] = useState(false);
 

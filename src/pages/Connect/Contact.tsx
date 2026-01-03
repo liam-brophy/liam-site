@@ -120,7 +120,7 @@ const Connect: React.FC = () => {
                   LinkedIn
                 </Button>
               </div>
-              <Button variant="primary" onClick={() => window.open('/LiamBrophy_Resume_2026.pdf', '_blank')} fullWidth>
+              <Button variant="primary" onClick={() => window.open('/LiamAllaire_Resume_2026.pdf', '_blank')} fullWidth>
                 Download Resume
               </Button>
             </div>
