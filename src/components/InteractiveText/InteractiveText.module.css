@@ -203,8 +203,10 @@
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
+  /* Allow width to be determined by content or inline placement; prevent stretching to window edge */
+  width: auto;
   min-width: 160px; /* Ensure there's room to display options */
+  max-width: min(360px, calc(100vw - 32px));
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
