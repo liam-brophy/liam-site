@@ -81,16 +81,16 @@ const InteractiveText: React.FC = () => {
     }
   };
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside (use pointer events to avoid click ordering races)
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handlePointerDownOutside = (event: PointerEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('pointerdown', handlePointerDownOutside);
+    return () => document.removeEventListener('pointerdown', handlePointerDownOutside);
   }, []);
 
   // Sync an accessible theme-derived color for the color input so it reflects theme changes.
@@ -121,8 +121,9 @@ const InteractiveText: React.FC = () => {
   useEffect(() => {
     const handleResize = () => {
       const newDefaultSize = getDefaultFontSize();
-      // Only update if the current fontSize is still at the default for the current screen size
-      const previousDefault = window.innerWidth >= 768 ? 24 : 48;
+      // Only update if the current fontSize is still at the default for the previous screen size
+      // newDefaultSize corresponds to the NEW size for the CURRENT width, so previous default is the opposite
+      const previousDefault = newDefaultSize === 48 ? 24 : 48;
 
       // Only auto-adjust if user hasn't manually changed from the default
       if (fontSize === previousDefault) {
@@ -200,6 +201,7 @@ const InteractiveText: React.FC = () => {
           <div className={styles.customSelect}>
             <div
               className={styles.selectTrigger}
+              onPointerDown={(e) => e.stopPropagation()}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               style={{ fontFamily: selectedFont }}
             >
@@ -220,6 +222,7 @@ const InteractiveText: React.FC = () => {
                   <div
                     key={font}
                     className={`${styles.option} ${selectedFont === font ? styles.selected : ''}`}
+                    onPointerDown={(e) => e.stopPropagation()}
                     onClick={() => handleFontSelect(font)}
                     style={{ fontFamily: font }}
                   >
