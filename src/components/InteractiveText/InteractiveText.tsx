@@ -134,6 +134,7 @@ const InteractiveText: React.FC = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [fontSize]);  const handleFontSelect = (font: string) => {
+    console.debug('[InteractiveText] font selected:', font);
     setSelectedFont(font);
     setIsDropdownOpen(false);
   };
@@ -142,6 +143,7 @@ const InteractiveText: React.FC = () => {
     <div className={styles.container}>
       <div
         className={`${styles.text} ${isAnimating ? styles.wave : ''}`}
+        data-selected-font={selectedFont}
         style={{ fontSize: `${fontSize}px`, color: fontColor || 'var(--interactive-text-color)', fontFamily: selectedFont }}
       >
         {displayText.split('').map((char: string, index: number) => (
@@ -202,7 +204,10 @@ const InteractiveText: React.FC = () => {
             <div
               className={styles.selectTrigger}
               onPointerDown={(e) => e.stopPropagation()}
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              onClick={() => {
+                console.debug('[InteractiveText] toggle dropdown, currentlyOpen=', isDropdownOpen);
+                setIsDropdownOpen(prev => !prev);
+              }}
               style={{ fontFamily: selectedFont }}
             >
               {selectedFont}

@@ -85,6 +85,9 @@
   gap: 12px; /* Increased from 8px for better spacing */
   padding: 0 5px;
   cursor: pointer;
+  /* Allow absolutely positioned dropdowns to overflow this container */
+  overflow: visible;
+  position: relative;
 }
 
 .slider {
@@ -161,6 +164,9 @@
 .customSelect {
   position: relative;
   height: 100%;
+  /* Allow the dropdown to appear outside the bounds of the control */
+  overflow: visible;
+  z-index: 0;
 }
 
 .selectTrigger {
@@ -198,14 +204,17 @@
   top: 100%;
   left: 0;
   right: 0;
+  min-width: 160px; /* Ensure there's room to display options */
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 1000;
-  max-height: 200px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  /* Raise above nav/cursor overlays */
+  z-index: 1200;
+  max-height: 240px;
   overflow-y: auto;
   margin-top: 4px;
+  pointer-events: auto;
 }
 
 .option {
