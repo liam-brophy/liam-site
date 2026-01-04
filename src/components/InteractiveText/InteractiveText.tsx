@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import styles from './InteractiveText/InteractiveText.module.css';
+import styles from './InteractiveText.module.css';
 
 const InteractiveText: React.FC = () => {
   // Function to get responsive default font size
