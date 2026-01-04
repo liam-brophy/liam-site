@@ -31,7 +31,8 @@ const InteractiveText: React.FC = () => {
 
   // Shuffle functionality
   // On mobile we show a line-break after "I'm Liam" per the design request
-  const originalText = isMobile ? "I'm Liam\na designer and developer." : "I'm Liam Allaire, a designer and developer.";
+  // Use the same visible name on both mobile and desktop (I'm Liam)
+  const originalText = isMobile ? "I'm Liam\na designer and developer." : "I'm Liam, a designer and developer.";
   const [displayText, setDisplayText] = useState(originalText);
   const [isShuffled, setIsShuffled] = useState(false);
 
@@ -128,6 +129,7 @@ const InteractiveText: React.FC = () => {
 
       {/* Updated controls as a condensed toolbar */}
       <div className={styles.controls}>
+        <div className={`${styles.toolbarRow} ${styles.rowTop}`}>
         {/* Font Size with Custom Slider */}
         <div className={`${styles.tool} ${styles.sizeTool}`} title="Font Size">
           <div className={styles.sliderContainer}>
@@ -164,7 +166,9 @@ const InteractiveText: React.FC = () => {
             className={styles.colorPicker}
           />
         </div>
+      </div>
 
+      <div className={`${styles.toolbarRow} ${styles.rowBottom}`}>
         {/* Custom Font Selection Dropdown */}
         <div className={`${styles.tool} ${styles.fontTool}`} title="Font Family" ref={dropdownRef}>
           <div className={styles.customSelect}>
@@ -245,6 +249,7 @@ const InteractiveText: React.FC = () => {
             )}
           </svg>
         </div>
+      </div>
       </div>
     </div>
   );

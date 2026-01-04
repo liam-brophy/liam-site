@@ -54,6 +54,25 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Row wrapper for arranging tools in one or two centered rows */
+.toolbarRow {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.rowTop .sizeTool,
+.rowTop .colorTool {
+  flex: 0 0 auto;
+}
+
+.rowBottom .fontTool,
+.rowBottom .motionTool {
+  flex: 0 0 auto;
+}
 .tool {
   display: flex;
   align-items: center;
@@ -347,7 +366,8 @@
   .text {
     font-size: 28px;
     line-height: 1.08;
-    font-weight: 600;
+    /* keep weight normal on mobile per design */
+    font-weight: normal;
   }
 
   .sizeTool,
