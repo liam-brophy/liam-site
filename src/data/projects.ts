@@ -92,6 +92,47 @@ export const projects: Project[] = [
     category: 'design'
   },
   {
+    id: 4,
+    title: 'GoCA',
+    description: 'Content Management and asset design for Garde\'s Gallery of Contemporary Art',
+    imageDark: '/Project_thumbnails/GoCA_Secondary-Lockup_light.png',
+    imageLight: '/Project_thumbnails/GoCA_Secondary-Lockup_dark.png',
+    projectImages: ['/project_images/goca/img1.png', '/project_images/goca/img2.png'],
+    link: 'https://www.goca.gallery',
+    external: true,
+    tags: ['React', 'TypeScript', 'UI/UX Design', 'Gallery Management'],
+    date: '2025',
+    category: 'Content Management'
+  },
+  {
+    id: 1,
+    title: 'Artifact',
+    description: 'Share and collect artworks on a platform designed for discovery.',
+    imageDark: '/Project_thumbnails/Artifact_Logo_White.png',
+    imageLight: '/Project_thumbnails/Artifact_Logo_Black.png',
+    videoSrc: '/project_videos/artifact_demo.mp4',
+    projectImages: ['/project_images/artifact/img1.png', '/project_images/artifact/img2.png'],
+    link: 'https://www.artifact.online',
+    external: true,
+    tags: ['React', 'Node.js', 'Database Design', 'UI/UX Design'],
+    date: '2025',
+    category: 'development'
+  },
+  {
+    id: 3,
+    title: 'Storied',
+    description: 'Collaborate on stories with your friends and editors, get feedback on your writing, and share your work.',
+    imageDark: '/Project_thumbnails/Storied_Logo_White.png',
+    imageLight: '/Project_thumbnails/Storied_Logo_Black.png',
+    wip: '/WIP_liamsite.png',
+    projectImages: ['/project_images/storied/img1.png', '/project_images/storied/img2.png'],
+    link: '/work/project/3',
+    tags: ['React Native', 'Database Design', 'UI/UX Design'],
+    date: '2025',
+    category: 'development',
+    hidden: true
+  },
+  {
     id: 7,
     title: 'Hortus',
     description: 'A marketplace for ethical AI selection and responsible technology choices.',
@@ -123,46 +164,5 @@ export const projects: Project[] = [
     tags: ['UI/UX Design', 'Product Design', 'Mobile App'],
     date: '2025',
     category: 'development'
-  },
-  {
-    id: 1,
-    title: 'Artifact',
-    description: 'Share and collect artworks on a platform designed for discovery.',
-    imageDark: '/Project_thumbnails/Artifact_Logo_White.png',
-    imageLight: '/Project_thumbnails/Artifact_Logo_Black.png',
-    videoSrc: '/project_videos/artifact_demo.mp4',
-    projectImages: ['/project_images/artifact/img1.png', '/project_images/artifact/img2.png'],
-    link: 'https://www.artifact.online',
-    external: true,
-    tags: ['React', 'Node.js', 'Database Design', 'UI/UX Design'],
-    date: '2025',
-    category: 'development'
-  },
-  {
-    id: 3,
-    title: 'Storied',
-    description: 'Collaborate on stories with your friends and editors, get feedback on your writing, and share your work.',
-    imageDark: '/Project_thumbnails/Storied_Logo_White.png',
-    imageLight: '/Project_thumbnails/Storied_Logo_Black.png',
-    wip: '/WIP_liamsite.png',
-    projectImages: ['/project_images/storied/img1.png', '/project_images/storied/img2.png'],
-    link: '/work/project/3',
-    tags: ['React Native', 'Database Design', 'UI/UX Design'],
-    date: '2025',
-    category: 'development',
-    hidden: true
-  },
-  {
-    id: 4,
-    title: 'GoCA',
-    description: 'Content Management and asset design for Garde\'s Gallery of Contemporary Art',
-    imageDark: '/Project_thumbnails/GoCA_Secondary-Lockup_light.png',
-    imageLight: '/Project_thumbnails/GoCA_Secondary-Lockup_dark.png',
-    projectImages: ['/project_images/goca/img1.png', '/project_images/goca/img2.png'],
-    link: 'https://www.goca.gallery',
-    external: true,
-    tags: ['React', 'TypeScript', 'UI/UX Design', 'Gallery Management'],
-    date: '2025',
-    category: 'Content Management'
   }
 ];
