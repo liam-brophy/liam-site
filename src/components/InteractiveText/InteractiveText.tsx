@@ -20,10 +20,25 @@ const InteractiveText: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLInputElement>(null);
 
+  // Track mobile breakpoint so we can adjust text and layout
+  const [isMobile, setIsMobile] = useState<boolean>(() => (typeof window !== 'undefined' ? window.innerWidth < 768 : false));
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Shuffle functionality
-  const originalText = "I'm Liam Allaire, a designer and developer.";
+  // On mobile we show a line-break after "I'm Liam" per the design request
+  const originalText = isMobile ? "I'm Liam\na designer and developer." : "I'm Liam Allaire, a designer and developer.";
   const [displayText, setDisplayText] = useState(originalText);
   const [isShuffled, setIsShuffled] = useState(false);
+
+  // When breakpoint changes, restore the non-shuffled text
+  useEffect(() => {
+    if (!isShuffled) setDisplayText(originalText);
+  }, [isMobile]);
 
   const getThumbPosition = () => {
     if (!sliderRef.current) return '0%';
@@ -102,16 +117,19 @@ const InteractiveText: React.FC = () => {
         style={{ fontSize: `${fontSize}px`, color: fontColor, fontFamily: selectedFont }}
       >
         {displayText.split('').map((char: string, index: number) => (
-          <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>
-            {char === ' ' ? '\u00A0' : char}
-          </span>
+          // Render newline as a break to create the mobile two-line hero
+          char === '\n' ? <br key={`br-${index}`} /> : (
+            <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+          )
         ))}
       </div>
 
       {/* Updated controls as a condensed toolbar */}
       <div className={styles.controls}>
         {/* Font Size with Custom Slider */}
-        <div className={styles.tool} title="Font Size">
+        <div className={`${styles.tool} ${styles.sizeTool}`} title="Font Size">
           <div className={styles.sliderContainer}>
             <input
               ref={sliderRef}
@@ -138,7 +156,7 @@ const InteractiveText: React.FC = () => {
         </div>
 
         {/* Font Color */}
-        <div className={styles.tool} title="Font Color">
+        <div className={`${styles.tool} ${styles.colorTool}`} title="Font Color">
           <input
             type="color"
             value={fontColor}
@@ -148,7 +166,7 @@ const InteractiveText: React.FC = () => {
         </div>
 
         {/* Custom Font Selection Dropdown */}
-        <div className={styles.tool} title="Font Family" ref={dropdownRef}>
+        <div className={`${styles.tool} ${styles.fontTool}`} title="Font Family" ref={dropdownRef}>
           <div className={styles.customSelect}>
             <div
               className={styles.selectTrigger}
@@ -184,7 +202,7 @@ const InteractiveText: React.FC = () => {
         </div>
 
         {/* Animation Toggle */}
-        <div className={styles.tool} title={isAnimating ? 'Stop Wave Animation' : 'Start Wave Animation'}>
+        <div className={`${styles.tool} ${styles.motionTool}`} title={isAnimating ? 'Stop Wave Animation' : 'Start Wave Animation'}>
           <img
             src="/wave-svgrepo-com.svg"
             alt="Wave Animation"
@@ -200,7 +218,7 @@ const InteractiveText: React.FC = () => {
         </div>
 
         {/* Shuffle Toggle */}
-        <div className={styles.tool} title={isShuffled ? 'Undo Shuffle' : 'Shuffle Letters'}>
+        <div className={`${styles.tool} ${styles.motionTool}`} title={isShuffled ? 'Undo Shuffle' : 'Shuffle Letters'}>
           <svg
             width="20"
             height="20"

@@ -293,3 +293,65 @@
 [data-theme='dark'] .waveIcon {
   filter: invert(1);
 }
+
+/* Mobile layout: stack controls so size/color appear above font/motion */
+@media (max-width: 767px) {
+  .controls {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .sizeTool,
+  .colorTool,
+  .fontTool,
+  .motionTool {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sizeTool {
+    order: 1;
+  }
+
+  .colorTool {
+    order: 2;
+  }
+
+  .fontTool {
+    order: 3;
+  }
+
+  .motionTool {
+    order: 4;
+  }
+
+  .selectTrigger {
+    min-width: unset;
+    width: 100%;
+    padding: 8px;
+  }
+
+  .value {
+    font-size: 16px;
+  }
+
+  /* Improve mobile stacking and hero sizing */
+  .text {
+    font-size: 28px;
+    line-height: 1.08;
+    font-weight: 600;
+  }
+
+  .sizeTool,
+  .colorTool {
+    margin-bottom: 6px;
+  }
+}
