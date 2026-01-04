@@ -28,6 +28,7 @@
     </style>
     <script>
       (function() {
+        // Use canvas to render frames into PNG data-URIs so desktop browsers accept the animated favicon
         const frames = [
           '/favicons/NewFavicons.jpg',
           '/favicons/NewFavicons2.jpg',
@@ -35,25 +36,93 @@
           '/favicons/NewFavicons4.jpg',
           '/favicons/NewFavicons5.jpg'
         ];
-        let i = 0;
-        // Preload images
-        frames.forEach(src => { const img = new Image(); img.src = src; });
-        const changeFavicon = (src) => {
-          const head = document.getElementsByTagName('head')[0];
-          const existing = document.getElementById('dynamic-favicon');
-          if (existing) head.removeChild(existing);
-          const link = document.createElement('link');
-          link.id = 'dynamic-favicon';
-          link.rel = 'icon';
-          link.type = 'image/jpeg';
-          link.href = src + '?v=' + Date.now();
-          head.appendChild(link);
+        const intervalMs = 800;
+
+        // Respect reduced motion
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const createOrGetLink = () => {
+          let link = document.getElementById('dynamic-favicon');
+          if (link && link.tagName !== 'LINK') link = null;
+          if (!link) {
+            link = document.createElement('link');
+            link.id = 'dynamic-favicon';
+            link.rel = 'icon';
+            link.type = 'image/png';
+            document.head.appendChild(link);
+          }
+          return link;
         };
-        // Start animation after load to ensure favicon updates are visible
-        const start = () => {
-          changeFavicon(frames[0]);
-          setInterval(() => { i = (i + 1) % frames.length; changeFavicon(frames[i]); }, 800);
+
+        const preloadImages = (urls) => {
+          return Promise.all(urls.map(url => new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = url + '?v=' + Date.now(); // Cache-bust to ensure fresh data
+          })));
         };
+
+        const startAnimation = (images) => {
+          if (prefersReduced || !images.length) {
+            const link = createOrGetLink();
+            link.href = images[0] ? images[0].src : '/favicons/favicon-32x32.png';
+            return;
+          }
+
+          const canvas = document.createElement('canvas');
+          const size = 32; // favicon size in px
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+
+          let idx = 0;
+          const link = createOrGetLink();
+
+          const frameToDataUrl = (img) => {
+            // Clear and draw centered
+            ctx.clearRect(0, 0, size, size);
+            // Draw the image fitting into the square while preserving aspect ratio
+            const ratio = Math.min(size / img.width, size / img.height);
+            const w = img.width * ratio;
+            const h = img.height * ratio;
+            const x = (size - w) / 2;
+            const y = (size - h) / 2;
+            ctx.drawImage(img, x, y, w, h);
+            return canvas.toDataURL('image/png');
+          };
+
+          // Set initial frame
+          link.href = frameToDataUrl(images[0]);
+
+          const intervalId = setInterval(() => {
+            idx = (idx + 1) % images.length;
+            try {
+              link.href = frameToDataUrl(images[idx]);
+            } catch (e) {
+              // If drawing fails, stop animation and restore a static icon
+              console.error('Favicon frame draw failed:', e);
+              clearInterval(intervalId);
+              link.href = '/favicons/favicon-32x32.png';
+            }
+          }, intervalMs);
+
+          // Clean up on unload
+          window.addEventListener('beforeunload', () => clearInterval(intervalId));
+        };
+
+        const start = async () => {
+          try {
+            const images = await preloadImages(frames);
+            startAnimation(images);
+          } catch (e) {
+            console.warn('Favicon frames failed to preload; using static favicon', e);
+            const link = createOrGetLink();
+            link.href = '/favicons/favicon-32x32.png';
+          }
+        };
+
         if (document.readyState === 'complete') {
           start();
         } else {
