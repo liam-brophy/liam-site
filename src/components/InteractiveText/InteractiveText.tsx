@@ -11,7 +11,9 @@ const InteractiveText: React.FC = () => {
   };
 
   const [fontSize, setFontSize] = useState(getDefaultFontSize);
-  const [fontColor, setFontColor] = useState('#000000');
+  // When empty, the hero uses the theme color (via CSS variable). If the user picks a color, that overrides the theme.
+  const [fontColor, setFontColor] = useState<string>('');
+  const [themeColor, setThemeColor] = useState<string>('#000000');
   const [selectedFont, setSelectedFont] = useState('Arial');
   const [isAnimating, setIsAnimating] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -91,6 +93,30 @@ const InteractiveText: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Sync an accessible theme-derived color for the color input so it reflects theme changes.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const root = document.documentElement;
+    const computeThemeColor = () => {
+      const v = getComputedStyle(root).getPropertyValue('--interactive-text-color').trim();
+      // ensure a fallback hex is present
+      setThemeColor(v || '#000000');
+    };
+
+    computeThemeColor();
+
+    const obs = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.type === 'attributes' && m.attributeName === 'data-theme') {
+          computeThemeColor();
+        }
+      }
+    });
+
+    obs.observe(root, { attributes: true });
+    return () => obs.disconnect();
+  }, []);
+
   // Handle responsive font sizing
   useEffect(() => {
     const handleResize = () => {
@@ -115,7 +141,7 @@ const InteractiveText: React.FC = () => {
     <div className={styles.container}>
       <div
         className={`${styles.text} ${isAnimating ? styles.wave : ''}`}
-        style={{ fontSize: `${fontSize}px`, color: fontColor, fontFamily: selectedFont }}
+        style={{ fontSize: `${fontSize}px`, color: fontColor || 'var(--interactive-text-color)', fontFamily: selectedFont }}
       >
         {displayText.split('').map((char: string, index: number) => (
           // Render newline as a break to create the mobile two-line hero
@@ -161,7 +187,7 @@ const InteractiveText: React.FC = () => {
         <div className={`${styles.tool} ${styles.colorTool}`} title="Font Color">
           <input
             type="color"
-            value={fontColor}
+            value={fontColor || themeColor}
             onChange={(e) => setFontColor(e.target.value)}
             className={styles.colorPicker}
           />

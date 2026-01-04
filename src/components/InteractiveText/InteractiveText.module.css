@@ -10,6 +10,8 @@
   font-weight: normal;
   text-align: center;
   transition: all 0.3s ease;
+  /* Use a CSS variable so the hero color updates automatically with theme */
+  color: var(--interactive-text-color);
 }
 
 .wave span {
@@ -259,9 +261,13 @@
   justify-content: center;
 }
 
-/* Dark mode styles */
-[data-theme='dark'] .text {
-  color: #ffffff;
+/* Theme variable for interactive text color */
+:root {
+  --interactive-text-color: #111111;
+}
+
+[data-theme='dark'] {
+  --interactive-text-color: #ffffff;
 }
 
 [data-theme='dark'] .tool {
