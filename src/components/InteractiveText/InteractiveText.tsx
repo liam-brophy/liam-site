@@ -31,8 +31,8 @@ const InteractiveText: React.FC = () => {
 
   // Shuffle functionality
   // On mobile we show a line-break after "I'm Liam" per the design request
-  // Use the same visible name on both mobile and desktop (I'm Liam)
-  const originalText = isMobile ? "I'm Liam\na designer and developer." : "I'm Liam, a designer and developer.";
+  // Use the same visible name on both mobile and desktop (I'm Liam,)
+  const originalText = isMobile ? "I'm Liam,\na designer and developer." : "I'm Liam, a designer and developer.";
   const [displayText, setDisplayText] = useState(originalText);
   const [isShuffled, setIsShuffled] = useState(false);
 
