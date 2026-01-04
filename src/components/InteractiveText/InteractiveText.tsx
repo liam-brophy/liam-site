@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from './InteractiveText.module.css';
+import { createPortal } from 'react-dom';
+import styles from './InteractiveText/InteractiveText.module.css';
 
 const InteractiveText: React.FC = () => {
   // Function to get responsive default font size
@@ -20,7 +21,9 @@ const InteractiveText: React.FC = () => {
 
   const fonts = ['Arial', 'Georgia', 'Times New Roman', 'Courier New', 'Verdana', 'Helvetica'];
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLInputElement>(null);
+  const [dropdownRect, setDropdownRect] = useState<{ top: number; left: number; width: number; } | null>(null);
 
   // Track mobile breakpoint so we can adjust text and layout
   const [isMobile, setIsMobile] = useState<boolean>(() => (typeof window !== 'undefined' ? window.innerWidth < 768 : false));
@@ -92,6 +95,24 @@ const InteractiveText: React.FC = () => {
     document.addEventListener('pointerdown', handlePointerDownOutside);
     return () => document.removeEventListener('pointerdown', handlePointerDownOutside);
   }, []);
+
+  // Update portal position when open, on resize/scroll
+  useEffect(() => {
+    if (!isDropdownOpen) return;
+    const updatePosition = () => {
+      if (!triggerRef.current) return;
+      const rect = triggerRef.current.getBoundingClientRect();
+      setDropdownRect({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX, width: rect.width });
+    };
+
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+    };
+  }, [isDropdownOpen]);
 
   // Sync an accessible theme-derived color for the color input so it reflects theme changes.
   useEffect(() => {
@@ -203,6 +224,7 @@ const InteractiveText: React.FC = () => {
           <div className={styles.customSelect}>
             <div
               className={styles.selectTrigger}
+              ref={triggerRef}
               onPointerDown={(e) => e.stopPropagation()}
               onClick={() => {
                 console.debug('[InteractiveText] toggle dropdown, currentlyOpen=', isDropdownOpen);
@@ -221,8 +243,13 @@ const InteractiveText: React.FC = () => {
                 <path d="M7 10l5 5 5-5z"/>
               </svg>
             </div>
-            {isDropdownOpen && (
-              <div className={styles.dropdown}>
+            {isDropdownOpen && dropdownRect && createPortal(
+              <div
+                ref={dropdownRef}
+                className={styles.dropdown}
+                onPointerDown={(e) => e.stopPropagation()}
+                style={{ position: 'absolute', top: dropdownRect.top + 'px', left: dropdownRect.left + 'px', minWidth: dropdownRect.width + 'px' }}
+              >
                 {fonts.map(font => (
                   <div
                     key={font}
@@ -235,7 +262,7 @@ const InteractiveText: React.FC = () => {
                   </div>
                 ))}
               </div>
-            )}
+            , document.body)}
           </div>
         </div>
 
