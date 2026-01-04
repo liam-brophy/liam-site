@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link id="dynamic-favicon" rel="icon" type="image/jpeg" href="/favicons/NewFavicons.jpg" />
     <!-- Adobe Fonts (Typekit) -->
     <link rel="stylesheet" href="https://use.typekit.net/kbv3wdg.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +11,41 @@
       /* Ensure fonts are loaded with proper settings */
       @import url("https://use.typekit.net/kbv3wdg.css");
     </style>
+    <script>
+      (function() {
+        const frames = [
+          '/favicons/NewFavicons.jpg',
+          '/favicons/NewFavicons2.jpg',
+          '/favicons/NewFavicons3.jpg',
+          '/favicons/NewFavicons4.jpg',
+          '/favicons/NewFavicons5.jpg'
+        ];
+        let i = 0;
+        // Preload images
+        frames.forEach(src => { const img = new Image(); img.src = src; });
+        const changeFavicon = (src) => {
+          const head = document.getElementsByTagName('head')[0];
+          const existing = document.getElementById('dynamic-favicon');
+          if (existing) head.removeChild(existing);
+          const link = document.createElement('link');
+          link.id = 'dynamic-favicon';
+          link.rel = 'icon';
+          link.type = 'image/jpeg';
+          link.href = src + '?v=' + Date.now();
+          head.appendChild(link);
+        };
+        // Start animation after load to ensure favicon updates are visible
+        const start = () => {
+          changeFavicon(frames[0]);
+          setInterval(() => { i = (i + 1) % frames.length; changeFavicon(frames[i]); }, 800);
+        };
+        if (document.readyState === 'complete') {
+          start();
+        } else {
+          window.addEventListener('load', start);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
