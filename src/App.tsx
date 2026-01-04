@@ -8,7 +8,7 @@ import ProjectDetail from './pages/ProjectDetail'
 import NotFound from './pages/NotFound/NotFound' // Import the NotFound component
 import CustomCursor from './components/CustomCursor/CustomCursor'
 import { ThemeProvider } from './context/ThemeContext'
-import { animateFavicon } from './utils/helpers'
+
 import './App.css'
 // Import bootstrap CSS for shop scaffolding
 import 'bootstrap/dist/css/bootstrap.min.css';
