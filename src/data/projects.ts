@@ -2,6 +2,16 @@ import { Project } from '../types/project'; // Assuming you have a Project type 
 
 export const projects: Project[] = [
   {
+    id: 8,
+    title: 'Harper Collins & Penguin Random House',
+    description: 'Book design work for Harper Collins and Penguin Random House. Work cannot be displayed due to company proprietary policies.',
+    image: '/Project_thumbnails/HarperCollins_PRH_Stacked.png',
+    tags: ['Book Design', 'Interior Design', 'Editorial Design'],
+    date: '2026',
+    category: 'design',
+    link: '',
+  },
+  {
     id: 2,
     title: 'Primer',
     description: 'A magazine that hands you a drink, introduces you to new people, and engages you in bold conversations and fascinating stories.',
@@ -105,20 +115,6 @@ export const projects: Project[] = [
     category: 'Content Management'
   },
   {
-    id: 1,
-    title: 'Artifact',
-    description: 'Share and collect artworks on a platform designed for discovery.',
-    imageDark: '/Project_thumbnails/Artifact_Logo_White.png',
-    imageLight: '/Project_thumbnails/Artifact_Logo_Black.png',
-    videoSrc: '/project_videos/artifact_demo.mp4',
-    projectImages: ['/project_images/artifact/img1.png', '/project_images/artifact/img2.png'],
-    link: 'https://www.artifact.online',
-    external: true,
-    tags: ['React', 'Node.js', 'Database Design', 'UI/UX Design'],
-    date: '2025',
-    category: 'development'
-  },
-  {
     id: 3,
     title: 'Storied',
     description: 'Collaborate on stories with your friends and editors, get feedback on your writing, and share your work.',
@@ -132,37 +128,4 @@ export const projects: Project[] = [
     category: 'development',
     hidden: true
   },
-  {
-    id: 7,
-    title: 'Hortus',
-    description: 'A marketplace for ethical AI selection and responsible technology choices.',
-    imageDark: '/hortus/Hortus_LogoLight.png',
-    imageLight: '/hortus/Hortus_logoDark.png',
-    projectImages: ['/project_images/hortus/img1.png', '/project_images/hortus/img2.png'],
-    hortusImages: [
-      '/hortus/HortusTrelis-Home.png',
-      '/hortus/HortusTrellis-Marketplace.png',
-      '/hortus/HortusTrellis-User Dashboard.png',  
-      '/hortus/HortusTrellis-Vendor Modal.png'
-    ],
-    // New Hortus work examples
-    hortusWorkExamples: [
-      '/hortus/WorkExample1.png',
-      '/hortus/WorkExample2.png',
-      '/hortus/WorkExample3.png'
-    ],
-    // User journey assets
-    hortusUserJourney: [
-      '/hortus/Hortus-userJourney.png',
-      '/hortus/Hortus-userJourney2.png'
-    ],
-    // Video content
-    hortusVideo: '/hortus/Hortus-userJourney3.mov',
-    link: '/work/project/7',
-    animationInterval: 100,
-    longAnimationInterval: 1500,
-    tags: ['UI/UX Design', 'Product Design', 'Mobile App'],
-    date: '2025',
-    category: 'development'
-  }
 ];
