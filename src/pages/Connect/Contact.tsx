@@ -39,6 +39,8 @@ const Connect: React.FC = () => {
       // Set up template parameters for EmailJS
       const templateParams = {
         to_email: 'hello@liam.site',
+        name: formData.name,
+        email: formData.email,
         from_name: formData.name,
         from_email: formData.email,
         message: formData.message
